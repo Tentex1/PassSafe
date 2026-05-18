@@ -2,11 +2,12 @@
 <mopups:PopupPage x:Class="PassSafe.Views.SetMasterPassPopup"
                   xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:uranium="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
-                  BackgroundColor="#B3000000">
+                  BackgroundColor="#B3000000"
+                  BindingContext="{Binding SetMasterPassViewModel, Source={StaticResource VMLocator}}">
 
     <Border BackgroundColor="{AppThemeBinding Dark=#181818,
                                               Light=#FAF9F6}"
-            HeightRequest="500" HorizontalOptions="Center" StrokeShape="RoundRectangle 12" StrokeThickness="0" VerticalOptions="Center">
+            HorizontalOptions="Center" StrokeShape="RoundRectangle 12" StrokeThickness="0" VerticalOptions="Center">
         <Border.Resources>
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark=#FAF9F6, Light=#1C1917}" />
@@ -15,12 +16,14 @@
         <Border.WidthRequest>
             <OnIdiom Default="350" Desktop="500" />
         </Border.WidthRequest>
-        <Grid RowDefinitions="Auto,Auto,*">
-            <Label Grid.Row="0"
-                   Padding="15"
-                   FontSize="20" HorizontalOptions="Start" Text="Ana şifreyi belirle" VerticalOptions="Start" />
-            <uranium:TextField Grid.Row="1" WidthRequest="200" />
-        </Grid>
+        <VerticalStackLayout Spacing="15">
+            <Label Padding="0,15,0,0"
+                   FontSize="20" HorizontalOptions="Center" Text="Ana şifreyi belirle" VerticalOptions="Start" />
+            <uranium:TextField Text="{Binding MasterPass}" WidthRequest="200" />
+            <Button Margin="15,0,15,15"
+                    Command="{Binding SetMasterPassCommand}"
+                    StyleClass="FilledButton" Text="Belirle" />
+        </VerticalStackLayout>
 
     </Border>
 
