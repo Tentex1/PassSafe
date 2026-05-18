@@ -39,7 +39,6 @@
                 "settings" => settingsView,
                 _ => vaultView
             };
-            _dialogService.ShowPopup(new SetMasterPassPopup());
         }
     }
 }

@@ -1,8 +1,62 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView x:Class="PassSafe.Views.VaultView"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:micons="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              BindingContext="{Binding VaultViewModel, Source={StaticResource VMLocator}}">
 
-    <VerticalStackLayout />
+    <Grid RowDefinitions="Auto,Auto,*">
+        <ScrollView Grid.Row="0"
+                    Margin="15"
+                    Orientation="Horizontal">
+            <HorizontalStackLayout Spacing="10">
+                <Button StyleClass="FilledButton" Text="Hepsi" />
+                <Button StyleClass="FilledButton" Text="Son Kullanılanlar" />
+                <Button StyleClass="FilledButton" Text="Favoriler" />
+                <Button StyleClass="FilledButton" Text="Sosyal Medya" />
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <CollectionView Grid.Row="1"
+                        Margin="20"
+                        ItemsSource="{Binding Passwords}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 20">
+                        <Grid ColumnDefinitions="*,Auto,Auto">
+                            <Image Grid.Column="0" />
+
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label FontAttributes="Bold" Text="{Binding Title}" />
+                                <Label Text="{Binding UserName}" />
+                                <HorizontalStackLayout Spacing="5">
+                                    <Label Text="Security" />
+                                    <ProgressBar Progress="0.5" WidthRequest="70" />
+                                    <Label Text="Low" />
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+
+                            <HorizontalStackLayout Grid.Column="2"
+                                                   Margin="0,15,15,15"
+                                                   Spacing="10">
+                                <ImageButton>
+                                    <ImageButton.Source>
+                                        <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Visibility}" />
+                                    </ImageButton.Source>
+                                </ImageButton>
+                                <ImageButton>
+                                    <ImageButton.Source>
+                                        <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Content_copy}" />
+                                    </ImageButton.Source>
+                                </ImageButton>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
 </ContentView>

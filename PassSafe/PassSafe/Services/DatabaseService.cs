@@ -23,5 +23,15 @@ namespace PassSafe.Services
         {
             return await db.Table<Password>().ToListAsync();
         }
+
+        public async Task AddPassword(Password password)
+        {
+            await db.InsertAsync(password);
+        }
+
+        public async Task DeletePassword(int id)
+        {
+            await db.DeleteAsync(id);
+        }
     }
 }

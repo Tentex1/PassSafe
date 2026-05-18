@@ -30,6 +30,7 @@
 
             builder.Services.AddSingleton<IDatabaseService, DatabaseService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();
+            builder.Services.AddSingleton<ICryptoService, AesCryptoService>();
             builder.Services.AddSingleton<ShellViewModel>();
             builder.Services.AddSingleton<MainShell>();
             builder.Services.AddSingleton<SettingsView>();
