@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="PassSafe/PassSafe/PassSafe.csproj">
+    <Deploy />
+  </Project>
+</Solution>
