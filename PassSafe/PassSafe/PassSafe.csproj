@@ -70,7 +70,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\AddPasswordPopupView.xaml">
+	  <MauiXaml Update="Views\AddPasswordPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\MainShell.xaml">

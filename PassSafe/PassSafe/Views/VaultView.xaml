@@ -4,10 +4,16 @@
              xmlns:micons="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              BindingContext="{Binding VaultViewModel, Source={StaticResource VMLocator}}">
 
+    <ContentView.Resources>
+        <Style TargetType="ImageButton">
+            <Setter Property="Padding" Value="5" />
+        </Style>
+    </ContentView.Resources>
+
     <Grid RowDefinitions="Auto,Auto,*">
         <ScrollView Grid.Row="0"
                     Margin="15"
-                    Orientation="Horizontal">
+                    HorizontalScrollBarVisibility="Never" Orientation="Horizontal" VerticalScrollBarVisibility="Never">
             <HorizontalStackLayout Spacing="10">
                 <Button StyleClass="FilledButton" Text="Hepsi" />
                 <Button StyleClass="FilledButton" Text="Son Kullanılanlar" />
@@ -40,7 +46,7 @@
 
                             <HorizontalStackLayout Grid.Column="2"
                                                    Margin="0,15,15,15"
-                                                   Spacing="10">
+                                                   Spacing="3">
                                 <ImageButton>
                                     <ImageButton.Source>
                                         <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Visibility}" />
