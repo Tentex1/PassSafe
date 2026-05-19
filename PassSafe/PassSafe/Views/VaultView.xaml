@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView x:Class="PassSafe.Views.VaultView"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:micons="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:micons="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:uranium="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
              BindingContext="{Binding VaultViewModel, Source={StaticResource VMLocator}}">
 
     <ContentView.Resources>
@@ -10,17 +10,34 @@
         </Style>
     </ContentView.Resources>
 
-    <Grid RowDefinitions="Auto,Auto,*">
-        <ScrollView Grid.Row="0"
-                    Margin="15"
-                    HorizontalScrollBarVisibility="Never" Orientation="Horizontal" VerticalScrollBarVisibility="Never">
-            <HorizontalStackLayout Spacing="10">
-                <Button StyleClass="FilledButton" Text="Hepsi" />
-                <Button StyleClass="FilledButton" Text="Son Kullanılanlar" />
-                <Button StyleClass="FilledButton" Text="Favoriler" />
-                <Button StyleClass="FilledButton" Text="Sosyal Medya" />
-            </HorizontalStackLayout>
-        </ScrollView>
+    <Grid RowDefinitions="Auto,*">
+
+        <Grid Grid.Row="0"
+              Margin="15,15,15,0"
+              ColumnDefinitions="*, Auto">
+
+            <ScrollView Grid.Column="0"
+                        HorizontalScrollBarVisibility="Never" Orientation="Horizontal" VerticalScrollBarVisibility="Never">
+                <HorizontalStackLayout Spacing="10">
+                    <Button StyleClass="FilledButton" Text="Hepsi" />
+                    <Button StyleClass="FilledButton" Text="Son Kullanılanlar" />
+                    <Button StyleClass="FilledButton" Text="Favoriler" />
+                    <Button StyleClass="FilledButton" Text="Sosyal Medya" />
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <uranium:ButtonView Grid.Column="1"
+                                Margin="10,0,0,0"
+                                HeightRequest="50" HorizontalOptions="End" StyleClass="FilledButton"
+                                TappedCommand="{Binding ShowAddPasswordPopupCommand}"
+                                VerticalOptions="Center" WidthRequest="50">
+                <Image HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Add}" />
+                    </Image.Source>
+                </Image>
+            </uranium:ButtonView>
+        </Grid>
 
         <CollectionView Grid.Row="1"
                         Margin="20"
@@ -64,5 +81,4 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>
-
 </ContentView>

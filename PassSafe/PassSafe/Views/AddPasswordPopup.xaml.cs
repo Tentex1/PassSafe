@@ -1,6 +1,6 @@
 namespace PassSafe.Views;
 
-public partial class AddPasswordPopup : ContentView
+public partial class AddPasswordPopup
 {
 	public AddPasswordPopup()
 	{

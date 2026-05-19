@@ -39,7 +39,9 @@
             builder.Services.AddSingleton<VaultView>();
             builder.Services.AddSingleton<VaultViewModel>();
             builder.Services.AddSingleton<SetMasterPassPopup>();
+            builder.Services.AddSingleton<AddPasswordPopup>();
             builder.Services.AddSingleton<SetMasterPassViewModel>();
+            builder.Services.AddSingleton<AddPasswordViewModel>();
             builder.Services.AddSingleton((e) => BiometricAuthenticationService.Default);
             return builder.Build();
         }

@@ -1,24 +1,24 @@
 ﻿namespace PassSafe.ViewModels
 {
     using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.Messaging; // Telsiz kütüphanesini ekledik
     using Microsoft.Maui.ApplicationModel;
+    using PassSafe.Messages; // Yeni oluşturduğumuz mesajları ekledik
     using PassSafe.Models;
     using PassSafe.Services;
     using PassSafe.Views;
     using Plugin.Maui.Biometric;
     using System;
     using System.Collections.ObjectModel;
-    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
     /// Defines the <see cref="VaultViewModel" />
     /// </summary>
-    public partial class VaultViewModel : ObservableObject
+    public partial class VaultViewModel : ObservableObject, IRecipient<AuthResultMessage>
     {
-        string master_pass;
-
-        public IBiometric _biometricService;
+        internal string master_pass;
 
         public IDialogService _dialogService;
 
@@ -32,70 +32,37 @@
         [ObservableProperty]
         private string password;
 
-        public VaultViewModel(ICryptoService cryptoService,IBiometric biometric, IDialogService dialogService, IDatabaseService databaseService)
+        public VaultViewModel(ICryptoService cryptoService, IDialogService dialogService, IDatabaseService databaseService)
         {
-            _biometricService = biometric;
             _dialogService = dialogService;
             _databaseService = databaseService;
             _cryptoService = cryptoService;
 
-            MainThread.BeginInvokeOnMainThread(async () =>
+            // --- TELSİZİ BURADA AÇIYORUZ ---
+            WeakReferenceMessenger.Default.Register<PasswordAddedMessage>(this, (r, m) =>
             {
-                await Initialize();
-                Password password = new()
+                MainThread.BeginInvokeOnMainThread(async () =>
                 {
-                    Title = "Google",
-                    UserName = "sdlkjfhdsjkl@gmail.com",
-                    EncryptedPassword = _cryptoService.Encrypt(Password, master_pass)
-                };
-                await _dialogService.ShowAlertAsync(password.EncryptedPassword,password.EncryptedPassword,"tm");
-                await _databaseService.AddPassword(password);
-                Passwords = new(await _databaseService.GetDatabase());
+                    var gelenPaket = m.Value;
+
+                    Password yeniSifre = new()
+                    {
+                        Title = gelenPaket.UserName,
+                        UserName = "kullanici@mail.com",
+                        EncryptedPassword = _cryptoService.Encrypt(gelenPaket.Password, master_pass)
+                    };
+
+                    await _databaseService.AddPassword(yeniSifre);
+                    Passwords = new(await _databaseService.GetDatabase());
+                    await _dialogService.ShowAlertAsync("Başarılı", "Yeni şifre kasaya güvenle eklendi!", "Tamam");
+                });
             });
-        }
+            // --------------------------------
 
-        private async Task Initialize()
-        {
-            await Task.Delay(500);
-
-            bool isAuthenticated = await AuthenticateAsync();
-
-            if (isAuthenticated)
-            {
-                await CheckMasterPass();
-            }
-        }
-
-        private async Task<bool> AuthenticateAsync()
-        {
-            try
-            {
-                AuthenticationRequest ar = new AuthenticationRequest
-                {
-                    Title = "Doğrulamayı tamamlayın.",
-                    Description = "Şifrelerinize erişmek için doğrulamayı tamamlayın.",
-                    AuthStrength = AuthenticatorStrength.Strong,
-                    AllowPasswordAuth = true
-                };
-
-                var authresponse = await _biometricService.AuthenticateAsync(ar, CancellationToken.None);
-
-                if (authresponse.Status == BiometricResponseStatus.Success)
-                {
-                    return true;
-                }
-                else
-                {
-                    await _dialogService.ShowAlertAsync("Hata", "Kimlik doğrulama başarısız.", "Tamam");
-                    Application.Current?.Quit();
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                await _dialogService.ShowAlertAsync("Hata", $"{ex.Message}", "Tamam");
-                return false;
-            }
+            // =========================================================================
+            // 2. KRİTİK DEĞİŞİKLİK: RegisterAll(this) sayesinde yukarıya yazdığımız IRecipient otomatik aktif olur.
+            // =========================================================================
+            WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
         private async Task CheckMasterPass()
@@ -107,13 +74,19 @@
                 if (master_pass != null)
                 {
                     await _databaseService.InitializeDatabase(master_pass);
+
+                    // Veritabanı başarıyla açıldıktan sonra şifreleri ekrana dolduruyoruz
+                    var dbGelen = await _databaseService.GetDatabase();
+                    if (dbGelen != null)
+                    {
+                        Passwords = new(dbGelen);
+                    }
                 }
                 else
                 {
                     var result = await _dialogService.ShowConfirmAsync("Hata", "Ana şifre belirlememişsiniz", "Belirle", "İptal");
                     if (result == true)
                     {
-
                         _dialogService.ShowPopup(new SetMasterPassPopup());
                     }
                     else
@@ -123,6 +96,31 @@
                 }
             }
             catch (Exception ex) { await _dialogService.ShowAlertAsync("Error", ex.Message, "Copy"); }
+        }
+
+        // =========================================================================
+        // 3. KRİTİK DEĞİŞİKLİK: Receive metodu async Task olamaz, void olmak zorunda.
+        // İçindeki async işleri (CheckMasterPass) MainThread veya Task.Run ile tetikliyoruz.
+        // NOT: ShellViewModel'den gelen nesne kütüphanene göre BiometricResponse veya AuthenticationResponse olabilir, hangisiyse onu yazarsın.
+        // =========================================================================
+        public void Receive(AuthResultMessage message)
+        {
+            var response = message.Value;
+
+            if (response.Status == BiometricResponseStatus.Success)
+            {
+                // Async metodu void içinden güvenli şekilde tetikliyoruz
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await CheckMasterPass();
+                });
+            }
+        }
+
+        [RelayCommand]
+        private void ShowAddPasswordPopup()
+        {
+            _dialogService.ShowPopup(new AddPasswordPopup());
         }
     }
 }
