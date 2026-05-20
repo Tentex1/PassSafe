@@ -26,6 +26,50 @@ namespace PassSafe.ViewModels
         [NotifyPropertyChangedFor(nameof(SecurityColor))]
         private string password;
 
+        // =========================================================================
+        // YENİ EKLEDİĞİMİZ KISIM: < O > MANTIĞI (SİMGE SEÇİCİ)
+        // =========================================================================
+
+        // 1. Kullanabileceğimiz simgelerin listesi (Burayı istediğin gibi doldur)
+        private readonly List<string> _simgeler = new List<string> { "🔑", "🛡️", "👤", "💼", "🌐", "📧" };
+
+        // 2. Şu an kaçıncı simgedeyiz? (0'dan başlar, yani ilk simge "🔑")
+        // Her değiştiğinde ekrandaki "SuAnkiSimge" alanını da otomatik yenilet diyoruz.
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SuAnkiSimge))]
+        private int _suAnkiIndeks = 0;
+
+        // 3. Ekranda "O" harfi yerine görünecek olan güncel simge (Dışarıya açılan kapı)
+        public string SuAnkiSimge => _simgeler[SuAnkiIndeks];
+
+        // 4. SONRAKİ BUTONU (>) İÇİN KOMUT
+        // CanSonraki metodu "true" döndüğü sürece bu buton tıklanabilir olur.
+        [RelayCommand(CanExecute = nameof(CanSonraki))]
+        private void Sonraki()
+        {
+            SuAnkiIndeks++; // Bir sonraki simgeye geç
+
+            // Butonların aktiflik durumunu (kilitlenip kilitlenmeyeceğini) tetikliyoruz
+            SonrakiCommand.NotifyCanExecuteChanged();
+            OncekiCommand.NotifyCanExecuteChanged();
+        }
+        // Listenin sonuna gelmediysek "true" döner, sonundaysak "false" döner (Buton kilitlenir)
+        private bool CanSonraki() => SuAnkiIndeks < _simgeler.Count - 1;
+
+        // 5. ÖNCEKİ BUTONU (<) İÇİN KOMUT
+        [RelayCommand(CanExecute = nameof(CanOnceki))]
+        private void Onceki()
+        {
+            SuAnkiIndeks--; // Bir önceki simgeye geç
+
+            SonrakiCommand.NotifyCanExecuteChanged();
+            OncekiCommand.NotifyCanExecuteChanged();
+        }
+        // Eğer 0. indeksten büyüksek geriye gidebiliriz demektir
+        private bool CanOnceki() => SuAnkiIndeks > 0;
+
+        // =========================================================================
+
         public double SecurityProgress => (double)CalculatePasswordScore() / 5;
 
         public string SecurityStatus => CalculatePasswordScore() switch
@@ -68,6 +112,8 @@ namespace PassSafe.ViewModels
             return score;
         }
 
+        // MAUI'de şifre kaydederken seçilen simgeyi de göndermek istersen, 
+        // SuAnkiSimge property'sini buradaki transfer verisine ekleyebilirsin.
         [RelayCommand]
         private async Task AddPassword()
         {

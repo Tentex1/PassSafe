@@ -6,4 +6,9 @@ public partial class SetMasterPassPopup
 	{
 		InitializeComponent();
 	}
+
+    protected override bool OnBackButtonPressed()
+    {
+        return true;
+    }
 }
