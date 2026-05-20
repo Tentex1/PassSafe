@@ -15,13 +15,16 @@ namespace PassSafe.ViewModels
     public partial class AddPasswordViewModel : ObservableObject
     {
         [ObservableProperty]
+        private string title;
+
+        [ObservableProperty]
         private string userName;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SecurityProgress))]
         [NotifyPropertyChangedFor(nameof(SecurityStatus))]
         [NotifyPropertyChangedFor(nameof(SecurityColor))]
-        private string password = string.Empty;
+        private string password;
 
         public double SecurityProgress => (double)CalculatePasswordScore() / 5;
 
@@ -68,7 +71,7 @@ namespace PassSafe.ViewModels
         [RelayCommand]
         private async Task AddPassword()
         {
-            var data = new PasswordTransferData(UserName, Password);
+            var data = new PasswordTransferData(Title, UserName, Password);
 
             WeakReferenceMessenger.Default.Send(new PasswordAddedMessage(data));
 

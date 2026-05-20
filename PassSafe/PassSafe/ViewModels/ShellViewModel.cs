@@ -1,8 +1,5 @@
 ﻿namespace PassSafe.ViewModels
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.Messaging; // Messenger için ekledik
@@ -10,6 +7,9 @@
     using PassSafe.Services;
     using PassSafe.Views;
     using Plugin.Maui.Biometric;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Defines the <see cref="ShellViewModel" />
@@ -56,12 +56,8 @@
                     AllowPasswordAuth = true
                 };
 
-                // Biyometrik doğrulamayı senin kodundaki gibi çağırıyoruz
                 var authresponse = await _biometricService.AuthenticateAsync(ar, CancellationToken.None);
 
-                // ==========================================================
-                // İŞTE MESAJI FIRLATTIĞIMIZ TEK SATIR:
-                // ==========================================================
                 WeakReferenceMessenger.Default.Send(new AuthResultMessage(authresponse));
 
                 if (authresponse.Status == BiometricResponseStatus.Success)

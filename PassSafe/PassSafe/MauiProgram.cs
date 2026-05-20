@@ -1,5 +1,6 @@
 ﻿namespace PassSafe
 {
+    using CommunityToolkit.Maui;
     using Mopups.Hosting;
     using PassSafe.Services;
     using PassSafe.ViewModels;
@@ -19,6 +20,7 @@
                 .UseMauiApp<App>()
                 .ConfigureMopups()
                 .UseUraniumUI()
+                .UseMauiCommunityToolkit()
                 .UseUraniumUIMaterial()
                 .ConfigureFonts(fonts =>
                 {
@@ -28,21 +30,26 @@
                     fonts.AddMaterialSymbolsFonts();
                 });
 
+            // Services
             builder.Services.AddSingleton<IDatabaseService, DatabaseService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();
             builder.Services.AddSingleton<ICryptoService, AesCryptoService>();
+            builder.Services.AddSingleton((e) => BiometricAuthenticationService.Default);
+
+            // ViewModels
             builder.Services.AddSingleton<ShellViewModel>();
+            builder.Services.AddSingleton<SetMasterPassViewModel>();
+            builder.Services.AddSingleton<AddPasswordViewModel>();
+            builder.Services.AddSingleton<VaultViewModel>();
+
+            // Views / Pages / Popups
             builder.Services.AddSingleton<MainShell>();
             builder.Services.AddSingleton<SettingsView>();
             builder.Services.AddSingleton<PassAnalyzerView>();
             builder.Services.AddSingleton<PassGeneratorView>();
             builder.Services.AddSingleton<VaultView>();
-            builder.Services.AddSingleton<VaultViewModel>();
             builder.Services.AddSingleton<SetMasterPassPopup>();
             builder.Services.AddSingleton<AddPasswordPopup>();
-            builder.Services.AddSingleton<SetMasterPassViewModel>();
-            builder.Services.AddSingleton<AddPasswordViewModel>();
-            builder.Services.AddSingleton((e) => BiometricAuthenticationService.Default);
             return builder.Build();
         }
     }

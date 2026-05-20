@@ -2,7 +2,7 @@
 {
     using CommunityToolkit.Mvvm.Messaging.Messages;
 
-    public record PasswordTransferData(string UserName, string Password);
+    public record PasswordTransferData(string Title, string UserName, string Password);
     /// <summary>
     /// Defines the <see cref="PasswordAddedMessage" />
     /// </summary>

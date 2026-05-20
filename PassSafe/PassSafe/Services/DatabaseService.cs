@@ -31,7 +31,7 @@ namespace PassSafe.Services
 
         public async Task DeletePassword(int id)
         {
-            await db.DeleteAsync(id);
+            await db.DeleteAsync<Password>(id);
         }
     }
 }

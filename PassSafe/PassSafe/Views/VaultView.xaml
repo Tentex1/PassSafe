@@ -2,7 +2,7 @@
 <ContentView x:Class="PassSafe.Views.VaultView"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:micons="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:uranium="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
-             BindingContext="{Binding VaultViewModel, Source={StaticResource VMLocator}}">
+             BindingContext="{Binding VaultViewModel, Source={StaticResource VMLocator}}" >
 
     <ContentView.Resources>
         <Style TargetType="ImageButton">
@@ -39,46 +39,65 @@
             </uranium:ButtonView>
         </Grid>
 
-        <CollectionView Grid.Row="1"
-                        Margin="20"
-                        ItemsSource="{Binding Passwords}">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border StrokeShape="RoundRectangle 20">
-                        <Grid ColumnDefinitions="*,Auto,Auto">
-                            <Image Grid.Column="0" />
+        <RefreshView Grid.Row="1" IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView Grid.Row="1"
+                            Margin="20"
+                            ItemsSource="{Binding Passwords}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItemView Margin="2"
+                                                   Command="{Binding VaultViewModel.DeletePasswordCommand, Source={StaticResource VMLocator}}"
+                                                   CommandParameter="{Binding Id}">
+                                        <uranium:ButtonView Margin="5,0,5,0">
+                                            <ImageButton>
+                                                <ImageButton.Source>
+                                                    <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Delete}" />
+                                                </ImageButton.Source>
+                                            </ImageButton>
+                                        </uranium:ButtonView>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Border StrokeShape="RoundRectangle 20">
+                                <Grid ColumnDefinitions="*,Auto,Auto">
+                                    <Image Grid.Column="0" />
 
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label FontAttributes="Bold" Text="{Binding Title}" />
-                                <Label Text="{Binding UserName}" />
-                                <HorizontalStackLayout Spacing="5">
-                                    <Label Text="Security" />
-                                    <ProgressBar Progress="0.5" WidthRequest="70" />
-                                    <Label Text="Low" />
-                                </HorizontalStackLayout>
-                            </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Label FontAttributes="Bold" Text="{Binding Title}" />
+                                        <Label Text="{Binding UserName}" />
+                                        <HorizontalStackLayout Spacing="5">
+                                            <Label Text="Security" />
+                                            <ProgressBar Progress="0.5" WidthRequest="70" />
+                                            <Label Text="Low" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
 
-                            <HorizontalStackLayout Grid.Column="2"
-                                                   Margin="0,15,15,15"
-                                                   Spacing="3">
-                                <ImageButton>
-                                    <ImageButton.Source>
-                                        <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Visibility}" />
-                                    </ImageButton.Source>
-                                </ImageButton>
-                                <ImageButton>
-                                    <ImageButton.Source>
-                                        <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Content_copy}" />
-                                    </ImageButton.Source>
-                                </ImageButton>
-                            </HorizontalStackLayout>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                    <HorizontalStackLayout Grid.Column="2"
+                                                           Margin="0,15,15,15"
+                                                           Spacing="3">
+                                        <ImageButton Command="{Binding VaultViewModel.ShowPasswordCommand, Source={StaticResource VMLocator}}" CommandParameter="{Binding EncryptedPassword}">
+                                            <ImageButton.Source>
+                                                <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Visibility}" />
+                                            </ImageButton.Source>
+                                        </ImageButton>
+                                        <ImageButton Command="{Binding VaultViewModel.CopyPasswordCommand, Source={StaticResource VMLocator}}" CommandParameter="{Binding EncryptedPassword}">
+                                            <ImageButton.Source>
+                                                <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Content_copy}" />
+                                            </ImageButton.Source>
+                                        </ImageButton>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
     </Grid>
 </ContentView>
