@@ -15,5 +15,7 @@
         public string UserName { get; set; }
 
         public string EncryptedPassword { get; set; }
+
+        public string Icon { get; set; }
     }
 }

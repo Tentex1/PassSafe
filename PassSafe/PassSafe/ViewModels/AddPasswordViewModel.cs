@@ -10,9 +10,6 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Defines the <see cref="AddPasswordViewModel" />
-    /// </summary>
     public partial class AddPasswordViewModel : ObservableObject
     {
         [ObservableProperty]
@@ -34,27 +31,26 @@
             UraniumUI.Icons.MaterialSymbols.MaterialSharp.Fingerprint,
             UraniumUI.Icons.MaterialSymbols.MaterialSharp.Shield,
             UraniumUI.Icons.MaterialSymbols.MaterialSharp.Account_circle,
-    
-            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Group, // Sosyal medya / Grup hesapları için
+
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Group,       
     
             UraniumUI.Icons.MaterialSymbols.MaterialSharp.Credit_card,
-            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Payments, 
-    
-            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Currency_bitcoin, 
-            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Shopping_bag, 
-    
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Payments,
+
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Currency_bitcoin,
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Shopping_bag,
+
             UraniumUI.Icons.MaterialSymbols.MaterialSharp.Account_balance,
             UraniumUI.Icons.MaterialSymbols.MaterialSharp.Mail,
             UraniumUI.Icons.MaterialSymbols.MaterialSharp.Forum,
             UraniumUI.Icons.MaterialSymbols.MaterialSharp.Public,
     
-    // --- BURAYA EĞLENCE, İŞ VE BULUT HESAPLARINI SERPİŞTİRDİM ---
-        UraniumUI.Icons.MaterialSymbols.MaterialSharp.Sports_esports, // Steam, Epic Games, PlayStation vs. (Şarttı bu)
-        UraniumUI.Icons.MaterialSymbols.MaterialSharp.Tv, // Netflix, YouTube, Disney+ abonelikleri için
-        UraniumUI.Icons.MaterialSymbols.MaterialSharp.Work, // Şirket panelleri, iş mailleri veya LinkedIn için
-        UraniumUI.Icons.MaterialSymbols.MaterialSharp.School, // Okul, akademi, e-devlet/e-okul tarzı yerler için
-        UraniumUI.Icons.MaterialSymbols.MaterialSharp.Cloud // Drive, iCloud, Dropbox gibi bulut hesapları için
-};
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Sports_esports,        
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Tv,      
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Work,        
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.School,       
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Cloud        
+        };
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(CurrentIcon))]
@@ -87,11 +83,11 @@
         public string SecurityStatus => CalculatePasswordScore() switch
         {
             0 => "Empty",
-            1 => "Very Weak ❌",
-            2 => "Weak ⚠️",
-            3 => "Medium 🧐",
-            4 => "Strong 💪",
-            5 => "Legendary Secure 🔥",
+            1 => "Very Weak",
+            2 => "Weak",
+            3 => "Medium",
+            4 => "Strong",
+            5 => "Legendary Secure",
             _ => "Unknown"
         };
 
@@ -127,7 +123,7 @@
         [RelayCommand]
         private async Task AddPassword()
         {
-            var data = new PasswordTransferData(Title, UserName, Password);
+            var data = new PasswordTransferData(Title, UserName, Password, CurrentIcon);
 
             WeakReferenceMessenger.Default.Send(new PasswordAddedMessage(data));
 

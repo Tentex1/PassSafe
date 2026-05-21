@@ -53,6 +53,7 @@
                     {
                         Title = data.Title,
                         UserName = data.UserName,
+                        Icon = data.Icon,
                         EncryptedPassword = _cryptoService.Encrypt(data.Password, master_pass)
                     };
 
