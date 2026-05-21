@@ -1,17 +1,18 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using PassSafe.Messages;
-using Microsoft.Maui.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PassSafe.ViewModels
+﻿namespace PassSafe.ViewModels
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.Messaging;
+    using Microsoft.Maui.Graphics;
+    using PassSafe.Messages;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Defines the <see cref="AddPasswordViewModel" />
+    /// </summary>
     public partial class AddPasswordViewModel : ObservableObject
     {
         [ObservableProperty]
@@ -26,49 +27,60 @@ namespace PassSafe.ViewModels
         [NotifyPropertyChangedFor(nameof(SecurityColor))]
         private string password;
 
-        // =========================================================================
-        // YENİ EKLEDİĞİMİZ KISIM: < O > MANTIĞI (SİMGE SEÇİCİ)
-        // =========================================================================
+        private readonly List<string> _icons = new List<string>
+        {
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Vpn_key,
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Lock,
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Fingerprint,
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Shield,
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Account_circle,
+    
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Group, // Sosyal medya / Grup hesapları için
+    
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Credit_card,
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Payments, 
+    
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Currency_bitcoin, 
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Shopping_bag, 
+    
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Account_balance,
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Mail,
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Forum,
+            UraniumUI.Icons.MaterialSymbols.MaterialSharp.Public,
+    
+    // --- BURAYA EĞLENCE, İŞ VE BULUT HESAPLARINI SERPİŞTİRDİM ---
+        UraniumUI.Icons.MaterialSymbols.MaterialSharp.Sports_esports, // Steam, Epic Games, PlayStation vs. (Şarttı bu)
+        UraniumUI.Icons.MaterialSymbols.MaterialSharp.Tv, // Netflix, YouTube, Disney+ abonelikleri için
+        UraniumUI.Icons.MaterialSymbols.MaterialSharp.Work, // Şirket panelleri, iş mailleri veya LinkedIn için
+        UraniumUI.Icons.MaterialSymbols.MaterialSharp.School, // Okul, akademi, e-devlet/e-okul tarzı yerler için
+        UraniumUI.Icons.MaterialSymbols.MaterialSharp.Cloud // Drive, iCloud, Dropbox gibi bulut hesapları için
+};
 
-        // 1. Kullanabileceğimiz simgelerin listesi (Burayı istediğin gibi doldur)
-        private readonly List<string> _simgeler = new List<string> { "🔑", "🛡️", "👤", "💼", "🌐", "📧" };
-
-        // 2. Şu an kaçıncı simgedeyiz? (0'dan başlar, yani ilk simge "🔑")
-        // Her değiştiğinde ekrandaki "SuAnkiSimge" alanını da otomatik yenilet diyoruz.
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(SuAnkiSimge))]
-        private int _suAnkiIndeks = 0;
+        [NotifyPropertyChangedFor(nameof(CurrentIcon))]
+        private int _currentIconIndex = 0;
 
-        // 3. Ekranda "O" harfi yerine görünecek olan güncel simge (Dışarıya açılan kapı)
-        public string SuAnkiSimge => _simgeler[SuAnkiIndeks];
+        public string CurrentIcon => _icons[CurrentIconIndex];
 
-        // 4. SONRAKİ BUTONU (>) İÇİN KOMUT
-        // CanSonraki metodu "true" döndüğü sürece bu buton tıklanabilir olur.
-        [RelayCommand(CanExecute = nameof(CanSonraki))]
-        private void Sonraki()
+        [RelayCommand(CanExecute = nameof(CanNext))]
+        private void Next()
         {
-            SuAnkiIndeks++; // Bir sonraki simgeye geç
-
-            // Butonların aktiflik durumunu (kilitlenip kilitlenmeyeceğini) tetikliyoruz
-            SonrakiCommand.NotifyCanExecuteChanged();
-            OncekiCommand.NotifyCanExecuteChanged();
+            CurrentIconIndex++;
+            NextCommand.NotifyCanExecuteChanged();
+            PreviousCommand.NotifyCanExecuteChanged();
         }
-        // Listenin sonuna gelmediysek "true" döner, sonundaysak "false" döner (Buton kilitlenir)
-        private bool CanSonraki() => SuAnkiIndeks < _simgeler.Count - 1;
 
-        // 5. ÖNCEKİ BUTONU (<) İÇİN KOMUT
-        [RelayCommand(CanExecute = nameof(CanOnceki))]
-        private void Onceki()
+        private bool CanNext() => CurrentIconIndex < _icons.Count - 1;
+
+        [RelayCommand(CanExecute = nameof(CanPrevious))]
+        private void Previous()
         {
-            SuAnkiIndeks--; // Bir önceki simgeye geç
-
-            SonrakiCommand.NotifyCanExecuteChanged();
-            OncekiCommand.NotifyCanExecuteChanged();
+            CurrentIconIndex--;
+            NextCommand.NotifyCanExecuteChanged();
+            PreviousCommand.NotifyCanExecuteChanged();
         }
-        // Eğer 0. indeksten büyüksek geriye gidebiliriz demektir
-        private bool CanOnceki() => SuAnkiIndeks > 0;
 
-        // =========================================================================
+        private bool CanPrevious() => CurrentIconIndex > 0;
 
         public double SecurityProgress => (double)CalculatePasswordScore() / 5;
 
@@ -112,8 +124,6 @@ namespace PassSafe.ViewModels
             return score;
         }
 
-        // MAUI'de şifre kaydederken seçilen simgeyi de göndermek istersen, 
-        // SuAnkiSimge property'sini buradaki transfer verisine ekleyebilirsin.
         [RelayCommand]
         private async Task AddPassword()
         {
