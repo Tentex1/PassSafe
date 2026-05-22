@@ -19,7 +19,7 @@
         [ObservableProperty]
         private object currentView;
 
-        private readonly VaultView vaultView = new();
+        private readonly SafeView safeView = new();
 
         private readonly PassGeneratorView passGeneratorView = new();
 
@@ -33,7 +33,7 @@
 
         public ShellViewModel(IDialogService dialogService, IBiometric biometricService)
         {
-            CurrentView = vaultView;
+            CurrentView = safeView;
             _dialogService = dialogService;
             _biometricService = biometricService;
 
@@ -83,11 +83,11 @@
         {
             CurrentView = tabName switch
             {
-                "vault" => vaultView,
+                "vault" => safeView,
                 "passgenerator" => passGeneratorView,
                 "passanalyzer" => passAnalyzerView,
                 "settings" => settingsView,
-                _ => vaultView
+                _ => safeView
             };
         }
     }

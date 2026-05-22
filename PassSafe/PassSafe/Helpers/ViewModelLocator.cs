@@ -13,6 +13,6 @@
 
         public AddPasswordViewModel AddPasswordViewModel => App.Services.GetService<AddPasswordViewModel>();
 
-        public VaultViewModel VaultViewModel => App.Services.GetService<VaultViewModel>();
+        public SafeViewModel SafeViewModel => App.Services.GetService<SafeViewModel>();
     }
 }

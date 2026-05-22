@@ -1,5 +1,4 @@
 ﻿using PassSafe.Views;
-using UraniumUI.Material.Resources;
 
 namespace PassSafe
 {

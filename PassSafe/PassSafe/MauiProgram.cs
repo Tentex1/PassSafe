@@ -40,14 +40,14 @@
             builder.Services.AddSingleton<ShellViewModel>();
             builder.Services.AddSingleton<SetMasterPassViewModel>();
             builder.Services.AddSingleton<AddPasswordViewModel>();
-            builder.Services.AddSingleton<VaultViewModel>();
+            builder.Services.AddSingleton<SafeViewModel>();
 
             // Views / Pages / Popups
             builder.Services.AddSingleton<MainShell>();
             builder.Services.AddSingleton<SettingsView>();
             builder.Services.AddSingleton<PassAnalyzerView>();
             builder.Services.AddSingleton<PassGeneratorView>();
-            builder.Services.AddSingleton<VaultView>();
+            builder.Services.AddSingleton<SafeView>();
             builder.Services.AddSingleton<SetMasterPassPopup>();
             builder.Services.AddSingleton<AddPasswordPopup>();
             return builder.Build();

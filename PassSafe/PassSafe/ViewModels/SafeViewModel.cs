@@ -1,6 +1,5 @@
 ﻿namespace PassSafe.ViewModels
 {
-    using AndroidX.Interpolator.View.Animation;
     using CommunityToolkit.Maui.Alerts;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
@@ -18,7 +17,7 @@
     /// <summary>
     /// Defines the <see cref="VaultViewModel" />
     /// </summary>
-    public partial class VaultViewModel : ObservableObject, IRecipient<AuthResultMessage>
+    public partial class SafeViewModel : ObservableObject, IRecipient<AuthResultMessage>
     {
         internal string master_pass;
 
@@ -37,7 +36,7 @@
         [ObservableProperty]
         private bool isRefreshing;
 
-        public VaultViewModel(ICryptoService cryptoService, IDialogService dialogService, IDatabaseService databaseService)
+        public SafeViewModel(ICryptoService cryptoService, IDialogService dialogService, IDatabaseService databaseService)
         {
             _dialogService = dialogService;
             _databaseService = databaseService;

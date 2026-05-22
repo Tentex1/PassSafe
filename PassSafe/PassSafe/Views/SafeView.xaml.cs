@@ -1,10 +1,8 @@
-using PassSafe.ViewModels;
-
 namespace PassSafe.Views;
 
-public partial class VaultView : ContentView
+public partial class SafeView : ContentView
 {
-	public VaultView()
+	public SafeView()
 	{
 		InitializeComponent();
 
@@ -12,11 +10,11 @@ public partial class VaultView : ContentView
         {
             if (Window?.Page is NavigationPage navPage)
             {
-                navPage.CurrentPage.Title = "Vault";
+                navPage.CurrentPage.Title = "Password Safe";
             }
             else if (App.Current.MainPage is NavigationPage mainNav)
             {
-                mainNav.CurrentPage.Title = "Vault";
+                mainNav.CurrentPage.Title = "Password Safe";
             }
         };
     }

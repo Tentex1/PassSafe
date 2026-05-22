@@ -59,7 +59,7 @@
                     <ImageButton Command="{Binding ChangeTabCommand}"
                                  CommandParameter="vault" ToolTipProperties.Text="Vault">
                         <ImageButton.Source>
-                            <FontImageSource Glyph="{x:Static ms:MaterialSharp.Payments}" />
+                            <FontImageSource Glyph="{x:Static ms:MaterialSharp.Shield_lock}" />
                         </ImageButton.Source>
                         <ImageButton.Triggers>
                             <EventTrigger Event="Clicked">
