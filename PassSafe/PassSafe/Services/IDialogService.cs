@@ -11,6 +11,6 @@
 
         Task<bool> ShowConfirmAsync(string title, string message, string accept, string cancel);
 
-        void ShowPopup(PopupPage popup);
+        Task ShowPopup(PopupPage popup);
     }
 }

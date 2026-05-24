@@ -48,8 +48,8 @@
             builder.Services.AddSingleton<PassAnalyzerView>();
             builder.Services.AddSingleton<PassGeneratorView>();
             builder.Services.AddSingleton<SafeView>();
-            builder.Services.AddSingleton<SetMasterPassPopup>();
-            builder.Services.AddSingleton<AddPasswordPopup>();
+            builder.Services.AddTransient<SetMasterPassPopup>();
+            builder.Services.AddTransient<AddPasswordPopup>();
             return builder.Build();
         }
     }

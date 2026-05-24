@@ -3,9 +3,9 @@
     using CommunityToolkit.Maui.Alerts;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
-    using CommunityToolkit.Mvvm.Messaging; // Telsiz kütüphanesini ekledik
+    using CommunityToolkit.Mvvm.Messaging;    
     using Microsoft.Maui.ApplicationModel;
-    using PassSafe.Messages; // Yeni oluşturduğumuz mesajları ekledik
+    using PassSafe.Messages;     
     using PassSafe.Models;
     using PassSafe.Services;
     using PassSafe.Views;
@@ -14,9 +14,6 @@
     using System.Collections.ObjectModel;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Defines the <see cref="VaultViewModel" />
-    /// </summary>
     public partial class SafeViewModel : ObservableObject, IRecipient<AuthResultMessage>
     {
         internal string master_pass;
@@ -42,25 +39,32 @@
             _databaseService = databaseService;
             _cryptoService = cryptoService;
 
-            WeakReferenceMessenger.Default.Register<PasswordAddedMessage>(this, (r, m) =>
+            WeakReferenceMessenger.Default.Register<PasswordAddedMessage>(this, async (r, m) =>
             {
+                var data = m.Value;
+
+                string encrypted = _cryptoService.Encrypt(data.Password, master_pass);
+
+                Password newPass = new()
+                {
+                    Title = data.Title,
+                    UserName = data.UserName,
+                    Icon = data.Icon,
+                    EncryptedPassword = encrypted,
+                    SecurityStatus = data.SecurityStatus,
+                    SecurityProgress = data.SecurityProgress
+                };
+
+                await _databaseService.AddPassword(newPass);
+                await LoadPasswords();        
+
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
-                    var data = m.Value;
-
-                    Password newPass = new()
-                    {
-                        Title = data.Title,
-                        UserName = data.UserName,
-                        Icon = data.Icon,
-                        EncryptedPassword = _cryptoService.Encrypt(data.Password, master_pass)
-                    };
-
-                    await _databaseService.AddPassword(newPass);
                     await LoadPasswords();
                     await _dialogService.ShowAlertAsync("Başarılı", "Yeni şifre kasaya güvenle eklendi!", "Tamam");
                 });
             });
+
             WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
@@ -91,7 +95,7 @@
                     var result = await _dialogService.ShowConfirmAsync("Hata", "Ana şifre belirlememişsiniz", "Belirle", "İptal");
                     if (result == true)
                     {
-                        _dialogService.ShowPopup(new SetMasterPassPopup());
+                        await _dialogService.ShowPopup(new SetMasterPassPopup());
                     }
                     else
                     {
@@ -125,9 +129,9 @@
         }
 
         [RelayCommand]
-        private void ShowAddPasswordPopup()
+        private async Task ShowAddPasswordPopup()
         {
-            _dialogService.ShowPopup(new AddPasswordPopup());
+            await _dialogService.ShowPopup(new AddPasswordPopup());
         }
 
         [RelayCommand]

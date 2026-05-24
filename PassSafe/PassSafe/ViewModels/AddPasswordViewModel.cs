@@ -87,7 +87,7 @@
             2 => "Weak",
             3 => "Medium",
             4 => "Strong",
-            5 => "Legendary Secure",
+            5 => "Impossible",
             _ => "Unknown"
         };
 
@@ -123,9 +123,17 @@
         [RelayCommand]
         private async Task AddPassword()
         {
-            var data = new PasswordTransferData(Title, UserName, Password, CurrentIcon);
+            var data = new PasswordTransferData(Title, UserName, Password, CurrentIcon, SecurityStatus, SecurityProgress);
 
             WeakReferenceMessenger.Default.Send(new PasswordAddedMessage(data));
+
+            Password = string.Empty;
+            UserName = string.Empty;
+            Title = string.Empty;
+            CurrentIconIndex = 0;
+
+            NextCommand.NotifyCanExecuteChanged();
+            PreviousCommand.NotifyCanExecuteChanged();
 
             await Mopups.Services.MopupService.Instance.PopAsync();
         }

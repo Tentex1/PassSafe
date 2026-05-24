@@ -19,9 +19,9 @@
             return Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
         }
 
-        public void ShowPopup(PopupPage popup)
+        public async Task ShowPopup(PopupPage popup)
         {
-            MopupService.Instance.PushAsync(popup);
+            await MopupService.Instance.PushAsync(popup);
         }
     }
 }

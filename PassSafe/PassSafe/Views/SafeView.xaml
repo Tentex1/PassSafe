@@ -33,7 +33,9 @@
                                 VerticalOptions="Center" WidthRequest="50">
                 <Image HorizontalOptions="Center" VerticalOptions="Center">
                     <Image.Source>
-                        <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Add}" />
+                        <FontImageSource FontFamily="MaterialSharp"
+                                         Glyph="{x:Static micons:MaterialSharp.Add}"
+                                         Size="48" />
                     </Image.Source>
                 </Image>
             </uranium:ButtonView>
@@ -52,12 +54,14 @@
                             <SwipeView.RightItems>
                                 <SwipeItems Mode="Execute">
                                     <SwipeItemView Margin="2"
-                                                   Command="{Binding VaultViewModel.DeletePasswordCommand, Source={StaticResource VMLocator}}"
+                                                   Command="{Binding SafeViewModel.DeletePasswordCommand, Source={StaticResource VMLocator}}"
                                                    CommandParameter="{Binding Id}">
                                         <uranium:ButtonView Margin="5,0,5,0">
                                             <ImageButton>
                                                 <ImageButton.Source>
-                                                    <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Delete}" />
+                                                    <FontImageSource FontFamily="MaterialSharp"
+                                                                     Glyph="{x:Static micons:MaterialSharp.Delete}"
+                                                                     Color="White" />
                                                 </ImageButton.Source>
                                             </ImageButton>
                                         </uranium:ButtonView>
@@ -65,33 +69,47 @@
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <Border StrokeShape="RoundRectangle 20">
-                                <Grid ColumnDefinitions="Auto,Auto,Auto">
-                                    <Image Grid.Column="0"
-                                           HeightRequest="80" WidthRequest="80">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialSharp" Glyph="{Binding Icon}" />
-                                        </Image.Source>
-                                    </Image>
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <Border Grid.Column="0"
+                                            Margin="5,5,5,5"
+                                            StrokeShape="RoundRectangle 20" StrokeThickness="0">
+                                        <Image Background="#181830" HeightRequest="80" WidthRequest="80">
+                                            <Image.Source>
+                                                <FontImageSource FontFamily="MaterialSharp"
+                                                                 Glyph="{Binding Icon}"
+                                                                 Size="48"
+                                                                 Color="{AppThemeBinding Dark=White,
+                                                                                         Light=White}" />
+                                            </Image.Source>
+                                        </Image>
+                                    </Border>
 
-                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                        <Label FontAttributes="Bold" Text="{Binding Title}" />
-                                        <Label Text="{Binding UserName}" />
-                                        <HorizontalStackLayout Spacing="5">
-                                            <Label Text="Security" />
-                                            <ProgressBar Progress="0.5" WidthRequest="70" />
-                                            <Label Text="Low" />
-                                        </HorizontalStackLayout>
-                                    </VerticalStackLayout>
+                                    <Border Grid.Column="1" StrokeThickness="0">
+                                        <VerticalStackLayout Margin="0,0,10,0" VerticalOptions="Center">
+
+                                            <Label FontAttributes="Bold" Text="{Binding Title}" />
+                                            <Label Text="{Binding UserName}" />
+                                            <HorizontalStackLayout Spacing="5">
+                                                <Label Text="Security" />
+                                                <ProgressBar Progress="{Binding SecurityProgress}" WidthRequest="40" />
+                                                <Label Text="{Binding SecurityStatus}" />
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                    </Border>
 
                                     <HorizontalStackLayout Grid.Column="2"
-                                                           Margin="0,15,15,15"
+                                                           Margin="0,0,15,0"
                                                            Spacing="3">
-                                        <ImageButton Command="{Binding VaultViewModel.ShowPasswordCommand, Source={StaticResource VMLocator}}" CommandParameter="{Binding EncryptedPassword}">
+                                        <ImageButton Command="{Binding SafeViewModel.ShowPasswordCommand, Source={StaticResource VMLocator}}"
+                                                     CommandParameter="{Binding EncryptedPassword}"
+                                                     HeightRequest="45">
                                             <ImageButton.Source>
                                                 <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Visibility}" />
                                             </ImageButton.Source>
                                         </ImageButton>
-                                        <ImageButton Command="{Binding VaultViewModel.CopyPasswordCommand, Source={StaticResource VMLocator}}" CommandParameter="{Binding EncryptedPassword}">
+                                        <ImageButton Command="{Binding SafeViewModel.CopyPasswordCommand, Source={StaticResource VMLocator}}"
+                                                     CommandParameter="{Binding EncryptedPassword}"
+                                                     HeightRequest="45">
                                             <ImageButton.Source>
                                                 <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Content_copy}" />
                                             </ImageButton.Source>

@@ -17,5 +17,9 @@
         public string EncryptedPassword { get; set; }
 
         public string Icon { get; set; }
+
+        public string SecurityStatus { get; set; }
+
+        public double SecurityProgress { get; set; }
     }
 }
