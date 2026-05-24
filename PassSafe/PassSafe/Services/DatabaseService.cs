@@ -21,6 +21,7 @@ namespace PassSafe.Services
         }
         public async Task<List<Password>> GetDatabase()
         {
+            await InitializeDatabase(await SecureStorage.GetAsync("master_pass"));
             return await db.Table<Password>().ToListAsync();
         }
 

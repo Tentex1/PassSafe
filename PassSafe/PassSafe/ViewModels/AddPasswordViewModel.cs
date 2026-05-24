@@ -5,6 +5,8 @@
     using CommunityToolkit.Mvvm.Messaging;
     using Microsoft.Maui.Graphics;
     using PassSafe.Messages;
+    using PassSafe.Models;
+    using PassSafe.Services;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -12,17 +14,21 @@
 
     public partial class AddPasswordViewModel : ObservableObject
     {
-        [ObservableProperty]
-        private string title;
+        IDatabaseService _databaseService;
+
+        ICryptoService _cryptoService;
 
         [ObservableProperty]
-        private string userName;
+        private string title = string.Empty;
+
+        [ObservableProperty]
+        private string userName = string.Empty;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SecurityProgress))]
         [NotifyPropertyChangedFor(nameof(SecurityStatus))]
         [NotifyPropertyChangedFor(nameof(SecurityColor))]
-        private string password;
+        private string password = string.Empty;
 
         private readonly List<string> _icons = new List<string>
         {
@@ -102,8 +108,10 @@
             _ => Colors.Gray
         };
 
-        public AddPasswordViewModel()
+        public AddPasswordViewModel(IDatabaseService databaseService, ICryptoService cryptoService)
         {
+            _databaseService = databaseService;
+            _cryptoService = cryptoService;
         }
 
         private int CalculatePasswordScore()
@@ -123,9 +131,17 @@
         [RelayCommand]
         private async Task AddPassword()
         {
-            var data = new PasswordTransferData(Title, UserName, Password, CurrentIcon, SecurityStatus, SecurityProgress);
+            var data = new Password()
+            {
+                Title = Title,
+                UserName = UserName,
+                Icon = CurrentIcon,
+                SecurityProgress = SecurityProgress,
+                SecurityStatus = SecurityStatus,
+                EncryptedPassword = _cryptoService.Encrypt(Password, await SecureStorage.GetAsync("master_pass"))
+            };
 
-            WeakReferenceMessenger.Default.Send(new PasswordAddedMessage(data));
+            await _databaseService.AddPassword(data);
 
             Password = string.Empty;
             UserName = string.Empty;

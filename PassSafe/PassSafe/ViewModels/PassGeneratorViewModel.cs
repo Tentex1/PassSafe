@@ -13,19 +13,19 @@
         private string generatedPass;
 
         [ObservableProperty]
-        private bool isUseUpperLetter;
+        private bool isUseUpperLetter = true;
 
         [ObservableProperty]
-        private bool isUseLowerLetter;
+        private bool isUseLowerLetter = true;
 
         [ObservableProperty]
-        private bool isUseNumbers;
+        private bool isUseNumbers = true;
 
         [ObservableProperty]
-        private bool isUseSymbols;
+        private bool isUseSymbols = true;
 
         [ObservableProperty]
-        private int generatedPassLength;
+        private int generatedPassLength = 8;
 
         List<char> alphabetUpper = new List<char>
         {
@@ -81,7 +81,7 @@
         [RelayCommand]
         private void CopyPassword()
         {
-            Clipboard
+            Clipboard.Default.SetTextAsync(GeneratedPass);
         }
     }
 }

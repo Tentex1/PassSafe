@@ -3,9 +3,9 @@
     using CommunityToolkit.Maui.Alerts;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
-    using CommunityToolkit.Mvvm.Messaging;    
+    using CommunityToolkit.Mvvm.Messaging;
     using Microsoft.Maui.ApplicationModel;
-    using PassSafe.Messages;     
+    using PassSafe.Messages;
     using PassSafe.Models;
     using PassSafe.Services;
     using PassSafe.Views;
@@ -16,13 +16,16 @@
 
     public partial class SafeViewModel : ObservableObject, IRecipient<AuthResultMessage>
     {
-        internal string master_pass;
+        string master_pass;
 
         public IDialogService _dialogService;
 
         public IDatabaseService _databaseService;
 
         public ICryptoService _cryptoService;
+
+        [ObservableProperty]
+        private string dbStatus;
 
         [ObservableProperty]
         private ObservableCollection<Password> passwords;
@@ -39,30 +42,10 @@
             _databaseService = databaseService;
             _cryptoService = cryptoService;
 
-            WeakReferenceMessenger.Default.Register<PasswordAddedMessage>(this, async (r, m) =>
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
-                var data = m.Value;
-
-                string encrypted = _cryptoService.Encrypt(data.Password, master_pass);
-
-                Password newPass = new()
-                {
-                    Title = data.Title,
-                    UserName = data.UserName,
-                    Icon = data.Icon,
-                    EncryptedPassword = encrypted,
-                    SecurityStatus = data.SecurityStatus,
-                    SecurityProgress = data.SecurityProgress
-                };
-
-                await _databaseService.AddPassword(newPass);
-                await LoadPasswords();        
-
-                MainThread.BeginInvokeOnMainThread(async () =>
-                {
-                    await LoadPasswords();
-                    await _dialogService.ShowAlertAsync("Başarılı", "Yeni şifre kasaya güvenle eklendi!", "Tamam");
-                });
+                await Task.Delay(500);
+                await LoadPasswords();
             });
 
             WeakReferenceMessenger.Default.RegisterAll(this);
@@ -72,6 +55,11 @@
         {
             Passwords = null;
             Passwords = new(await _databaseService.GetDatabase());
+            if (Passwords.Count <= 0)
+            {
+                DbStatus = "Veriler Yüklendi, Hiç Parolanız yok.";
+            }
+            else { DbStatus = "Veriler Yüklendi"; }
         }
 
         private async Task CheckMasterPass()
@@ -123,6 +111,7 @@
         {
             if (value == true)
             {
+                DbStatus = "Veriler denetleniyor";
                 _ = LoadPasswords();
                 IsRefreshing = false;
             }

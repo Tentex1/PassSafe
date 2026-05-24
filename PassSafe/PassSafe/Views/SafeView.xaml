@@ -42,9 +42,14 @@
         </Grid>
 
         <RefreshView Grid.Row="1" IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView Grid.Row="1"
-                            Margin="20"
-                            ItemsSource="{Binding Passwords}">
+            <CollectionView Margin="20" ItemsSource="{Binding Passwords}">
+                <CollectionView.EmptyViewTemplate>
+                    <DataTemplate>
+                        <Label HorizontalOptions="Center"
+                               Text="{Binding SafeViewModel.DbStatus, Source={StaticResource VMLocator}}"
+                               VerticalOptions="Center" />
+                    </DataTemplate>
+                </CollectionView.EmptyViewTemplate>
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>

@@ -108,7 +108,9 @@
                 </Grid>
             </Border>
         </Grid>
-        <uranium:ButtonView Grid.Row="3" Margin="15,0,15,0">
+        <uranium:ButtonView Grid.Row="3"
+                            Margin="15,0,15,0"
+                            TappedCommand="{Binding CopyPasswordCommand}">
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Image VerticalOptions="Center">
                     <Image.Source>
