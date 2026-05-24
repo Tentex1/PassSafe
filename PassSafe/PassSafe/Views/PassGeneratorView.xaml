@@ -1,7 +1,122 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView x:Class="PassSafe.Views.PassGeneratorView"
-             xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <VerticalStackLayout>
-        <Label HorizontalOptions="Center" Text="Welcome to Password Generator!" VerticalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:micons="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols" xmlns:uranium="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
+             BindingContext="{Binding PassGeneratorViewModel, Source={StaticResource VMLocator}}">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto">
+        <Border Grid.Row="0"
+                Margin="15"
+                BackgroundColor="#201f1f"
+                Stroke="{StaticResource Primary}"
+                StrokeShape="RoundRectangle 20">
+            <Grid Margin="15" RowDefinitions="Auto,Auto">
+                <Label Grid.Row="0"
+                       FontAttributes="Bold" FontSize="18" Text="ŞİFRENİZ" />
+
+                <Grid Grid.Row="1" ColumnDefinitions="Auto,*">
+                    <Label Grid.Column="0"
+                           FontSize="20"
+                           Text="{Binding GeneratedPass}"
+                           VerticalOptions="Center" />
+                    <ImageButton Grid.Column="1"
+                                 Command="{Binding GeneratePasswordCommand}"
+                                 HorizontalOptions="End" VerticalOptions="Center">
+                        <ImageButton.Source>
+                            <FontImageSource FontFamily="MaterialSharp"
+                                             Glyph="{x:Static micons:MaterialSharp.Refresh}"
+                                             Size="48" />
+                        </ImageButton.Source>
+                    </ImageButton>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1"
+                Margin="15"
+                BackgroundColor="#201f1f"
+                Stroke="{StaticResource Primary}"
+                StrokeShape="RoundRectangle 20">
+            <Grid Margin="15" RowDefinitions="Auto,*">
+                <Label Grid.Row="0"
+                       FontAttributes="Bold" FontSize="18" Text="UZUNLUK" />
+
+                <uranium:PickerField Grid.Row="1" SelectedItem="{Binding GeneratedPassLength}">
+                    <uranium:PickerField.Items>
+                        <x:String>8</x:String>
+                        <x:String>16</x:String>
+                        <x:String>24</x:String>
+                        <x:String>32</x:String>
+                    </uranium:PickerField.Items>
+                </uranium:PickerField>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2"
+              Margin="15"
+              RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="15">
+
+            <Border Grid.Row="0"
+                    Stroke="{StaticResource Primary}"
+                    StrokeShape="RoundRectangle 20">
+                <Grid Padding="10,5,5,5" ColumnDefinitions="*, Auto">
+                    <Label Grid.Column="0"
+                           FontAttributes="Bold" FontSize="15" Text="Büyük Harf (A-Z)" VerticalOptions="Center" />
+                    <Switch Grid.Column="1"
+                            IsToggled="{Binding IsUseUpperLetter}"
+                            ThumbColor="{StaticResource Primary}"
+                            VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="1"
+                    Stroke="{StaticResource Primary}"
+                    StrokeShape="RoundRectangle 20">
+                <Grid Padding="10,5,5,5" ColumnDefinitions="*, Auto">
+                    <Label Grid.Column="0"
+                           FontAttributes="Bold" FontSize="15" Text="Küçük Harf (a-z)" VerticalOptions="Center" />
+                    <Switch Grid.Column="1"
+                            IsToggled="{Binding IsUseLowerLetter}"
+                            ThumbColor="{StaticResource Primary}"
+                            VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2"
+                    Stroke="{StaticResource Primary}"
+                    StrokeShape="RoundRectangle 20">
+                <Grid Padding="10,5,5,5" ColumnDefinitions="*, Auto">
+                    <Label Grid.Column="0"
+                           FontAttributes="Bold" FontSize="15" Text="Sayılar (0-9)" VerticalOptions="Center" />
+                    <Switch Grid.Column="1"
+                            IsToggled="{Binding IsUseNumbers}"
+                            ThumbColor="{StaticResource Primary}"
+                            VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3"
+                    Stroke="{StaticResource Primary}"
+                    StrokeShape="RoundRectangle 20">
+                <Grid Padding="10,5,5,5" ColumnDefinitions="*, Auto">
+                    <Label Grid.Column="0"
+                           FontAttributes="Bold" FontSize="15" Text="Semboller (!@#$%^*)" VerticalOptions="Center" />
+                    <Switch Grid.Column="1"
+                            IsToggled="{Binding IsUseSymbols}"
+                            ThumbColor="{StaticResource Primary}"
+                            VerticalOptions="Center" />
+                </Grid>
+            </Border>
+        </Grid>
+        <uranium:ButtonView Grid.Row="3" Margin="15,0,15,0">
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Image VerticalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Content_copy}" />
+                    </Image.Source>
+                </Image>
+                <Label FontAttributes="Bold" FontSize="18" Text="Şifreyi Kopyala" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </uranium:ButtonView>
+    </Grid>
 </ContentView>

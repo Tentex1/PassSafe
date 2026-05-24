@@ -14,5 +14,7 @@
         public AddPasswordViewModel AddPasswordViewModel => App.Services.GetService<AddPasswordViewModel>();
 
         public SafeViewModel SafeViewModel => App.Services.GetService<SafeViewModel>();
+
+        public PassGeneratorViewModel PassGeneratorViewModel => App.Services.GetService<PassGeneratorViewModel>();
     }
 }

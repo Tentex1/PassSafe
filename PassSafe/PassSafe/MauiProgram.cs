@@ -41,6 +41,7 @@
             builder.Services.AddSingleton<SetMasterPassViewModel>();
             builder.Services.AddSingleton<AddPasswordViewModel>();
             builder.Services.AddSingleton<SafeViewModel>();
+            builder.Services.AddSingleton<PassGeneratorViewModel>();
 
             // Views / Pages / Popups
             builder.Services.AddSingleton<MainShell>();
