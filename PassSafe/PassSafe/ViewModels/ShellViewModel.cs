@@ -2,8 +2,8 @@
 {
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
-    using CommunityToolkit.Mvvm.Messaging; // Messenger için ekledik
-    using PassSafe.Messages;                // Yukarıdaki mesaj sınıfı için ekledik
+    using CommunityToolkit.Mvvm.Messaging;
+    using PassSafe.Messages;
     using PassSafe.Services;
     using PassSafe.Views;
     using Plugin.Maui.Biometric;
@@ -11,24 +11,17 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Defines the <see cref="ShellViewModel" />
-    /// </summary>
     public partial class ShellViewModel : ObservableObject
     {
         [ObservableProperty]
         private object currentView;
 
         private readonly SafeView safeView = new();
-
         private readonly PassGeneratorView passGeneratorView = new();
-
         private readonly PassAnalyzerView passAnalyzerView = new();
-
         private readonly SettingsView settingsView = new();
 
         public IDialogService _dialogService;
-
         public IBiometric _biometricService;
 
         public ShellViewModel(IDialogService dialogService, IBiometric biometricService)
@@ -37,11 +30,18 @@
             _dialogService = dialogService;
             _biometricService = biometricService;
 
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                await Task.Delay(500);
-                await AuthenticateAsync();
-            });
+            // Constructor tertemiz, artık burada tehlikeli thread başlatmıyoruz.
+        }
+
+        /// <summary>
+        /// XAML tarafında sayfa tamamen yüklendiğinde (Loaded) tetiklenecek asenkron komut
+        /// </summary>
+        [RelayCommand]
+        private async Task InitializeAsync()
+        {
+            // Android UI ağacının tam oturduğundan emin olmak için çok kısa bir ara nefes
+            await Task.Delay(100);
+            await AuthenticateAsync();
         }
 
         private async Task<bool> AuthenticateAsync()
@@ -58,6 +58,7 @@
 
                 var authresponse = await _biometricService.AuthenticateAsync(ar, CancellationToken.None);
 
+                // Sonucu diğer ViewModel'lere (SafeViewModel dahil) güvenli mesaj olarak uçuruyoruz
                 WeakReferenceMessenger.Default.Send(new AuthResultMessage(authresponse));
 
                 if (authresponse.Status == BiometricResponseStatus.Success)
@@ -67,7 +68,13 @@
                 else
                 {
                     await _dialogService.ShowAlertAsync("Hata", "Kimlik doğrulama başarısız.", "Tamam");
-                    Application.Current?.Quit();
+
+                    // Android için güvenli kapatma çakıyoruz
+#if ANDROID
+                    Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+#else
+                        Application.Current?.Quit();
+#endif
                     return false;
                 }
             }

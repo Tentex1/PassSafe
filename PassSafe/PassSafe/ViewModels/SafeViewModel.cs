@@ -16,12 +16,10 @@
 
     public partial class SafeViewModel : ObservableObject, IRecipient<AuthResultMessage>
     {
-        string master_pass;
+        private string master_pass;
 
         public IDialogService _dialogService;
-
         public IDatabaseService _databaseService;
-
         public ICryptoService _cryptoService;
 
         [ObservableProperty]
@@ -42,27 +40,38 @@
             _databaseService = databaseService;
             _cryptoService = cryptoService;
 
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                await Task.Delay(500);
-                await LoadPasswords();
-            });
-
+            // Mesaj dinleyicisini kayıt ediyoruz
             WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
-        private async Task LoadPasswords()
+        /// <summary>
+        /// Veritabanından verileri asenkron ve güvenli çeken ana metot
+        /// </summary>
+        [RelayCommand]
+        private async Task LoadPasswordsAsync()
         {
-            Passwords = null;
-            Passwords = new(await _databaseService.GetDatabase());
-            if (Passwords.Count <= 0)
+            try
             {
-                DbStatus = "Veriler Yüklendi, Hiç Parolanız yok.";
+                var dbDatas = await _databaseService.GetDatabase();
+                if (dbDatas != null)
+                {
+                    Passwords = new ObservableCollection<Password>(dbDatas);
+                    DbStatus = Passwords.Count <= 0 ? "Veriler Yüklendi, Hiç Parolanız yok." : "Veriler Yüklendi";
+                }
+                else
+                {
+                    Passwords = new ObservableCollection<Password>();
+                    DbStatus = "Veritabanı boş veya yüklenemedi.";
+                }
             }
-            else { DbStatus = "Veriler Yüklendi"; }
+            catch (Exception ex)
+            {
+                DbStatus = "Veri yükleme hatası!";
+                System.Diagnostics.Debug.WriteLine($"[Load Error] -> {ex.Message}");
+            }
         }
 
-        private async Task CheckMasterPass()
+        private async Task CheckMasterPassAsync()
         {
             try
             {
@@ -72,11 +81,8 @@
                 {
                     await _databaseService.InitializeDatabase(master_pass);
 
-                    var dbDatas = await _databaseService.GetDatabase();
-                    if (dbDatas != null)
-                    {
-                        Passwords = new(dbDatas);
-                    }
+                    // Veritabanı başarıyla init edildiyse şifreleri yükle komutunu çağırıyoruz
+                    await LoadPasswordsAsync();
                 }
                 else
                 {
@@ -87,41 +93,54 @@
                     }
                     else
                     {
-                        Application.Current?.Quit();
+#if ANDROID
+                        Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+#else
+                            Application.Current?.Quit();
+#endif
                     }
                 }
             }
-            catch (Exception ex) { await _dialogService.ShowAlertAsync("Error", ex.Message, "Copy"); }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowAlertAsync("Error", ex.Message, "Copy");
+            }
         }
 
+        /// <summary>
+        /// Biyometrik doğrulama bittiğinde tetiklenen event (Thread-Safe)
+        /// </summary>
         public void Receive(AuthResultMessage message)
         {
             var response = message.Value;
 
             if (response.Status == BiometricResponseStatus.Success)
             {
-                MainThread.BeginInvokeOnMainThread(async () =>
+                // UI Thread'ini kitlemeden asenkron akışı sırasıyla işletiyoruz
+                Task.Run(async () =>
                 {
-                    await CheckMasterPass();
+                    await CheckMasterPassAsync();
                 });
             }
         }
 
         partial void OnIsRefreshingChanged(bool value)
         {
-            if (value == true)
+            if (value)
             {
                 DbStatus = "Veriler denetleniyor";
-                _ = LoadPasswords();
-                IsRefreshing = false;
+                Task.Run(async () =>
+                {
+                    await LoadPasswordsAsync();
+
+                    // UI güncellenmesini ana thread'e paslıyoruz
+                    MainThread.BeginInvokeOnMainThread(() => IsRefreshing = false);
+                });
             }
         }
 
         [RelayCommand]
-        private async Task ShowAddPasswordPopup()
-        {
-            await _dialogService.ShowPopup(new AddPasswordPopup());
-        }
+        private async Task ShowAddPasswordPopup() => await _dialogService.ShowPopup(new AddPasswordPopup());
 
         [RelayCommand]
         private async Task ShowPassword(string password)
@@ -145,8 +164,8 @@
             if (dialog == true)
             {
                 await _databaseService.DeletePassword(id);
+                IsRefreshing = true; // Yenilemeyi tetikler
             }
-            IsRefreshing = true;
         }
     }
 }
