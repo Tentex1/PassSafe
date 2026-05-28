@@ -1,12 +1,12 @@
 ﻿namespace PassSafe
 {
     using CommunityToolkit.Maui;
+    using MauiIcons.Material.Sharp;
     using Mopups.Hosting;
     using PassSafe.Services;
     using PassSafe.ViewModels;
     using PassSafe.Views;
     using Plugin.Maui.Biometric;
-    using UraniumUI;
 
     /// <summary>
     /// Defines the <see cref="MauiProgram" />
@@ -18,16 +18,13 @@
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .ConfigureMopups()
-                .UseUraniumUI()
                 .UseMauiCommunityToolkit()
-                .UseUraniumUIMaterial()
+                .UseMaterialSharpMauiIcons()
+                .ConfigureMopups()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-
-                    fonts.AddMaterialSymbolsFonts();
                 });
 
             // Services

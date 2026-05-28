@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView x:Class="PassSafe.Views.PassGeneratorView"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:PassSafe.Converters" xmlns:micons="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols" xmlns:sys="clr-namespace:System;assembly=netstandard" xmlns:uranium="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
+             xmlns:converters="clr-namespace:PassSafe.Converters" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:sys="clr-namespace:System;assembly=netstandard"
              BindingContext="{Binding PassGeneratorViewModel, Source={StaticResource VMLocator}}">
 
     <ContentView.Resources>
@@ -23,15 +23,10 @@
                            FontSize="20"
                            Text="{Binding GeneratedPass}"
                            VerticalOptions="Center" />
-                    <ImageButton Grid.Column="1"
-                                 Command="{Binding GeneratePasswordCommand}"
-                                 HorizontalOptions="End" VerticalOptions="Center">
-                        <ImageButton.Source>
-                            <FontImageSource FontFamily="MaterialSharp"
-                                             Glyph="{x:Static micons:MaterialSharp.Refresh}"
-                                             Size="48" />
-                        </ImageButton.Source>
-                    </ImageButton>
+                    <Button Grid.Column="1"
+                            mi:MauiIcon.Value="{mi:MaterialSharp Icon=Refresh}"
+                            Command="{Binding GeneratePasswordCommand}"
+                            HorizontalOptions="End" VerticalOptions="Center" />
                 </Grid>
             </Grid>
         </Border>
@@ -45,14 +40,14 @@
                 <Label Grid.Row="0"
                        FontAttributes="Bold" FontSize="18" Text="UZUNLUK" />
 
-                <uranium:PickerField Grid.Row="1" SelectedItem="{Binding GeneratedPassLength, Converter={StaticResource StringToIntConverter}}">
-                    <uranium:PickerField.Items>
+                <Picker Grid.Row="1" SelectedItem="{Binding GeneratedPassLength, Converter={StaticResource StringToIntConverter}}">
+                    <Picker.Items>
                         <x:String>8</x:String>
                         <x:String>16</x:String>
                         <x:String>24</x:String>
                         <x:String>32</x:String>
-                    </uranium:PickerField.Items>
-                </uranium:PickerField>
+                    </Picker.Items>
+                </Picker>
             </Grid>
         </Border>
 
@@ -112,17 +107,9 @@
                 </Grid>
             </Border>
         </Grid>
-        <uranium:ButtonView Grid.Row="3"
-                            Margin="15,0,15,0"
-                            TappedCommand="{Binding CopyPasswordCommand}">
-            <HorizontalStackLayout HorizontalOptions="Center">
-                <Image VerticalOptions="Center">
-                    <Image.Source>
-                        <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Content_copy}" />
-                    </Image.Source>
-                </Image>
-                <Label FontAttributes="Bold" FontSize="18" Text="Şifreyi Kopyala" VerticalOptions="Center" />
-            </HorizontalStackLayout>
-        </uranium:ButtonView>
+        <Button Grid.Row="3"
+                Margin="15,0,15,0"
+                Command="{Binding CopyPasswordCommand}"
+                Text="Şifreyi kopyala" />
     </Grid>
 </ContentView>

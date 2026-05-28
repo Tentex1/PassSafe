@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView x:Class="PassSafe.Views.SafeView"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:micons="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:uranium="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
+             xmlns:converters="clr-namespace:PassSafe.Converters" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              BindingContext="{Binding SafeViewModel, Source={StaticResource VMLocator}}">
 
     <ContentView.Resources>
         <Style TargetType="ImageButton">
             <Setter Property="Padding" Value="5" />
         </Style>
+        <converters:StringToIconConverter x:Key="StringToIconConverter" />
     </ContentView.Resources>
 
     <Grid RowDefinitions="Auto,*">
@@ -26,19 +27,11 @@
                 </HorizontalStackLayout>
             </ScrollView>
 
-            <uranium:ButtonView Grid.Column="1"
-                                Margin="10,0,0,0"
-                                HeightRequest="50" HorizontalOptions="End" StyleClass="FilledButton"
-                                TappedCommand="{Binding ShowAddPasswordPopupCommand}"
-                                VerticalOptions="Center" WidthRequest="50">
-                <Image HorizontalOptions="Center" VerticalOptions="Center">
-                    <Image.Source>
-                        <FontImageSource FontFamily="MaterialSharp"
-                                         Glyph="{x:Static micons:MaterialSharp.Add}"
-                                         Size="48" />
-                    </Image.Source>
-                </Image>
-            </uranium:ButtonView>
+            <Button Grid.Column="1"
+                    Margin="10,0,0,0"
+                    mi:MauiIcon.Value="{mi:MaterialSharp Icon=Add}"
+                    Command="{Binding ShowAddPasswordPopupCommand}"
+                    HorizontalOptions="End" StyleClass="FilledButton" VerticalOptions="Center" />
         </Grid>
 
         <RefreshView Grid.Row="1" IsRefreshing="{Binding IsRefreshing}">
@@ -77,16 +70,11 @@
                             <Grid ColumnDefinitions="Auto,*,Auto">
                                 <Border Grid.Column="0"
                                         Margin="5,5,5,5"
-                                        StrokeShape="RoundRectangle 20" StrokeThickness="0">
-                                    <Image Background="#181830" HeightRequest="80" WidthRequest="80">
-                                        <Image.Source>
-                                            <FontImageSource FontFamily="MaterialSharp"
-                                                             Glyph="{Binding Icon}"
-                                                             Size="48"
-                                                             Color="{AppThemeBinding Dark=White,
-                                                                                     Light=White}" />
-                                        </Image.Source>
-                                    </Image>
+                                        BackgroundColor="#181830" StrokeShape="RoundRectangle 20" StrokeThickness="0">
+                                    <Image mi:MauiIcon.Value="{mi:MaterialSharp Icon={Binding Icon,
+                                                                                              Converter={StaticResource StringToIconConverter}},
+                                                                                IconSize=80}"
+                                           HeightRequest="80" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="80" />
                                 </Border>
 
                                 <Border Grid.Column="1" StrokeThickness="0">
@@ -103,22 +91,14 @@
                                 </Border>
 
                                 <HorizontalStackLayout Grid.Column="2"
-                                                       Margin="0,0,15,0"
+                                                       Margin="0,15,15,15"
                                                        Spacing="3">
-                                    <ImageButton Command="{Binding SafeViewModel.ShowPasswordCommand, Source={StaticResource VMLocator}}"
-                                                 CommandParameter="{Binding EncryptedPassword}"
-                                                 HeightRequest="45">
-                                        <ImageButton.Source>
-                                            <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Visibility}" />
-                                        </ImageButton.Source>
-                                    </ImageButton>
-                                    <ImageButton Command="{Binding SafeViewModel.CopyPasswordCommand, Source={StaticResource VMLocator}}"
-                                                 CommandParameter="{Binding EncryptedPassword}"
-                                                 HeightRequest="45">
-                                        <ImageButton.Source>
-                                            <FontImageSource FontFamily="MaterialSharp" Glyph="{x:Static micons:MaterialSharp.Content_copy}" />
-                                        </ImageButton.Source>
-                                    </ImageButton>
+                                    <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=Visibility}"
+                                            Command="{Binding SafeViewModel.ShowPasswordCommand, Source={StaticResource VMLocator}}"
+                                            CommandParameter="{Binding EncryptedPassword}" />
+                                    <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=ContentCopy}"
+                                            Command="{Binding SafeViewModel.CopyPasswordCommand, Source={StaticResource VMLocator}}"
+                                            CommandParameter="{Binding EncryptedPassword}" />
                                 </HorizontalStackLayout>
                             </Grid>
                         </Border>

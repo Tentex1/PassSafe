@@ -1,5 +1,7 @@
 ﻿namespace PassSafe.Models
 {
+    using MauiIcons.Core;
+    using MauiIcons.Material.Sharp;
     using SQLite;
 
     /// <summary>

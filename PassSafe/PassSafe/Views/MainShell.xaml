@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<uranium:UraniumContentPage x:Class="PassSafe.Views.MainShell"
-                            xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                            xmlns:animator="clr-namespace:AlohaKit.Animations;assembly=AlohaKit.Animations" xmlns:local="clr-namespace:PassSafe.Views" xmlns:ms="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:uranium="clr-namespace:UraniumUI.Pages;assembly=UraniumUI"
-                            BindingContext="{Binding ShellViewModel, Source={StaticResource VMLocator}}">
+<ContentPage x:Class="PassSafe.Views.MainShell"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:animator="clr-namespace:AlohaKit.Animations;assembly=AlohaKit.Animations" xmlns:local="clr-namespace:PassSafe.Views" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             BindingContext="{Binding ShellViewModel, Source={StaticResource VMLocator}}">
 
-    <uranium:UraniumContentPage.Resources>
+    <ContentPage.Resources>
         <Style x:Key="TabBarBody" TargetType="Border">
             <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#d9d8d4, Dark=#363534}" />
             <Setter Property="StrokeThickness" Value="0" />
@@ -43,7 +43,7 @@
                                        Target="{x:Reference ActiveIndicator}"
                                        TranslateX="180"
                                        Duration="350" />
-    </uranium:UraniumContentPage.Resources>
+    </ContentPage.Resources>
 
     <Grid BackgroundColor="{AppThemeBinding Dark=#1d1d1d, Light=#F3F4F6}">
         <ContentView Content="{Binding CurrentView}" />
@@ -56,44 +56,36 @@
                          Color="{DynamicResource Primary}" />
 
                 <HorizontalStackLayout Padding="10" Spacing="10">
-                    <ImageButton Command="{Binding ChangeTabCommand}"
+                    <ImageButton mi:MauiIcon.Value="{mi:MaterialSharp Icon=Shield}"
+                                 Command="{Binding ChangeTabCommand}"
                                  CommandParameter="vault" ToolTipProperties.Text="Vault">
-                        <ImageButton.Source>
-                            <FontImageSource Glyph="{x:Static ms:MaterialSharp.Shield_lock}" />
-                        </ImageButton.Source>
                         <ImageButton.Triggers>
                             <EventTrigger Event="Clicked">
                                 <animator:BeginAnimation Animation="{StaticResource TranslateVault}" />
                             </EventTrigger>
                         </ImageButton.Triggers>
                     </ImageButton>
-                    <ImageButton Command="{Binding ChangeTabCommand}"
+                    <ImageButton mi:MauiIcon.Value="{mi:MaterialSharp Icon=Password}"
+                                 Command="{Binding ChangeTabCommand}"
                                  CommandParameter="passgenerator" ToolTipProperties.Text="Password Generator">
-                        <ImageButton.Source>
-                            <FontImageSource Glyph="{x:Static ms:MaterialSharp.Password}" />
-                        </ImageButton.Source>
                         <ImageButton.Triggers>
                             <EventTrigger Event="Clicked">
                                 <animator:BeginAnimation Animation="{StaticResource TranslatePassGenerator}" />
                             </EventTrigger>
                         </ImageButton.Triggers>
                     </ImageButton>
-                    <ImageButton Command="{Binding ChangeTabCommand}"
+                    <ImageButton mi:MauiIcon.Value="{mi:MaterialSharp Icon=Analytics}"
+                                 Command="{Binding ChangeTabCommand}"
                                  CommandParameter="passanalyzer" ToolTipProperties.Text="Password Analyzer">
-                        <ImageButton.Source>
-                            <FontImageSource Glyph="{x:Static ms:MaterialSharp.Analytics}" />
-                        </ImageButton.Source>
                         <ImageButton.Triggers>
                             <EventTrigger Event="Clicked">
                                 <animator:BeginAnimation Animation="{StaticResource TranslatePassAnalyzer}" />
                             </EventTrigger>
                         </ImageButton.Triggers>
                     </ImageButton>
-                    <ImageButton Command="{Binding ChangeTabCommand}"
+                    <ImageButton mi:MauiIcon.Value="{mi:MaterialSharp Icon=Settings}"
+                                 Command="{Binding ChangeTabCommand}"
                                  CommandParameter="settings" ToolTipProperties.Text="Settings">
-                        <ImageButton.Source>
-                            <FontImageSource Glyph="{x:Static ms:MaterialSharp.Settings}" />
-                        </ImageButton.Source>
                         <ImageButton.Triggers>
                             <EventTrigger Event="Clicked">
                                 <animator:BeginAnimation Animation="{StaticResource TranslateSettings}" />
@@ -104,4 +96,4 @@
             </Grid>
         </Border>
     </Grid>
-</uranium:UraniumContentPage>
+</ContentPage>

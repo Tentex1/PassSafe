@@ -17,11 +17,15 @@
         private object currentView;
 
         private readonly SafeView safeView = new();
+
         private readonly PassGeneratorView passGeneratorView = new();
+
         private readonly PassAnalyzerView passAnalyzerView = new();
+
         private readonly SettingsView settingsView = new();
 
         public IDialogService _dialogService;
+
         public IBiometric _biometricService;
 
         public ShellViewModel(IDialogService dialogService, IBiometric biometricService)
@@ -29,18 +33,11 @@
             CurrentView = safeView;
             _dialogService = dialogService;
             _biometricService = biometricService;
-
-            // Constructor tertemiz, artık burada tehlikeli thread başlatmıyoruz.
         }
 
-        /// <summary>
-        /// XAML tarafında sayfa tamamen yüklendiğinde (Loaded) tetiklenecek asenkron komut
-        /// </summary>
         [RelayCommand]
         private async Task InitializeAsync()
         {
-            // Android UI ağacının tam oturduğundan emin olmak için çok kısa bir ara nefes
-            await Task.Delay(100);
             await AuthenticateAsync();
         }
 
@@ -58,7 +55,6 @@
 
                 var authresponse = await _biometricService.AuthenticateAsync(ar, CancellationToken.None);
 
-                // Sonucu diğer ViewModel'lere (SafeViewModel dahil) güvenli mesaj olarak uçuruyoruz
                 WeakReferenceMessenger.Default.Send(new AuthResultMessage(authresponse));
 
                 if (authresponse.Status == BiometricResponseStatus.Success)
@@ -69,12 +65,6 @@
                 {
                     await _dialogService.ShowAlertAsync("Hata", "Kimlik doğrulama başarısız.", "Tamam");
 
-                    // Android için güvenli kapatma çakıyoruz
-#if ANDROID
-                    Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
-#else
-                        Application.Current?.Quit();
-#endif
                     return false;
                 }
             }

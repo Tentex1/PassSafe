@@ -57,6 +57,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Material.Sharp" Version="6.0.0" />
 		<PackageReference Include="AlohaKit.Animations" Version="1.1.0" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="14.1.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
@@ -65,9 +66,6 @@
 		<PackageReference Include="Mopups" Version="1.3.4" />
 		<PackageReference Include="Plugin.Maui.Biometric" Version="0.1.0" />
 		<PackageReference Include="sqlite-net-sqlcipher" Version="1.9.172" />
-		<PackageReference Include="UraniumUI.Material" Version="2.15.0" />
-		<PackageReference Include="UraniumUI.Icons.MaterialSymbols" Version="2.15.0" />
-		<PackageReference Include="UraniumUI.Dialogs.Mopups" Version="2.15.0" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -14,7 +14,7 @@ public partial class PassGeneratorView : ContentView
             }
             else if (App.Current.MainPage is NavigationPage mainNav)
             {
-                mainNav.CurrentPage.Title = UraniumUI.Icons.MaterialSymbols.MaterialSharp.Password + " Password Generator";
+                mainNav.CurrentPage.Title = "Password Generator";
             }
         };
     }

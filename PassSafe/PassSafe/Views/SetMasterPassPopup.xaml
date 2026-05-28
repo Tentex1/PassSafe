@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mopups:PopupPage x:Class="PassSafe.Views.SetMasterPassPopup"
                   xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:uranium="clr-namespace:UraniumUI.Material.Controls;assembly=UraniumUI.Material"
+                  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                   BackgroundColor="#B3000000"
                   BindingContext="{Binding SetMasterPassViewModel, Source={StaticResource VMLocator}}"
                   CloseWhenBackgroundIsClicked="False">
@@ -20,7 +20,7 @@
         <VerticalStackLayout Spacing="15">
             <Label Padding="0,15,0,0"
                    FontSize="20" HorizontalOptions="Center" Text="Ana şifreyi belirle" VerticalOptions="Start" />
-            <uranium:TextField Text="{Binding MasterPass}" WidthRequest="200" />
+            <Entry Text="{Binding MasterPass}" WidthRequest="200" />
             <Button Margin="15,0,15,15"
                     Command="{Binding SetMasterPassCommand}"
                     StyleClass="FilledButton" Text="Belirle" />

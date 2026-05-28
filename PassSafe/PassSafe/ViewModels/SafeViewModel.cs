@@ -40,13 +40,9 @@
             _databaseService = databaseService;
             _cryptoService = cryptoService;
 
-            // Mesaj dinleyicisini kayıt ediyoruz
             WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
-        /// <summary>
-        /// Veritabanından verileri asenkron ve güvenli çeken ana metot
-        /// </summary>
         [RelayCommand]
         private async Task LoadPasswordsAsync()
         {
@@ -77,26 +73,35 @@
             {
                 master_pass = await SecureStorage.GetAsync("master_pass");
 
-                if (master_pass != null)
+                if (!string.IsNullOrEmpty(master_pass))
                 {
                     await _databaseService.InitializeDatabase(master_pass);
-
-                    // Veritabanı başarıyla init edildiyse şifreleri yükle komutunu çağırıyoruz
                     await LoadPasswordsAsync();
                 }
                 else
                 {
-                    var result = await _dialogService.ShowConfirmAsync("Hata", "Ana şifre belirlememişsiniz", "Belirle", "İptal");
+                    var result = await _dialogService.ShowConfirmAsync("Giriş", "Ana şifre belirlememişsiniz", "Belirle", "İptal");
                     if (result == true)
                     {
+                        // 1. Popup'ı göster (Popup kapandığında şifre SecureStorage'a kaydedilmiş olmalı)
                         await _dialogService.ShowPopup(new SetMasterPassPopup());
+
+                        // 2. Kullanıcının az önce kaydettiği şifreyi hafızadan TEKRAR çekiyoruz
+                        master_pass = await SecureStorage.GetAsync("master_pass");
+
+                        if (!string.IsNullOrEmpty(master_pass))
+                        {
+                            // 3. Taptaze şifreyle veritabanını sıfırdan ve temizce şifreli yaratıyoruz!
+                            await _databaseService.InitializeDatabase(master_pass);
+                            await LoadPasswordsAsync();
+                        }
                     }
                     else
                     {
 #if ANDROID
                         Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
 #else
-                            Application.Current?.Quit();
+                Application.Current?.Quit();
 #endif
                     }
                 }
@@ -107,17 +112,13 @@
             }
         }
 
-        /// <summary>
-        /// Biyometrik doğrulama bittiğinde tetiklenen event (Thread-Safe)
-        /// </summary>
         public void Receive(AuthResultMessage message)
         {
             var response = message.Value;
 
             if (response.Status == BiometricResponseStatus.Success)
             {
-                // UI Thread'ini kitlemeden asenkron akışı sırasıyla işletiyoruz
-                Task.Run(async () =>
+                MainThread.BeginInvokeOnMainThread(async () =>
                 {
                     await CheckMasterPassAsync();
                 });
@@ -129,12 +130,11 @@
             if (value)
             {
                 DbStatus = "Veriler denetleniyor";
-                Task.Run(async () =>
+
+                MainThread.BeginInvokeOnMainThread(async () =>
                 {
                     await LoadPasswordsAsync();
-
-                    // UI güncellenmesini ana thread'e paslıyoruz
-                    MainThread.BeginInvokeOnMainThread(() => IsRefreshing = false);
+                    IsRefreshing = false;
                 });
             }
         }
@@ -164,7 +164,7 @@
             if (dialog == true)
             {
                 await _databaseService.DeletePassword(id);
-                IsRefreshing = true; // Yenilemeyi tetikler
+                IsRefreshing = true;   
             }
         }
     }
