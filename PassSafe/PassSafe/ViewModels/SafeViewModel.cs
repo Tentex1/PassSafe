@@ -140,7 +140,7 @@
         }
 
         [RelayCommand]
-        private async Task ShowAddPasswordPopup() => await _dialogService.ShowPopup(new AddPasswordPopup());
+        private async Task ShowAddPasswordPopup() => await _dialogService.ShowPopup(new AddPasswordPopup(App.Services.GetService<AddPasswordViewModel>()));
 
         [RelayCommand]
         private async Task ShowPassword(string password)

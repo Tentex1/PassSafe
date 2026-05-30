@@ -2,6 +2,8 @@
 {
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
+    using PassSafe.Helpers;
+    using PassSafe.Views;
     using System.Collections.Generic;
 
     /// <summary>
@@ -79,9 +81,17 @@
         }
 
         [RelayCommand]
-        private void CopyPassword()
+        private async Task CopyPassword()
         {
-            Clipboard.Default.SetTextAsync(GeneratedPass);
+            await Clipboard.Default.SetTextAsync(GeneratedPass);
+        }
+
+        [RelayCommand]
+        private async Task AddPasswordToSafeAsync()
+        {
+            var vm = App.Services.GetService<AddPasswordViewModel>();
+            vm.Password = GeneratedPass;
+            await Mopups.Services.MopupService.Instance.PushAsync(new AddPasswordPopup(vm));
         }
     }
 }

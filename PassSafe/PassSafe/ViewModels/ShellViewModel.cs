@@ -64,7 +64,7 @@
                 else
                 {
                     await _dialogService.ShowAlertAsync("Hata", "Kimlik doğrulama başarısız.", "Tamam");
-
+                    Application.Current?.Quit();
                     return false;
                 }
             }

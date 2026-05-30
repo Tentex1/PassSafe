@@ -6,12 +6,16 @@
 
     <ContentView.Resources>
         <converters:StringToIntConverter x:Key="StringToIntConverter" />
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Gray900}}" />
+        </Style>
     </ContentView.Resources>
 
     <Grid RowDefinitions="Auto,Auto,Auto,Auto">
         <Border Grid.Row="0"
                 Margin="15"
-                BackgroundColor="#201f1f"
+                BackgroundColor="{AppThemeBinding Dark=#201f1f,
+                                                  Light={StaticResource White}}"
                 Stroke="{StaticResource Primary}"
                 StrokeShape="RoundRectangle 20">
             <Grid Margin="15" RowDefinitions="Auto,Auto">
@@ -33,7 +37,8 @@
 
         <Border Grid.Row="1"
                 Margin="15"
-                BackgroundColor="#201f1f"
+                BackgroundColor="{AppThemeBinding Dark=#201f1f,
+                                                  Light={StaticResource White}}"
                 Stroke="{StaticResource Primary}"
                 StrokeShape="RoundRectangle 20">
             <Grid Margin="15" RowDefinitions="Auto,*">
@@ -107,9 +112,14 @@
                 </Grid>
             </Border>
         </Grid>
-        <Button Grid.Row="3"
-                Margin="15,0,15,0"
-                Command="{Binding CopyPasswordCommand}"
-                Text="Şifreyi kopyala" />
+        <HorizontalStackLayout Grid.Row="3"
+                               HorizontalOptions="Center" Spacing="5" VerticalOptions="Center">
+            <Button Grid.Row="3"
+                    Command="{Binding CopyPasswordCommand}"
+                    Text="Şifreyi kopyala" ToolTipProperties.Text="Copy Password" />
+            <Button Grid.Row="3"
+                    Command="{Binding AddPasswordToSafeCommand}"
+                    Text="Şifreyi ekle" ToolTipProperties.Text="Add password to Safe" />
+        </HorizontalStackLayout>
     </Grid>
 </ContentView>

@@ -15,7 +15,6 @@ namespace PassSafe
             // Konteynerden ShellViewModel'i çözümlüyoruz (resolve)
             var viewModel = serviceProvider.GetRequiredService<ShellViewModel>();
 
-            // ViewModel'i MainShell'e parametre olarak geçiyoruz
             MainPage = new NavigationPage(new MainShell(viewModel));
         }
     }

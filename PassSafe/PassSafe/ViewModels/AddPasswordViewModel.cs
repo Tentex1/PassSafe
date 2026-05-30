@@ -120,6 +120,17 @@
             _cryptoService = cryptoService;
             _dialogService = dialogService;
             _sfvm = sfvm;
+
+            Mopups.Services.MopupService.Instance.Popped += (s,e) =>
+            {
+                Password = string.Empty;
+                UserName = string.Empty;
+                Title = string.Empty;
+                CurrentIconIndex = 0;
+
+                NextCommand.NotifyCanExecuteChanged();
+                PreviousCommand.NotifyCanExecuteChanged();
+            };
         }
 
         private int CalculatePasswordScore()
@@ -165,14 +176,6 @@
             await _databaseService.AddPassword(data);
 
             await _sfvm.LoadPasswordsCommand.ExecuteAsync(null);
-
-            Password = string.Empty;
-            UserName = string.Empty;
-            Title = string.Empty;
-            CurrentIconIndex = 0;
-
-            NextCommand.NotifyCanExecuteChanged();
-            PreviousCommand.NotifyCanExecuteChanged();
 
             if (Mopups.Services.MopupService.Instance.PopupStack.Count > 0)
             {
