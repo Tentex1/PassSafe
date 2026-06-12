@@ -39,13 +39,14 @@
             builder.Services.AddSingleton<AddPasswordViewModel>();
             builder.Services.AddSingleton<SafeViewModel>();
             builder.Services.AddSingleton<PassGeneratorViewModel>();
+            builder.Services.AddSingleton<PassAnalyzerViewModel>();
 
             // Views / Pages / Popups
-            builder.Services.AddSingleton<MainShell>();
-            builder.Services.AddSingleton<SettingsView>();
-            builder.Services.AddSingleton<PassAnalyzerView>();
-            builder.Services.AddSingleton<PassGeneratorView>();
-            builder.Services.AddSingleton<SafeView>();
+            builder.Services.AddTransient<MainShell>();
+            builder.Services.AddTransient<SettingsView>();
+            builder.Services.AddTransient<PassAnalyzerView>();
+            builder.Services.AddTransient<PassGeneratorView>();
+            builder.Services.AddTransient<SafeView>();
             builder.Services.AddTransient<SetMasterPassPopup>();
             builder.Services.AddTransient<AddPasswordPopup>();
             return builder.Build();

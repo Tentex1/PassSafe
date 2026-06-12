@@ -6,4 +6,8 @@ public partial class PassAnalyzerView : ContentView
 	{
 		InitializeComponent();
 	}
+
+    private void PassAnalyzer_Loaded(object sender, EventArgs e)
+    {
+    }
 }

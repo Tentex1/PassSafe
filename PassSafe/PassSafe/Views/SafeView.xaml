@@ -88,11 +88,33 @@
                                         <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=Visibility}"
                                                 Command="{Binding SafeViewModel.ShowPasswordCommand, Source={StaticResource VMLocator}}"
                                                 CommandParameter="{Binding EncryptedPassword}"
-                                                HeightRequest="50" ToolTipProperties.Text="Show Password" WidthRequest="50" />
+                                                ToolTipProperties.Text="Show Password">
+                                            <Button.WidthRequest>
+                                                <OnIdiom Default="50" Desktop="70" />
+                                            </Button.WidthRequest>
+                                            <Button.HeightRequest>
+                                                <OnIdiom Default="50" Desktop="70" />
+                                            </Button.HeightRequest>
+                                        </Button>
                                         <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=ContentCopy}"
                                                 Command="{Binding SafeViewModel.CopyPasswordCommand, Source={StaticResource VMLocator}}"
                                                 CommandParameter="{Binding EncryptedPassword}"
-                                                HeightRequest="50" ToolTipProperties.Text="Copy Password" WidthRequest="50" />
+                                                ToolTipProperties.Text="Copy Password">
+                                            <Button.WidthRequest>
+                                                <OnIdiom Default="50" Desktop="70" />
+                                            </Button.WidthRequest>
+                                            <Button.HeightRequest>
+                                                <OnIdiom Default="50" Desktop="70" />
+                                            </Button.HeightRequest>
+                                        </Button>
+                                        <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=Delete}"
+                                                Command="{Binding SafeViewModel.DeletePasswordCommand, Source={StaticResource VMLocator}}"
+                                                CommandParameter="{Binding Id}"
+                                                HeightRequest="70" ToolTipProperties.Text="Delete password" WidthRequest="70">
+                                            <Button.IsVisible>
+                                                <OnIdiom Default="False" Desktop="True" />
+                                            </Button.IsVisible>
+                                        </Button>
                                     </HorizontalStackLayout>
                                 </Grid>
                             </Border>

@@ -16,23 +16,27 @@
         [ObservableProperty]
         private object currentView;
 
-        private readonly SafeView safeView = new();
-
-        private readonly PassGeneratorView passGeneratorView = new();
-
-        private readonly PassAnalyzerView passAnalyzerView = new();
-
-        private readonly SettingsView settingsView = new();
+        private readonly object _safeView;
+        private readonly object _passGeneratorView;
+        private readonly object _passAnalyzerView;
+        private readonly object _settingsView;
 
         public IDialogService _dialogService;
 
         public IBiometric _biometricService;
 
-        public ShellViewModel(IDialogService dialogService, IBiometric biometricService)
+        public ShellViewModel(IDialogService dialogService, IBiometric biometricService, SafeView safeView,
+                          PassGeneratorView passGeneratorView,
+                          PassAnalyzerView passAnalyzerView,
+                          SettingsView settingsView)
         {
-            CurrentView = safeView;
             _dialogService = dialogService;
             _biometricService = biometricService;
+            _safeView = safeView;
+            _passGeneratorView = passGeneratorView;
+            _passAnalyzerView = passAnalyzerView;
+            _settingsView = settingsView;
+            CurrentView = _safeView;
         }
 
         [RelayCommand]
@@ -63,7 +67,8 @@
                 }
                 else
                 {
-                    await _dialogService.ShowAlertAsync("Hata", "Kimlik doğrulama başarısız.", "Tamam");
+                    await _dialogService.ShowErrorAsync("Hata", new Exception(),"Kopyala", "Tamam");
+                    await Task.Delay(1000);
                     Application.Current?.Quit();
                     return false;
                 }
@@ -80,11 +85,11 @@
         {
             CurrentView = tabName switch
             {
-                "vault" => safeView,
-                "passgenerator" => passGeneratorView,
-                "passanalyzer" => passAnalyzerView,
-                "settings" => settingsView,
-                _ => safeView
+                "vault" => _safeView,
+                "passgenerator" => _passGeneratorView,
+                "passanalyzer" => _passAnalyzerView,
+                "settings" => _settingsView,
+                _ => _safeView
             };
         }
     }

@@ -20,7 +20,9 @@
         <VerticalStackLayout Spacing="15">
             <Label Padding="0,15,0,0"
                    FontSize="20" HorizontalOptions="Center" Text="Ana şifreyi belirle" VerticalOptions="Start" />
-            <Entry Text="{Binding MasterPass}" WidthRequest="200" />
+            <Entry Placeholder="Master key"
+                   Text="{Binding MasterPass}"
+                   WidthRequest="200" />
             <Button Margin="15,0,15,15"
                     Command="{Binding SetMasterPassCommand}"
                     StyleClass="FilledButton" Text="Belirle" />

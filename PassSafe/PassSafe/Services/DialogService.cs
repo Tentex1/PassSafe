@@ -9,14 +9,21 @@
     /// </summary>
     public class DialogService : IDialogService
     {
-        public Task ShowAlertAsync(string title, string message, string cancel)
+        public async Task ShowAlertAsync(string title, string message, string cancel)
         {
-            return Application.Current.MainPage.DisplayAlert(title, message, cancel);
+            await Application.Current.MainPage.DisplayAlertAsync(title, message, cancel);
         }
 
-        public Task<bool> ShowConfirmAsync(string title, string message, string accept, string cancel)
+        public async Task<bool> ShowConfirmAsync(string title, string message, string accept, string cancel)
         {
-            return Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
+            return await Application.Current.MainPage.DisplayAlertAsync(title, message, accept, cancel);
+        }
+        public async Task ShowErrorAsync(string title, Exception ex, string accept, string cancel)
+        {
+            var dialog = await Application.Current.MainPage.DisplayAlertAsync(title, ex.Message, accept, cancel);
+
+            if (dialog == true) { await Clipboard.Default.SetTextAsync(ex.Message); System.Diagnostics.Debug.WriteLine("blok bitti"); }
+            else { return; }
         }
 
         public async Task ShowPopup(PopupPage popup)

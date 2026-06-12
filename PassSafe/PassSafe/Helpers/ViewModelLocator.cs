@@ -1,6 +1,6 @@
 ﻿namespace PassSafe.Helpers
 {
-    using PassSafe.ViewModels;
+    using PassSafe.Helpers;
 
     /// <summary>
     /// Defines the <see cref="ViewModelLocator" />
@@ -16,5 +16,7 @@
         public SafeViewModel SafeViewModel => App.Services.GetService<SafeViewModel>();
 
         public PassGeneratorViewModel PassGeneratorViewModel => App.Services.GetService<PassGeneratorViewModel>();
+
+        public PassAnalyzerViewModel PassAnalyzerViewModel => App.Services.GetService<PassAnalyzerViewModel>();
     }
 }

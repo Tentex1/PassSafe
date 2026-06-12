@@ -13,7 +13,7 @@ namespace PassSafe
             Services = serviceProvider;
 
             // Konteynerden ShellViewModel'i çözümlüyoruz (resolve)
-            var viewModel = serviceProvider.GetRequiredService<ShellViewModel>();
+            var viewModel = serviceProvider.GetService<ShellViewModel>();
 
             MainPage = new NavigationPage(new MainShell(viewModel));
         }

@@ -10,6 +10,7 @@
         Task ShowAlertAsync(string title, string message, string cancel);
 
         Task<bool> ShowConfirmAsync(string title, string message, string accept, string cancel);
+        Task ShowErrorAsync(string title, Exception ex, string accept, string cancel);
 
         Task ShowPopup(PopupPage popup);
     }
