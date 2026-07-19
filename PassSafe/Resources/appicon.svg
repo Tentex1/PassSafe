@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+	<defs>
+		<radialGradient id="bgGrad" cx="50%" cy="50%" r="70%">
+			<stop offset="0%" stop-color="#1E2230" />
+			<stop offset="100%" stop-color="#0C0E14" />
+		</radialGradient>
+
+		<linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" stop-color="#00F2FE" />
+			<stop offset="100%" stop-color="#4FACFE" />
+		</linearGradient>
+
+		<filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+			<feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#00F2FE" flood-opacity="0.25"/>
+		</filter>
+	</defs>
+
+	<rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+
+	<g filter="url(#glow)">
+		<path d="M256,90 C320,90 370,115 390,150 C395,260 350,350 256,410 C162,350 117,260 122,150 C142,115 192,90 256,90 Z 
+             M256,155 C225,155 200,180 200,210 C200,232 213,251 232,260 L232,320 C232,325 236,330 241,330 L251,330 L251,350 C251,355 255,360 260,360 L272,360 C277,360 281,355 281,350 L281,330 C286,330 290,325 290,320 L290,285 C290,280 286,275 281,275 L280,275 L280,260 C299,251 312,232 312,210 C312,180 287,155 256,155 Z"
+			  fill="url(#shieldGrad)"
+			  fill-rule="evenodd"/>
+
+		<circle cx="256" cy="210" r="16" fill="#FFFFFF" opacity="0.9" />
+	</g>
+</svg>

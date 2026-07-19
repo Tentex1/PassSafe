@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="PassSafe.Views.SafePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:PassSafe.Converters" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:models="clr-namespace:PassSafe.Models" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:vm="clr-namespace:PassSafe.ViewModels"
+             Title="Kasa"
+             x:DataType="vm:SafeViewModel"
+             BindingContext="{Binding SafeViewModel, Source={StaticResource VMLocator}}">
+
+    <ContentPage.Resources>
+        <Style TargetType="ImageButton">
+            <Setter Property="Padding" Value="5" />
+        </Style>
+
+        <Style x:Key="CategoryButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Scale" Value="1.0" />
+
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="1.0" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.95" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <converters:StringToIconConverter x:Key="StringToIconConverter" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Grid Grid.Row="0"
+              Margin="15,15,15,0"
+              ColumnDefinitions="*, Auto">
+            <ScrollView Grid.Column="0"
+                        HorizontalScrollBarVisibility="Never" Orientation="Horizontal" VerticalScrollBarVisibility="Never">
+                <HorizontalStackLayout Spacing="10">
+
+                    <Button Command="{Binding SelectCategoryCommand}"
+                            CommandParameter="Hepsi"
+                            Style="{StaticResource CategoryButton}"
+                            Text="Hepsi">
+                        <Button.Triggers>
+                            <DataTrigger Binding="{Binding SelectedCategory}"
+                                         TargetType="Button"
+                                         Value="Hepsi">
+                                <Setter Property="BackgroundColor" Value="#ff3040" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button Command="{Binding SelectCategoryCommand}"
+                            CommandParameter="Son Kullanılanlar"
+                            Style="{StaticResource CategoryButton}"
+                            Text="Son Kullanılanlar">
+                        <Button.Triggers>
+                            <DataTrigger Binding="{Binding SelectedCategory}"
+                                         TargetType="Button"
+                                         Value="Son Kullanılanlar">
+                                <Setter Property="BackgroundColor" Value="#ff3040" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button Command="{Binding SelectCategoryCommand}"
+                            CommandParameter="Favoriler"
+                            Style="{StaticResource CategoryButton}"
+                            Text="Favoriler">
+                        <Button.Triggers>
+                            <DataTrigger Binding="{Binding SelectedCategory}"
+                                         TargetType="Button"
+                                         Value="Favoriler">
+                                <Setter Property="BackgroundColor" Value="#ff3040" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button Command="{Binding SelectCategoryCommand}"
+                            CommandParameter="Sosyal Medya"
+                            Style="{StaticResource CategoryButton}"
+                            Text="Sosyal Medya">
+                        <Button.Triggers>
+                            <DataTrigger Binding="{Binding SelectedCategory}"
+                                         TargetType="Button"
+                                         Value="Sosyal Medya">
+                                <Setter Property="BackgroundColor" Value="#ff3040" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <Button Grid.Column="1"
+                    Margin="10,0,0,0"
+                    mi:MauiIcon.Value="{mi:MaterialSharp Icon=Add}"
+                    Command="{Binding ShowAddPasswordPopupCommand}"
+                    HorizontalOptions="End" VerticalOptions="Center" />
+        </Grid>
+
+        <RefreshView Grid.Row="1" IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView Margin="20" ItemsSource="{Binding CollectionViewItemSource}">
+                <CollectionView.EmptyViewTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <Label HorizontalOptions="Center"
+                               Text="{Binding SafeViewModel.DbStatus, Source={StaticResource VMLocator}}"
+                               VerticalOptions="Center" />
+                    </DataTemplate>
+                </CollectionView.EmptyViewTemplate>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Password">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItemView Margin="2"
+                                                   Command="{Binding SafeViewModel.DeletePasswordCommand, Source={StaticResource VMLocator}}"
+                                                   CommandParameter="{Binding Id}">
+
+                                        <Border Margin="5" Padding="0"
+                                                Background="{DynamicResource Primary}"
+                                                StrokeShape="RoundRectangle 12" StrokeThickness="0" WidthRequest="80">
+
+                                            <Label mi:MauiIcon.Value="{mi:MaterialSharp Icon=Delete}"
+                                                   FontSize="28" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center" />
+
+                                        </Border>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <SwipeView.LeftItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItemView Margin="2"
+                                                   Command="{Binding SafeViewModel.SetFavoritePasswordCommand, Source={StaticResource VMLocator}}"
+                                                   CommandParameter="{Binding .}">
+
+                                        <Border Margin="5" Padding="0"
+                                                BackgroundColor="#ff3040" StrokeShape="RoundRectangle 12" StrokeThickness="0" WidthRequest="80">
+
+                                            <Label FontSize="28" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center">
+                                                <Label.Triggers>
+                                                    <DataTrigger Binding="{Binding IsFavorited}"
+                                                                 TargetType="Label"
+                                                                 Value="True">
+                                                        <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=ExposureMinus1}" />
+                                                    </DataTrigger>
+
+                                                    <DataTrigger Binding="{Binding IsFavorited}"
+                                                                 TargetType="Label"
+                                                                 Value="False">
+                                                        <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=Favorite}" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+
+                                        </Border>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <Border StrokeShape="RoundRectangle 20">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <Border Grid.Column="0"
+                                            Margin="10"
+                                            BackgroundColor="#181830" StrokeShape="RoundRectangle 20" StrokeThickness="0">
+                                        <Image Margin="10"
+                                               mi:MauiIcon.Value="{mi:MaterialSharp Icon={Binding Icon,
+                                                                                                  Converter={StaticResource StringToIconConverter}},
+                                                                                    IconColor={StaticResource White},
+                                                                                    IconSize=48}"
+                                               HeightRequest="48" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="48" />
+                                    </Border>
+
+                                    <Border Grid.Column="1" StrokeThickness="0">
+                                        <VerticalStackLayout Margin="0,5,0,5"
+                                                             Spacing="5" VerticalOptions="Center">
+
+                                            <Label FontAttributes="Bold" Text="{Binding Title}" />
+                                            <Label Text="{Binding UserName}" />
+                                            <HorizontalStackLayout Spacing="5">
+                                                <ProgressBar Progress="{Binding SecurityProgress}" WidthRequest="70" />
+                                                <Label Text="{Binding SecurityStatus}" />
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                    </Border>
+
+                                    <Grid Grid.Column="2"
+                                          Margin="0,0,10,0"
+                                          ColumnDefinitions="Auto,Auto,Auto" ColumnSpacing="3" VerticalOptions="Center">
+
+                                        <Button Grid.Column="0"
+                                                mi:MauiIcon.Value="{mi:MaterialSharp Icon=Visibility}"
+                                                Command="{Binding SafeViewModel.ShowPasswordCommand, Source={StaticResource VMLocator}}"
+                                                CommandParameter="{Binding EncryptedPassword}"
+                                                ToolTipProperties.Text="Show Password">
+                                            <Button.WidthRequest>
+                                                <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
+                                            </Button.WidthRequest>
+                                            <Button.HeightRequest>
+                                                <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
+                                            </Button.HeightRequest>
+                                        </Button>
+
+                                        <Button Grid.Column="1"
+                                                mi:MauiIcon.Value="{mi:MaterialSharp Icon=ContentCopy}"
+                                                Command="{Binding SafeViewModel.CopyPasswordCommand, Source={StaticResource VMLocator}}"
+                                                CommandParameter="{Binding EncryptedPassword}"
+                                                ToolTipProperties.Text="Copy Password">
+                                            <Button.WidthRequest>
+                                                <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
+                                            </Button.WidthRequest>
+                                            <Button.HeightRequest>
+                                                <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
+                                            </Button.HeightRequest>
+                                        </Button>
+
+                                        <Button Grid.Column="2"
+                                                mi:MauiIcon.Value="{mi:MaterialSharp Icon=Delete}"
+                                                Command="{Binding SafeViewModel.DeletePasswordCommand, Source={StaticResource VMLocator}}"
+                                                CommandParameter="{Binding Id}"
+                                                HeightRequest="70" ToolTipProperties.Text="Delete password" WidthRequest="70">
+                                            <Button.IsVisible>
+                                                <OnIdiom x:TypeArguments="x:Boolean" Default="False" Desktop="True" />
+                                            </Button.IsVisible>
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

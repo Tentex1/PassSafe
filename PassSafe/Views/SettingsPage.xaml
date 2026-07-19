@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="PassSafe.Views.SettingsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
+             Title="Ayarlar"
+             x:DataType="viewmodels:SettingsViewModel"
+             BindingContext="{Binding SettingsViewModel, Source={StaticResource VMLocator}}">
+    <ScrollView>
+        <Grid Margin="15"
+              RowDefinitions="Auto, Auto, Auto" RowSpacing="15">
+            <Label Grid.Row="0"
+                   FontAttributes="Bold" FontSize="25" Text="Ayarlar" />
+
+            <VerticalStackLayout Grid.Row="1" Spacing="10">
+                <Label FontAttributes="Bold" FontSize="18" Text="Veritabanı" />
+                <Border Padding="24"
+                        Stroke="{DynamicResource Primary}"
+                        StrokeDashArray="5,5" StrokeThickness="2">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ImportDatabaseCommand}" />
+                    </Border.GestureRecognizers>
+
+                    <VerticalStackLayout HorizontalOptions="Center" InputTransparent="True" Spacing="8">
+                        <Image mi:MauiIcon.Value="{mi:MaterialSharp Icon=CloudUpload}"
+                               HeightRequest="36" HorizontalOptions="Center" WidthRequest="36" />
+
+                        <Label FontAttributes="Bold" FontSize="16" HorizontalOptions="Center" Text="SQLite Veritabanı İçe Aktar" TextColor="#E2E8F0" />
+
+                        <Label FontSize="12" HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Sadece .db, .db3 ve .sqlite uzantılı dosyalar desteklenir" TextColor="#FF9800" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Padding="12,16"
+                        BackgroundColor="Transparent" Stroke="#3A3F47" StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0"
+                                             InputTransparent="True" Spacing="2">
+                            <Label FontAttributes="Bold" FontSize="15" Text="Mevcut Veritabanını Dışa Aktar" TextColor="#E2E8F0" />
+                            <Label FontSize="12" Text="Verilerinizi .sqlite formatında cihazınıza yedekleyin." TextColor="#94A3B8" />
+                        </VerticalStackLayout>
+
+                        <Image Grid.Column="1"
+                               mi:MauiIcon.Value="{mi:MaterialSharp Icon=CloudDownload}"
+                               HeightRequest="40" InputTransparent="True" VerticalOptions="Center" WidthRequest="40" />
+                    </Grid>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer />
+                    </Border.GestureRecognizers>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="2">
+                <Label FontAttributes="Bold" FontSize="18" Text="Dil" />
+                <Border Padding="12,16"
+                        BackgroundColor="Transparent" Stroke="#3A3F47" StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0"
+                                             InputTransparent="True" Spacing="2">
+                            <Label FontAttributes="Bold" FontSize="15" Text="Dil" TextColor="#E2E8F0" />
+                            <Label FontSize="12" Text="(secilen dil)" TextColor="#94A3B8" />
+                        </VerticalStackLayout>
+
+                        <Image Grid.Column="1"
+                               mi:MauiIcon.Value="{mi:MaterialSharp Icon=Language}"
+                               HeightRequest="40" InputTransparent="True" VerticalOptions="Center" WidthRequest="40" />
+                    </Grid>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer />
+                    </Border.GestureRecognizers>
+                </Border>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

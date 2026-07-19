@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Window x:Class="PassSafe.MainWindow"
+        xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:d="http://schemas.microsoft.com/dotnet/2021/maui/design" xmlns:local="clr-namespace:PassSafe" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vw="clr-namespace:PassSafe.Views"
+        Title="PassSafe"
+        mc:Ignorable="d">
+    <Window.TitleBar>
+        <TitleBar BackgroundColor="{StaticResource Primary}"
+                  ForegroundColor="{StaticResource OnPrimary}"
+                  HeightRequest="48">
+            <TitleBar.LeadingContent>
+                <Label Margin="20,0,0,0"
+                       Style="{StaticResource AppTitle}"
+                       Text="PassSafe" VerticalOptions="Center" />
+            </TitleBar.LeadingContent>
+        </TitleBar>
+    </Window.TitleBar>
+</Window>
