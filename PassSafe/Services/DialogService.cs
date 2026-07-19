@@ -17,9 +17,10 @@
             return await mainPage.DisplayAlertAsync(title, message, accept, cancel);
         }
 
-        public async Task ShowErrorAsync(Exception ex)
+        public async Task ShowErrorAsync(Exception ex =null, string message = null)
         {
-            var dialog = await mainPage.DisplayAlertAsync("Hata", ex.Message, "Kopyala", "Tamam");
+            var text = ex != null ? ex.Message : message;
+            var dialog = await mainPage.DisplayAlertAsync("Hata", text, "Kopyala", "Tamam");
 
             if (dialog == true) { await Clipboard.Default.SetTextAsync(ex.Message); }
             else { return; }

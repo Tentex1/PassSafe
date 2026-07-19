@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<mopups:PopupPage x:Class="PassSafe.Views.SetMasterPassPopup"
+<mopups:PopupPage x:Class="PassSafe.Views.ImportDatabaseVerifyPopup"
                   xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
-                  x:DataType="viewmodels:SetMasterPassViewModel" BackgroundColor="#B3000000"
-                  BindingContext="{Binding SetMasterPassViewModel, Source={StaticResource VMLocator}}"
+                  x:DataType="viewmodels:ImportDatabaseVerifyViewModel" BackgroundColor="#B3000000"
+                  BindingContext="{Binding ImportDatabaseVerifyViewModel, Source={StaticResource VMLocator}}"
                   CloseWhenBackgroundIsClicked="False" NavigationPage.HasNavigationBar="False">
 
     <Border BackgroundColor="{AppThemeBinding Dark=#181818,
@@ -19,21 +19,17 @@
         </Border.WidthRequest>
 
         <VerticalStackLayout Padding="20" Spacing="15">
-            <Label FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" Text="Ana Şifre Belirleyin" />
+            <Label FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" Text="Veritabanı Şifresini Girin" />
+
+            <Label HorizontalOptions="Center" Text="{Binding InfoText}" />
 
             <Entry IsPassword="True" Placeholder="Ana Şifre"
                    Text="{Binding MasterPass}" />
 
-            <Entry IsPassword="True"
-                   IsVisible="{Binding IsRepeatVisible}"
-                   Placeholder="Ana Şifre (Tekrar)"
-                   Text="{Binding MasterPassRepeat}" />
-
-            <Button Command="{Binding SetMasterPassCommand}" Text="Kaydet" />
-
-            <Border />
-
-            <Button Command="{Binding ImportOldDatabaseCommand}" Text="Veya eski bir veritabanını yükleyin" />
+            <Button Command="{Binding VerifyCommand}"
+                    IsEnabled="{Binding IsButtonEnabled}"
+                    Text="Kaydet" />
         </VerticalStackLayout>
     </Border>
+
 </mopups:PopupPage>

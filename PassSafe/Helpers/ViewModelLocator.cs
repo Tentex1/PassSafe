@@ -10,7 +10,7 @@
         public MainViewModel MainViewModel => App.Services.GetService<MainViewModel>();
         public SettingsViewModel SettingsViewModel => App.Services.GetService<SettingsViewModel>();
         public SetMasterPassViewModel SetMasterPassViewModel => App.Services.GetService<SetMasterPassViewModel>();
-
+        public ImportDatabaseVerifyViewModel ImportDatabaseVerifyViewModel => App.Services.GetService<ImportDatabaseVerifyViewModel>();
         public AddPasswordViewModel AddPasswordViewModel => App.Services.GetService<AddPasswordViewModel>();
 
         public SafeViewModel SafeViewModel => App.Services.GetService<SafeViewModel>();

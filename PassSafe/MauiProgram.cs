@@ -36,6 +36,7 @@ namespace PassSafe
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<SettingsViewModel>();
             builder.Services.AddTransient<SetMasterPassViewModel>();
+            builder.Services.AddTransient<ImportDatabaseVerifyViewModel>();
             builder.Services.AddTransient<AddPasswordViewModel>();
             builder.Services.AddSingleton<SafeViewModel>();
             builder.Services.AddTransient<PassGeneratorViewModel>();
@@ -48,6 +49,7 @@ namespace PassSafe
             builder.Services.AddTransient<PassGeneratorPage>();
             builder.Services.AddTransient<SafePage>();
             builder.Services.AddTransient<SetMasterPassPopup>();
+            builder.Services.AddTransient<ImportDatabaseVerifyPopup>();
             builder.Services.AddTransient<AddPasswordPopup>();
 
 #if DEBUG

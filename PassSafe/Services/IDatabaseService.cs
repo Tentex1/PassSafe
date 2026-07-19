@@ -7,7 +7,7 @@ namespace PassSafe.Services
 {
     public interface IDatabaseService
     {
-        Task InitializeDatabaseAsync(string key);
+        Task<bool> InitializeDatabaseAsync(string key);
         Task AddPasswordAsync(Password password);
         Task UpdatePasswordAsync(Password password);
         Task DeletePasswordAsync(int id);

@@ -11,7 +11,7 @@
 
         Task<bool> ShowConfirmAsync(string title, string message, string accept, string cancel);
 
-        Task ShowErrorAsync(Exception ex);
+        Task ShowErrorAsync(Exception ex = null, string message = null);
 
         Task ShowPopupAsync(PopupPage popup);
     }

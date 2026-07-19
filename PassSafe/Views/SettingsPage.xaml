@@ -12,23 +12,25 @@
                    FontAttributes="Bold" FontSize="25" Text="Ayarlar" />
 
             <VerticalStackLayout Grid.Row="1" Spacing="10">
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ImportDatabaseCommand}" />
+                </VerticalStackLayout.GestureRecognizers>
                 <Label FontAttributes="Bold" FontSize="18" Text="Veritabanı" />
                 <Border Padding="24"
                         Stroke="{DynamicResource Primary}"
                         StrokeDashArray="5,5" StrokeThickness="2">
+                    
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="12" />
                     </Border.StrokeShape>
-
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ImportDatabaseCommand}" />
-                    </Border.GestureRecognizers>
 
                     <VerticalStackLayout HorizontalOptions="Center" InputTransparent="True" Spacing="8">
                         <Image mi:MauiIcon.Value="{mi:MaterialSharp Icon=CloudUpload}"
                                HeightRequest="36" HorizontalOptions="Center" WidthRequest="36" />
 
-                        <Label FontAttributes="Bold" FontSize="16" HorizontalOptions="Center" Text="SQLite Veritabanı İçe Aktar" TextColor="#E2E8F0" />
+                        <Label FontAttributes="Bold" FontSize="16" HorizontalOptions="Center" Text="SQLite Veritabanı İçe Aktar"
+                               TextColor="{AppThemeBinding Dark=#E2E8F0,
+                                                           Light=#4a4a4a}" />
 
                         <Label FontSize="12" HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Sadece .db, .db3 ve .sqlite uzantılı dosyalar desteklenir" TextColor="#FF9800" />
                     </VerticalStackLayout>
@@ -42,8 +44,12 @@
                     <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
                         <VerticalStackLayout Grid.Column="0"
                                              InputTransparent="True" Spacing="2">
-                            <Label FontAttributes="Bold" FontSize="15" Text="Mevcut Veritabanını Dışa Aktar" TextColor="#E2E8F0" />
-                            <Label FontSize="12" Text="Verilerinizi .sqlite formatında cihazınıza yedekleyin." TextColor="#94A3B8" />
+                            <Label FontAttributes="Bold" FontSize="15" Text="Mevcut Veritabanını Dışa Aktar"
+                                   TextColor="{AppThemeBinding Dark=#E2E8F0,
+                                                               Light=#4a4a4a}" />
+                            <Label FontSize="12" Text="Verilerinizi .sqlite formatında cihazınıza yedekleyin."
+                                   TextColor="{AppThemeBinding Dark=#94A3B8,
+                                                               Light=#4d4c4c}" />
                         </VerticalStackLayout>
 
                         <Image Grid.Column="1"
@@ -66,11 +72,14 @@
                     </Border.StrokeShape>
 
                     <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
-                        <VerticalStackLayout Grid.Column="0"
-                                             InputTransparent="True" Spacing="2">
-                            <Label FontAttributes="Bold" FontSize="15" Text="Dil" TextColor="#E2E8F0" />
-                            <Label FontSize="12" Text="(secilen dil)" TextColor="#94A3B8" />
-                        </VerticalStackLayout>
+
+                        <Picker Title="Dil" Grid.Column="0">
+                            <Picker.Items>
+                                <x:String>English</x:String>
+                                <x:String>Türkçe</x:String>
+                                <x:String>Русский</x:String>
+                            </Picker.Items>
+                        </Picker>
 
                         <Image Grid.Column="1"
                                mi:MauiIcon.Value="{mi:MaterialSharp Icon=Language}"

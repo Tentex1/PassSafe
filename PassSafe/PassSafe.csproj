@@ -118,6 +118,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <MauiXaml Update="Views\ImportDatabaseVerifyPopup.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </MauiXaml>
       <MauiXaml Update="Views\PassAnalyzerPage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </MauiXaml>

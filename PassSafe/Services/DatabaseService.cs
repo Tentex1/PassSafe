@@ -12,20 +12,19 @@ namespace PassSafe.Services
     {
         private SQLiteAsyncConnection db;
 
-        public async Task InitializeDatabaseAsync(string key)
+        public async Task<bool> InitializeDatabaseAsync(string key)
         {
-            if (db != null) return;
+            if (db != null) return false;
 
             if (string.IsNullOrWhiteSpace(key))
             {
-                System.Diagnostics.Debug.WriteLine("[DB Warning] -> Ana şifre boş olduğu için DB henüz başlatılmadı.");
-                return;
+                //await dialogService.ShowErrorAsync(null, "Ana şifre yok");
+                return false;
             }
 
             try
             {
                 var dbPath = Path.Combine(FileSystem.AppDataDirectory, "passwords.sqlite");
-                System.Diagnostics.Debug.WriteLine($"[DB Info] -> Veritabanı yolu: {dbPath}");
 
                 var options = new SQLiteConnectionString(
                     dbPath,
@@ -37,17 +36,17 @@ namespace PassSafe.Services
                 db = new SQLiteAsyncConnection(options);
 
                 await db.CreateTableAsync<Password>();
-                System.Diagnostics.Debug.WriteLine("[DB Success] -> Veritabanı DOSYASI ve TABLOSU başarıyla oluşturuldu/bağlandı.");
+                return true;
             }
             catch (Exception ex)
             {
-                await dialogService.ShowErrorAsync(ex);
-                if (ex.InnerException != null)
-                {
-                    await dialogService.ShowErrorAsync(ex);
-                }
-                db = null;
-                throw;
+                //await dialogService.ShowErrorAsync(ex);
+                //if (ex.InnerException != null)
+                //{
+                //    await dialogService.ShowErrorAsync(ex);
+                //}
+                //db = null;
+                return false;
             }
         }
 

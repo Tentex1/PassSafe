@@ -1,12 +1,37 @@
-﻿using CommunityToolkit.Maui.Storage;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PassSafe.ViewModels
+﻿namespace PassSafe.ViewModels
 {
+    using CommunityToolkit.Maui.Storage;
+    using PassSafe.Services;
+    using System;
+
+    /// <summary>
+    /// Defines the <see cref="SettingsViewModel" />
+    /// </summary>
     public partial class SettingsViewModel(IDialogService dialogService) : ObservableObject
     {
+        [ObservableProperty]
+        private bool isImportSuccessfull = false;
+
+        async partial void OnIsImportSuccessfullChanged(bool value)
+        {
+            if (IsImportSuccessfull == true)
+            {
+                var popup = new ImportDatabaseVerifyPopup();
+                var popupVM = App.Services.GetService<ImportDatabaseVerifyViewModel>();
+
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    await dialogService.ShowPopupAsync(popup);
+                });
+
+                if (popupVM?.IsVerified == true)
+                {
+                    await dialogService.ShowAlertAsync("Başarılı!", "Veritabanınız başarıyla içe aktarıldı.", "Tamam");
+                }
+
+            }
+            else { await dialogService.ShowAlertAsync("Başarısız!", "Veritabanının şifresi yanlış.", "Tamam"); }
+        }
 
         [RelayCommand]
         private async Task ImportDatabaseAsync()
@@ -18,61 +43,32 @@ namespace PassSafe.ViewModels
             try
             {
                 var result = await FilePicker.Default.PickAsync();
-                if (result == null) return;
+                if (result == null) { IsImportSuccessfull = false; return; }
 
                 string ext = Path.GetExtension(result.FullPath).ToLower();
-                if (ext != ".sqlite" && ext != ".db" && ext != ".db3") return;
 
-                // 1. Mevcut çalışan veritabanını korumak için yedeğini alıyoruz
                 if (File.Exists(targetPath))
                 {
                     File.Copy(targetPath, backupPath, overwrite: true);
                     backupCreated = true;
                 }
 
-                // 2. Yeni gelen veritabanını asıl dosyanın yerine yazıyoruz
-                File.Copy(result.FullPath, targetPath, overwrite: true);
-
-                // 3. Popup'ı şifre sorması için açıyoruz
-                var popupPage = new SetMasterPassPopup();
-                var popupVm = (SetMasterPassViewModel)popupPage.BindingContext;
-                popupVm.InitializeMode(MasterPassMode.ValidateImportedDb);
-
-                await Mopups.Services.MopupService.Instance.PushAsync(popupPage);
-
-                // 4. Kullanıcının şifreyi girmesini bekliyoruz
-                // (SetMasterPassViewModel içindeki TestSqlCipherConnection artık direkt true dönebilir, 
-                // çünkü asıl testi burada senin DatabaseService yapacak!)
-                bool isPasswordCorrect = await popupVm.ResultCompletionSource.Task;
-
-                if (isPasswordCorrect)
+                if (ext.EndsWith("sqlite") || ext.EndsWith("db") || ext.EndsWith("db3"))
                 {
-                    // ŞİFRE DOĞRU: Yedek dosyasını silebiliriz, aktarım başarılı!
-                    if (backupCreated && File.Exists(backupPath))
-                        File.Delete(backupPath);
-
-                    await dialogService.ShowAlertAsync("Başarılı", "Veritabanı aktarıldı.", "Tamam");
+                    File.Copy(result.FullPath, targetPath, overwrite: true);
+                    IsImportSuccessfull = true;
                 }
-                else
-                {
-                    // ŞİFRE YANLIŞ VEYA İPTAL: Yeni gelen hatalı dosyayı silip eski yedeği geri yüklüyoruz
-                    if (backupCreated && File.Exists(backupPath))
-                    {
-                        File.Copy(backupPath, targetPath, overwrite: true);
-                        File.Delete(backupPath);
-                    }
-                    await dialogService.ShowAlertAsync("Hata", "Şifre doğrulanamadı, değişiklikler geri alındı.", "Tamam");
-                }
+                else { IsImportSuccessfull = false; }
             }
             catch (Exception ex)
             {
-                // Beklenmedik bir hata olursa da eski veritabanını korumak için geri yüklüyoruz
                 if (backupCreated && File.Exists(backupPath))
                 {
                     File.Copy(backupPath, targetPath, overwrite: true);
                     File.Delete(backupPath);
                 }
                 await dialogService.ShowErrorAsync(ex);
+                IsImportSuccessfull = false;
             }
         }
 
@@ -83,7 +79,7 @@ namespace PassSafe.ViewModels
             {
                 string currentDbPath = Path.Combine(FileSystem.AppDataDirectory, "passwords.sqlite");
 
-                if (!File.Exists(currentDbPath)) return;    
+                if (!File.Exists(currentDbPath)) return;
 
                 using var fileStream = File.OpenRead(currentDbPath);
 
