@@ -1,21 +1,36 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using PassSafe.Messages;
-using PassSafe.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PassSafe.ViewModels
+﻿namespace PassSafe.ViewModels
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
+    using PassSafe.Messages;
+    using PassSafe.Services;
+
     public partial class SetMasterPassViewModel : ObservableObject, IRecipient<DatabaseImportedMessage>
     {
         [ObservableProperty]
+        private bool areConditionsMet;
+
+        [ObservableProperty]
         private string masterPass;
 
+        [ObservableProperty]
+        private string masterPassRepeat;
+
+        [ObservableProperty]
+        private Color masterPassRepeatColor;
+
+        [ObservableProperty]
+        private string securityQuestion;
+
+        [ObservableProperty]
+        private string securityQuestionAnswer;
+
         public IDialogService _dialogService;
+
         public SettingsViewModel _svm;
+
         public SafeViewModel _sfvm;
+
         public ImportDatabaseVerifyViewModel _idvvm;
 
         public SetMasterPassViewModel(IDialogService dialogService, SettingsViewModel settingsViewModel, ImportDatabaseVerifyViewModel importDatabaseVerifyViewModel, SafeViewModel safeViewModel)
@@ -28,45 +43,70 @@ namespace PassSafe.ViewModels
             WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
+        partial void OnMasterPassChanged(string value)
+        {
+            CheckConditions();
+        }
+
+        partial void OnMasterPassRepeatChanged(string value)
+        {
+            CheckConditions();
+        }
+
+        partial void OnSecurityQuestionAnswerChanged(string value)
+        {
+            CheckConditions();
+        }
+
+        partial void OnSecurityQuestionChanged(string value)
+        {
+            CheckConditions();
+        }
+
+        private void CheckConditions()
+        {
+            if (string.IsNullOrEmpty(MasterPass) || string.IsNullOrEmpty(MasterPassRepeat))
+            {
+                MasterPassRepeatColor = Application.Current.RequestedTheme == AppTheme.Dark ? Colors.White : Colors.Black;
+            }
+            else if (MasterPass == MasterPassRepeat)
+            {
+                MasterPassRepeatColor = Application.Current.RequestedTheme == AppTheme.Dark ? Colors.White : Colors.Black;
+            }
+            else
+            {
+                MasterPassRepeatColor = Color.FromRgb(255, 0, 0);
+            }
+
+            bool isPasswordValid = !string.IsNullOrEmpty(MasterPass) && MasterPass == MasterPassRepeat;
+            bool isQuestionValid = !string.IsNullOrEmpty(SecurityQuestion);
+            bool isAnswerValid = !string.IsNullOrWhiteSpace(SecurityQuestionAnswer);
+
+            AreConditionsMet = isPasswordValid && isQuestionValid && isAnswerValid;
+        }
+
         [RelayCommand]
         private async Task SetMasterPass()
         {
             try
             {
-                var result = await _dialogService.ShowConfirmAsync("Are you sure?", "If you forget this password, you won't be able to change it again!", "OK", "Cancel");
-                if(result == true)
+                var result = await _dialogService.ShowConfirmAsync("Emin misin??", "Eğer güvenlik sorusunun cevabını unutursan bi daha şifreni değiştiremezsin ve şifrelerini kaybedersin!", "Tamam", "Değiştireceğim");
+                if (result == true)
                 {
-                    await SecureStorage.SetAsync("master_pass", MasterPass);
-                    await _dialogService.ShowAlertAsync("OK!", "Master pass setted succesfully", "OK");
+                    await SecureStorage.SetAsync("masterPass", MasterPass);
+                    await SecureStorage.SetAsync("securityQuestion", SecurityQuestion);
+                    await SecureStorage.SetAsync("securityQuestionAnswer", SecurityQuestionAnswer);
+                    await _dialogService.ShowAlertAsync("Hoşgeldiniz!", "Ana şifre başarıyla ayarlandı!", "Tamam");
+                    await Mopups.Services.MopupService.Instance.PopAsync();
                 }
             }
-            catch(Exception ex) { await _dialogService.ShowConfirmAsync("Error", "'master_pass' could not be set.", "Copy Error Code", "OK"); }
+            catch (Exception ex) { await _dialogService.ShowConfirmAsync("Error", "'master_pass' could not be set.", "Copy Error Code", "OK"); }
         }
 
         [RelayCommand]
         private async Task ImportOldDatabaseAsync()
         {
             await _svm.ImportDatabaseCommand.ExecuteAsync(null);
-            
-            //var result = _svm.IsImportSuccessfull;
-
-            //if (result == true)
-            //{
-            //    await _dialogService.ShowPopupAsync(new ImportDatabaseVerifyPopup());
-
-            //    if (_idvvm.IsVerified == true)
-            //    {
-            //        await _dialogService.ShowAlertAsync("Başarılı!", "Veritabanınız başarıyla içe aktarıldı.", "Tamam");
-            //    }
-            //    else
-            //    {
-            //        await _dialogService.ShowAlertAsync("Başarısız!", "Veritabanının şifresi yanlış.", "Tamam");
-            //    }
-            //}
-            //else
-            //{
-            //    await _dialogService.ShowAlertAsync("Başarısız!", "Veritabanı dosyanız bozuk veya yanlış, SQLite veritabanı seçin.", "Tamam");
-            //}
         }
 
         public async void Receive(DatabaseImportedMessage message)

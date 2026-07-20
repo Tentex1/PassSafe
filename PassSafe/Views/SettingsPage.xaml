@@ -7,7 +7,7 @@
              BindingContext="{Binding SettingsViewModel, Source={StaticResource VMLocator}}">
     <ScrollView>
         <Grid Margin="15"
-              RowDefinitions="Auto, Auto, Auto" RowSpacing="15">
+              RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="15">
             <Label Grid.Row="0"
                    FontAttributes="Bold" FontSize="25" Text="Ayarlar" />
 
@@ -19,7 +19,7 @@
                 <Border Padding="24"
                         Stroke="{DynamicResource Primary}"
                         StrokeDashArray="5,5" StrokeThickness="2">
-                    
+
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="12" />
                     </Border.StrokeShape>
@@ -36,14 +36,19 @@
                     </VerticalStackLayout>
                 </Border>
                 <Border Padding="12,16"
-                        BackgroundColor="Transparent" Stroke="#3A3F47" StrokeThickness="1">
+                        BackgroundColor="Transparent"
+                        Stroke="{DynamicResource Primary}"
+                        StrokeThickness="1">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="8" />
                     </Border.StrokeShape>
 
                     <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
                         <VerticalStackLayout Grid.Column="0"
-                                             InputTransparent="True" Spacing="2">
+                                             InputTransparent="False" Spacing="2">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ExportDatabaseCommand}" />
+                            </VerticalStackLayout.GestureRecognizers>
                             <Label FontAttributes="Bold" FontSize="15" Text="Mevcut Veritabanını Dışa Aktar"
                                    TextColor="{AppThemeBinding Dark=#E2E8F0,
                                                                Light=#4a4a4a}" />
@@ -64,9 +69,27 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Row="2">
+                <Label FontAttributes="Bold" FontSize="18" Text="Ana Şifre" />
+                <Border Padding="12,16"
+                        Background="Transparent"
+                        Stroke="{DynamicResource Primary}">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+
+                    <HorizontalStackLayout Spacing="15">
+                        <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=Password}}" Text="Şifreyi değişttir" />
+                    </HorizontalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="3">
                 <Label FontAttributes="Bold" FontSize="18" Text="Dil" />
                 <Border Padding="12,16"
-                        BackgroundColor="Transparent" Stroke="#3A3F47" StrokeThickness="1">
+                        BackgroundColor="Transparent"
+                        Stroke="{DynamicResource Primary}"
+                        StrokeThickness="1">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="8" />
                     </Border.StrokeShape>

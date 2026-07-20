@@ -1,16 +1,19 @@
 ﻿namespace PassSafe.ViewModels
 {
+    using CommunityToolkit.Maui.Alerts;
     using CommunityToolkit.Maui.Storage;
     using PassSafe.Services;
     using System;
+    using System.Text;
 
-    /// <summary>
-    /// Defines the <see cref="SettingsViewModel" />
-    /// </summary>
     public partial class SettingsViewModel(IDialogService dialogService) : ObservableObject
     {
         [ObservableProperty]
         private bool isImportSuccessfull = false;
+
+
+        [ObservableProperty]
+        private bool isExportSuccessfull = false;
 
         async partial void OnIsImportSuccessfullChanged(bool value)
         {
@@ -77,21 +80,26 @@
         {
             try
             {
-                string currentDbPath = Path.Combine(FileSystem.AppDataDirectory, "passwords.sqlite");
+                var dbPath = Path.Combine(FileSystem.AppDataDirectory, "passwords.sqlite");
 
-                if (!File.Exists(currentDbPath)) return;
+                if (!File.Exists(dbPath))
+                {
+                    await Toast.Make("Veritabanı dosyası bulunamadı!").Show();
+                    return;
+                }
 
-                using var fileStream = File.OpenRead(currentDbPath);
+                // FileShare.ReadWrite sayesinde SQLite arkada açık olsa bile dosyayı okuyabilirsin
+                using var stream = new FileStream(dbPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
-                var fileSaverResult = await FileSaver.Default.SaveAsync("passwords_yedek.sqlite", fileStream, CancellationToken.None);
+                var fileSaverResult = await FileSaver.Default.SaveAsync("passwords_backup.sqlite", stream, CancellationToken.None);
 
                 if (fileSaverResult.IsSuccessful)
                 {
-                    await dialogService.ShowAlertAsync("Başarılı", $"Yedek şuraya kaydedildi: {fileSaverResult.FilePath}", "OK");
+                    await Toast.Make("Veritabanı başarıyla dışa aktarıldı: " + fileSaverResult.FilePath).Show();
                 }
                 else
                 {
-                    await dialogService.ShowAlertAsync("İptal Edildi", "Dosya kaydedilmedi.", "OK");
+                    await Toast.Make("Veritabanı dışa aktarımı iptal edildi veya başarısız oldu!").Show();
                 }
             }
             catch (Exception ex)
@@ -99,5 +107,6 @@
                 await dialogService.ShowErrorAsync(ex);
             }
         }
+
     }
 }

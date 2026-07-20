@@ -21,15 +21,29 @@
         <VerticalStackLayout Padding="20" Spacing="15">
             <Label FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" Text="Ana Şifre Belirleyin" />
 
-            <Entry IsPassword="True" Placeholder="Ana Şifre"
-                   Text="{Binding MasterPass}" />
+            <Entry IsPassword="True" Placeholder="Ana Şifre*"
+                   Text="{Binding MasterPass}"
+                   TextColor="{Binding MasterPassRepeatColor}" />
 
-            <Entry IsPassword="True"
-                   IsVisible="{Binding IsRepeatVisible}"
-                   Placeholder="Ana Şifre (Tekrar)"
-                   Text="{Binding MasterPassRepeat}" />
+            <Entry IsPassword="True" Placeholder="Ana Şifre* (Tekrar)"
+                   Text="{Binding MasterPassRepeat}"
+                   TextColor="{Binding MasterPassRepeatColor}" />
 
-            <Button Command="{Binding SetMasterPassCommand}" Text="Kaydet" />
+            <Picker Title="Güvenlik Soruları" SelectedItem="{Binding SecurityQuestion}">
+                <Picker.Items>
+                    <x:String>İlk evcil hayvanın adı nedir?</x:String>
+                    <x:String>Doğduğun şehrin adı nedir?</x:String>
+                    <x:String>Çocukken büyüdüğün sokak/caddenin adı neydi?</x:String>
+                    <x:String>İlk işinden kazandığın ilk maaşla ne satın almıştın?</x:String>
+                    <x:String>Gittiğin ilk yurt dışı veya şehir dışı tatil yeri neresiydi?</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Entry Text="{Binding SecurityQuestionAnswer, Mode=TwoWay}" />
+
+            <Button Command="{Binding SetMasterPassCommand}"
+                    IsEnabled="{Binding AreConditionsMet}"
+                    Text="Kaydet" />
 
             <Border />
 
