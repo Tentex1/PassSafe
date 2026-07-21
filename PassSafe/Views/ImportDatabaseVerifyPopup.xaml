@@ -18,18 +18,31 @@
             <OnIdiom Default="350" Desktop="500" />
         </Border.WidthRequest>
 
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Label FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" Text="Veritabanı Şifresini Girin" />
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" Text="Veritabanı İçe Aktar" />
 
-            <Label HorizontalOptions="Center" Text="{Binding InfoText}" />
+            <Label HorizontalOptions="Center"
+                   Text="{Binding InfoText}"
+                   TextColor="{Binding InfoTextColor}" />
 
-            <Entry IsPassword="True" Placeholder="Ana Şifre"
+            <Entry IsPassword="True" Placeholder="Veritabanı Ana Şifresi*"
                    Text="{Binding MasterPass}" />
+
+            <Picker Title="Güvenlik Sorusu Seçin*" SelectedItem="{Binding SecurityQuestion}">
+                <Picker.Items>
+                    <x:String>İlk evcil hayvanın adı nedir?</x:String>
+                    <x:String>Doğduğun şehrin adı nedir?</x:String>
+                    <x:String>Çocukken büyüdüğün sokak/caddenin adı neydi?</x:String>
+                    <x:String>İlk işinden kazandığın ilk maaşla ne satın almıştın?</x:String>
+                    <x:String>Gittiğin ilk yurt dışı veya şehir dışı tatil yeri neresiydi?</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Entry Placeholder="Güvenlik Sorusu Cevabı*" Text="{Binding SecurityQuestionAnswer, Mode=TwoWay}" />
 
             <Button Command="{Binding VerifyCommand}"
                     IsEnabled="{Binding IsButtonEnabled}"
-                    Text="Kaydet" />
+                    Text="Doğrula ve Kaydet" />
         </VerticalStackLayout>
     </Border>
-
 </mopups:PopupPage>

@@ -62,19 +62,6 @@
                     </Button>
 
                     <Button Command="{Binding SelectCategoryCommand}"
-                            CommandParameter="Son Kullanılanlar"
-                            Style="{StaticResource CategoryButton}"
-                            Text="Son Kullanılanlar">
-                        <Button.Triggers>
-                            <DataTrigger Binding="{Binding SelectedCategory}"
-                                         TargetType="Button"
-                                         Value="Son Kullanılanlar">
-                                <Setter Property="BackgroundColor" Value="#ff3040" />
-                            </DataTrigger>
-                        </Button.Triggers>
-                    </Button>
-
-                    <Button Command="{Binding SelectCategoryCommand}"
                             CommandParameter="Favoriler"
                             Style="{StaticResource CategoryButton}"
                             Text="Favoriler">
@@ -82,19 +69,6 @@
                             <DataTrigger Binding="{Binding SelectedCategory}"
                                          TargetType="Button"
                                          Value="Favoriler">
-                                <Setter Property="BackgroundColor" Value="#ff3040" />
-                            </DataTrigger>
-                        </Button.Triggers>
-                    </Button>
-
-                    <Button Command="{Binding SelectCategoryCommand}"
-                            CommandParameter="Sosyal Medya"
-                            Style="{StaticResource CategoryButton}"
-                            Text="Sosyal Medya">
-                        <Button.Triggers>
-                            <DataTrigger Binding="{Binding SelectedCategory}"
-                                         TargetType="Button"
-                                         Value="Sosyal Medya">
                                 <Setter Property="BackgroundColor" Value="#ff3040" />
                             </DataTrigger>
                         </Button.Triggers>

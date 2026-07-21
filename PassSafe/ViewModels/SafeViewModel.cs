@@ -14,7 +14,7 @@ namespace PassSafe.ViewModels
 
     public partial class SafeViewModel : ObservableObject
     {
-        private string master_pass;
+        private string masterPass;
 
         public IDialogService _dialogService;
 
@@ -57,7 +57,7 @@ namespace PassSafe.ViewModels
         {
             try
             {
-                master_pass = await SecureStorage.GetAsync("master_pass");
+                masterPass = await SecureStorage.GetAsync("masterPass");
                 var dbDatas = await _databaseService.GetDatabaseAsync();
                 if (dbDatas != null)
                 {
@@ -87,7 +87,7 @@ namespace PassSafe.ViewModels
         {
             try
             {
-                master_pass = await SecureStorage.GetAsync("master_pass");
+                masterPass = await SecureStorage.GetAsync("masterPass");
                 var dbDatas = await _databaseService.GetFavoritesAsync();
                 if (dbDatas != null)
                 {
@@ -133,22 +133,22 @@ namespace PassSafe.ViewModels
         [RelayCommand]
         private async Task ShowPassword(string password)
         {
-            if (string.IsNullOrEmpty(master_pass))
+            if (string.IsNullOrEmpty(masterPass))
             {
-                master_pass = await SecureStorage.GetAsync("master_pass");
+                masterPass = await SecureStorage.GetAsync("masterPass");
             }
-            var passSolution = _cryptoService.Decrypt(password, master_pass);
+            var passSolution = _cryptoService.Decrypt(password, masterPass);
             await _dialogService.ShowAlertAsync("", passSolution, "OK");
         }
 
         [RelayCommand]
         private async Task CopyPassword(string password)
         {
-            if (string.IsNullOrEmpty(master_pass))
+            if (string.IsNullOrEmpty(masterPass))
             {
-                master_pass = await SecureStorage.GetAsync("master_pass");
+                masterPass = await SecureStorage.GetAsync("masterPass");
             }
-            var pass = _cryptoService.Decrypt(password, master_pass);
+            var pass = _cryptoService.Decrypt(password, masterPass);
             await Clipboard.SetTextAsync(pass);
             await Toast.Make("Şifre panoya kopyalandı", CommunityToolkit.Maui.Core.ToastDuration.Short, 14).Show();
         }

@@ -18,7 +18,7 @@ namespace PassSafe.ViewModels
         private readonly ICryptoService _cryptoService;
         private readonly IDialogService _dialogService;
 
-        private string master_pass;
+        private string masterPass;
 
         [ObservableProperty]
         private int securityScore;
@@ -49,7 +49,7 @@ namespace PassSafe.ViewModels
         {
             var vm = App.Services.GetService<AddPasswordViewModel>();
 
-            string decrypted = _cryptoService.Decrypt(password.EncryptedPassword, master_pass);
+            string decrypted = _cryptoService.Decrypt(password.EncryptedPassword, masterPass);
 
             vm.LoadPasswordForEdit(password, decrypted);
 
@@ -61,7 +61,7 @@ namespace PassSafe.ViewModels
         {
             try
             {
-                master_pass = await SecureStorage.GetAsync("master_pass");
+                masterPass = await SecureStorage.GetAsync("masterPass");
                 var encryptedData = await _databaseService.GetDatabaseAsync();
 
                 if (encryptedData == null || !encryptedData.Any())
@@ -80,7 +80,7 @@ namespace PassSafe.ViewModels
                 var decryptedList = new List<(Password Original, string PlainText)>();
                 foreach (var pwd in encryptedData)
                 {
-                    string plainText = _cryptoService.Decrypt(pwd.EncryptedPassword, master_pass);
+                    string plainText = _cryptoService.Decrypt(pwd.EncryptedPassword, masterPass);
                     decryptedList.Add((pwd, plainText));
                 }
 

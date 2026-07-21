@@ -54,7 +54,7 @@ namespace PassSafe.Services
         {
             try
             {
-                var masterPass = await SecureStorage.GetAsync("master_pass");
+                var masterPass = await SecureStorage.GetAsync("masterPass");
                 await InitializeDatabaseAsync(masterPass);
 
                 if (db == null) return new List<Password>();
@@ -72,7 +72,7 @@ namespace PassSafe.Services
         {
             try
             {
-                var masterPass = await SecureStorage.GetAsync("master_pass");
+                var masterPass = await SecureStorage.GetAsync("masterPass");
                 await InitializeDatabaseAsync(masterPass);
 
                 if (db == null) return new List<Password>();
@@ -88,7 +88,7 @@ namespace PassSafe.Services
 
         public async Task AddPasswordAsync(Password password)
         {
-            var masterPass = await SecureStorage.GetAsync("master_pass");
+            var masterPass = await SecureStorage.GetAsync("masterPass");
             await InitializeDatabaseAsync(masterPass);
 
             if (db != null)

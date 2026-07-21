@@ -100,7 +100,7 @@
                     await Mopups.Services.MopupService.Instance.PopAsync();
                 }
             }
-            catch (Exception ex) { await _dialogService.ShowConfirmAsync("Error", "'master_pass' could not be set.", "Copy Error Code", "OK"); }
+            catch (Exception ex) { await _dialogService.ShowConfirmAsync("Error", "'masterPass' could not be set.", "Copy Error Code", "OK"); }
         }
 
         [RelayCommand]

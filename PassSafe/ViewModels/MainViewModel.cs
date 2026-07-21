@@ -54,11 +54,11 @@ namespace PassSafe.ViewModels
         {
             try
             {
-                string master_pass = await SecureStorage.GetAsync("master_pass");
+                string masterPass = await SecureStorage.GetAsync("masterPass");
 
-                if (!string.IsNullOrEmpty(master_pass))
+                if (!string.IsNullOrEmpty(masterPass))
                 {
-                    await databaseService.InitializeDatabaseAsync(master_pass);
+                    await databaseService.InitializeDatabaseAsync(masterPass);
                     sfvm.IsRefreshing = true;
                 }
                 else
@@ -68,11 +68,11 @@ namespace PassSafe.ViewModels
                     {
                         await dialogService.ShowPopupAsync(new SetMasterPassPopup());
 
-                        master_pass = await SecureStorage.GetAsync("master_pass");
+                        masterPass = await SecureStorage.GetAsync("masterPass");
 
-                        if (!string.IsNullOrEmpty(master_pass))
+                        if (!string.IsNullOrEmpty(masterPass))
                         {
-                            await databaseService.InitializeDatabaseAsync(master_pass);
+                            await databaseService.InitializeDatabaseAsync(masterPass);
                             sfvm.IsRefreshing = true;
                         }
                     }

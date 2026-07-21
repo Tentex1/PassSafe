@@ -173,7 +173,7 @@
         [RelayCommand]
         private async Task AddPasswordAsync()
         {
-            var masterPass = await SecureStorage.GetAsync("master_pass");
+            var masterPass = await SecureStorage.GetAsync("masterPass");
 
             if (string.IsNullOrEmpty(masterPass))
             {

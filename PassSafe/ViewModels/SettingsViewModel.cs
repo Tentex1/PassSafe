@@ -15,27 +15,6 @@
         [ObservableProperty]
         private bool isExportSuccessfull = false;
 
-        async partial void OnIsImportSuccessfullChanged(bool value)
-        {
-            if (IsImportSuccessfull == true)
-            {
-                var popup = new ImportDatabaseVerifyPopup();
-                var popupVM = App.Services.GetService<ImportDatabaseVerifyViewModel>();
-
-                MainThread.BeginInvokeOnMainThread(async () =>
-                {
-                    await dialogService.ShowPopupAsync(popup);
-                });
-
-                if (popupVM?.IsVerified == true)
-                {
-                    await dialogService.ShowAlertAsync("Başarılı!", "Veritabanınız başarıyla içe aktarıldı.", "Tamam");
-                }
-
-            }
-            else { await dialogService.ShowAlertAsync("Başarısız!", "Veritabanının şifresi yanlış.", "Tamam"); }
-        }
-
         [RelayCommand]
         private async Task ImportDatabaseAsync()
         {
@@ -46,9 +25,15 @@
             try
             {
                 var result = await FilePicker.Default.PickAsync();
-                if (result == null) { IsImportSuccessfull = false; return; }
+                if (result == null) return;      
 
-                string ext = Path.GetExtension(result.FullPath).ToLower();
+                string ext = Path.GetExtension(result.FileName).ToLower();
+
+                if (!ext.EndsWith("sqlite") && !ext.EndsWith("db") && !ext.EndsWith("db3"))
+                {
+                    await dialogService.ShowAlertAsync("Hata", "Lütfen geçerli bir SQLite veritabanı dosyası seçin.", "Tamam");
+                    return;
+                }
 
                 if (File.Exists(targetPath))
                 {
@@ -56,22 +41,45 @@
                     backupCreated = true;
                 }
 
-                if (ext.EndsWith("sqlite") || ext.EndsWith("db") || ext.EndsWith("db3"))
+                using (var sourceStream = await result.OpenReadAsync())
+                using (var targetStream = File.Create(targetPath))
                 {
-                    File.Copy(result.FullPath, targetPath, overwrite: true);
-                    IsImportSuccessfull = true;
+                    await sourceStream.CopyToAsync(targetStream);
                 }
-                else { IsImportSuccessfull = false; }
+
+                var popup = new ImportDatabaseVerifyPopup();
+                var popupVM = App.Services.GetService<ImportDatabaseVerifyViewModel>();
+
+                await dialogService.ShowPopupAsync(popup);
+
+                if (popupVM?.IsVerified == true)
+                {
+                    await dialogService.ShowAlertAsync("Başarılı!", "Veritabanınız başarıyla içe aktarıldı.", "Tamam");
+                    
+                    if (backupCreated && File.Exists(backupPath))
+                    {
+                        File.Delete(backupPath);
+                    }
+                }
+                else
+                {
+                    await dialogService.ShowAlertAsync("Başarısız!", "Veritabanının şifresi doğrulanamadı. Değişiklikler geri alınıyor.", "Tamam");
+                    RestoreBackup(backupPath, targetPath, backupCreated);
+                }
             }
             catch (Exception ex)
             {
-                if (backupCreated && File.Exists(backupPath))
-                {
-                    File.Copy(backupPath, targetPath, overwrite: true);
-                    File.Delete(backupPath);
-                }
+                RestoreBackup(backupPath, targetPath, backupCreated);
                 await dialogService.ShowErrorAsync(ex);
-                IsImportSuccessfull = false;
+            }
+        }
+
+        private void RestoreBackup(string backupPath, string targetPath, bool backupCreated)
+        {
+            if (backupCreated && File.Exists(backupPath))
+            {
+                File.Copy(backupPath, targetPath, overwrite: true);
+                File.Delete(backupPath);
             }
         }
 
@@ -88,7 +96,6 @@
                     return;
                 }
 
-                // FileShare.ReadWrite sayesinde SQLite arkada açık olsa bile dosyayı okuyabilirsin
                 using var stream = new FileStream(dbPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
                 var fileSaverResult = await FileSaver.Default.SaveAsync("passwords_backup.sqlite", stream, CancellationToken.None);
@@ -99,7 +106,7 @@
                 }
                 else
                 {
-                    await Toast.Make("Veritabanı dışa aktarımı iptal edildi veya başarısız oldu!").Show();
+                    await Toast.Make("Veritabanı dışa aktarımı iptal edildi.").Show();
                 }
             }
             catch (Exception ex)

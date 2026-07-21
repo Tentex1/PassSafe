@@ -21,7 +21,6 @@ namespace PassSafe
             InitializeComponent();
             UserAppTheme = PlatformAppTheme;
             Services = serviceProvider;
-            // 1. Platforma özel rengi çekiyoruz
             Color systemColor = null;
 #if ANDROID
             systemColor = PlatformThemeHelper.GetAndroidAccentColor();
@@ -37,11 +36,8 @@ namespace PassSafe
                 {
                     if (dictionary.ContainsKey("Primary"))
                     {
-                        // 1. Primary anahtarını SAF COLOR olarak ez (BackgroundColor'lar düzelir)
                         dictionary["Primary"] = systemColor;
 
-                        // 2. Eğer projedeki elementler fırça (Background) üzerinden besleniyorsa 
-                        // Colors.xaml'ındaki PrimaryBrush'ı da ez ki orası da kurtulsun:
                         if (dictionary.ContainsKey("PrimaryBrush"))
                         {
                             dictionary["PrimaryBrush"] = new SolidColorBrush(systemColor);
@@ -59,7 +55,6 @@ namespace PassSafe
             }
 
         }
-
         public static IDictionary<string, Type> Routes => _routes;
     }
 }

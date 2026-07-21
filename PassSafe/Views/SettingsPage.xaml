@@ -79,7 +79,7 @@
                     </Border.StrokeShape>
 
                     <HorizontalStackLayout Spacing="15">
-                        <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=Password}}" Text="Şifreyi değişttir" />
+                        <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=Password}" Text="Şifreyi değişttir" />
                     </HorizontalStackLayout>
                 </Border>
             </VerticalStackLayout>
