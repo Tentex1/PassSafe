@@ -2,7 +2,7 @@
 <ContentPage x:Class="PassSafe.Views.SafePage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:PassSafe.Converters" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:models="clr-namespace:PassSafe.Models" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:vm="clr-namespace:PassSafe.ViewModels"
-             Title="Kasa"
+             x:Name="RootPage" Title="Kasa"
              x:DataType="vm:SafeViewModel"
              BindingContext="{Binding SafeViewModel, Source={StaticResource VMLocator}}">
 
@@ -16,7 +16,7 @@
             <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="12" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="Scale" Value="1.0" />
+            <Setter Property="Padding" Value="15,5" />
 
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -44,37 +44,29 @@
         <Grid Grid.Row="0"
               Margin="15,15,15,0"
               ColumnDefinitions="*, Auto">
+
             <ScrollView Grid.Column="0"
                         HorizontalScrollBarVisibility="Never" Orientation="Horizontal" VerticalScrollBarVisibility="Never">
-                <HorizontalStackLayout Spacing="10">
 
-                    <Button Command="{Binding SelectCategoryCommand}"
-                            CommandParameter="Hepsi"
-                            Style="{StaticResource CategoryButton}"
-                            Text="Hepsi">
-                        <Button.Triggers>
-                            <DataTrigger Binding="{Binding SelectedCategory}"
-                                         TargetType="Button"
-                                         Value="Hepsi">
-                                <Setter Property="BackgroundColor" Value="#ff3040" />
-                            </DataTrigger>
-                        </Button.Triggers>
-                    </Button>
-
-                    <Button Command="{Binding SelectCategoryCommand}"
-                            CommandParameter="Favoriler"
-                            Style="{StaticResource CategoryButton}"
-                            Text="Favoriler">
-                        <Button.Triggers>
-                            <DataTrigger Binding="{Binding SelectedCategory}"
-                                         TargetType="Button"
-                                         Value="Favoriler">
-                                <Setter Property="BackgroundColor" Value="#ff3040" />
-                            </DataTrigger>
-                        </Button.Triggers>
-                    </Button>
-
+                <HorizontalStackLayout BindableLayout.ItemsSource="{Binding Categories}" Spacing="10">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="vm:CategoryItem">
+                            <Button Command="{Binding BindingContext.SelectCategoryCommand, Source={x:Reference RootPage}}"
+                                    CommandParameter="{Binding .}"
+                                    Style="{StaticResource CategoryButton}"
+                                    Text="{Binding Name}">
+                                <Button.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected}"
+                                                 TargetType="Button"
+                                                 Value="True">
+                                        <Setter Property="BackgroundColor" Value="#ff3040" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
                 </HorizontalStackLayout>
+
             </ScrollView>
 
             <Button Grid.Column="1"
@@ -84,12 +76,14 @@
                     HorizontalOptions="End" VerticalOptions="Center" />
         </Grid>
 
-        <RefreshView Grid.Row="1" IsRefreshing="{Binding IsRefreshing}">
+        <RefreshView Grid.Row="1"
+                     Command="{Binding LoadPasswordsCommand}"
+                     IsRefreshing="{Binding IsRefreshing}">
             <CollectionView Margin="20" ItemsSource="{Binding CollectionViewItemSource}">
                 <CollectionView.EmptyViewTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <Label HorizontalOptions="Center"
-                               Text="{Binding SafeViewModel.DbStatus, Source={StaticResource VMLocator}}"
+                               Text="{Binding BindingContext.DbStatus, Source={x:Reference RootPage}}"
                                VerticalOptions="Center" />
                     </DataTemplate>
                 </CollectionView.EmptyViewTemplate>
@@ -102,16 +96,13 @@
                             <SwipeView.RightItems>
                                 <SwipeItems Mode="Execute">
                                     <SwipeItemView Margin="2"
-                                                   Command="{Binding SafeViewModel.DeletePasswordCommand, Source={StaticResource VMLocator}}"
-                                                   CommandParameter="{Binding Id}">
-
+                                                   Command="{Binding BindingContext.DeletePasswordCommand, Source={x:Reference RootPage}}"
+                                                   CommandParameter="{Binding .}">
                                         <Border Margin="5" Padding="0"
                                                 Background="{DynamicResource Primary}"
                                                 StrokeShape="RoundRectangle 12" StrokeThickness="0" WidthRequest="80">
-
                                             <Label mi:MauiIcon.Value="{mi:MaterialSharp Icon=Delete}"
                                                    FontSize="28" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center" />
-
                                         </Border>
                                     </SwipeItemView>
                                 </SwipeItems>
@@ -119,12 +110,10 @@
                             <SwipeView.LeftItems>
                                 <SwipeItems Mode="Reveal">
                                     <SwipeItemView Margin="2"
-                                                   Command="{Binding SafeViewModel.SetFavoritePasswordCommand, Source={StaticResource VMLocator}}"
+                                                   Command="{Binding BindingContext.SetFavoritePasswordCommand, Source={x:Reference RootPage}}"
                                                    CommandParameter="{Binding .}">
-
                                         <Border Margin="5" Padding="0"
                                                 BackgroundColor="#ff3040" StrokeShape="RoundRectangle 12" StrokeThickness="0" WidthRequest="80">
-
                                             <Label FontSize="28" HorizontalOptions="Center" TextColor="White" VerticalOptions="Center">
                                                 <Label.Triggers>
                                                     <DataTrigger Binding="{Binding IsFavorited}"
@@ -132,7 +121,6 @@
                                                                  Value="True">
                                                         <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=ExposureMinus1}" />
                                                     </DataTrigger>
-
                                                     <DataTrigger Binding="{Binding IsFavorited}"
                                                                  TargetType="Label"
                                                                  Value="False">
@@ -140,13 +128,13 @@
                                                     </DataTrigger>
                                                 </Label.Triggers>
                                             </Label>
-
                                         </Border>
                                     </SwipeItemView>
                                 </SwipeItems>
                             </SwipeView.LeftItems>
                             <Border StrokeShape="RoundRectangle 20">
                                 <Grid ColumnDefinitions="Auto,*,Auto">
+
                                     <Border Grid.Column="0"
                                             Margin="10"
                                             BackgroundColor="#181830" StrokeShape="RoundRectangle 20" StrokeThickness="0">
@@ -163,36 +151,83 @@
                                                              Spacing="5" VerticalOptions="Center">
 
                                             <Label FontAttributes="Bold" Text="{Binding Title}" />
-                                            <Label Text="{Binding UserName}" />
+                                            <Label FontSize="13"
+                                                   Text="{Binding UserName}"
+                                                   TextColor="#A0A0A0" />
+
+                                            <Label FontAttributes="Bold" FontSize="15"
+                                                   Text="{Binding DisplayPassword}"
+                                                   TextColor="{DynamicResource Primary}" />
+
                                             <HorizontalStackLayout Spacing="5">
                                                 <ProgressBar Progress="{Binding SecurityProgress}" WidthRequest="70" />
-                                                <Label Text="{Binding SecurityStatus}" />
+                                                <Label FontSize="11" Text="{Binding SecurityStatus}" />
                                             </HorizontalStackLayout>
                                         </VerticalStackLayout>
                                     </Border>
 
                                     <Grid Grid.Column="2"
                                           Margin="0,0,10,0"
-                                          ColumnDefinitions="Auto,Auto,Auto" ColumnSpacing="3" VerticalOptions="Center">
+                                          ColumnDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnSpacing="3" VerticalOptions="Center">
 
                                         <Button Grid.Column="0"
-                                                mi:MauiIcon.Value="{mi:MaterialSharp Icon=Visibility}"
-                                                Command="{Binding SafeViewModel.ShowPasswordCommand, Source={StaticResource VMLocator}}"
-                                                CommandParameter="{Binding EncryptedPassword}"
-                                                ToolTipProperties.Text="Show Password">
+                                                BackgroundColor="{DynamicResource Primary}"
+                                                Command="{Binding BindingContext.SetFavoritePasswordCommand, Source={x:Reference RootPage}}"
+                                                CommandParameter="{Binding .}"
+                                                ToolTipProperties.Text="Favorilere Ekle/Çıkar">
                                             <Button.WidthRequest>
                                                 <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
                                             </Button.WidthRequest>
                                             <Button.HeightRequest>
                                                 <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
                                             </Button.HeightRequest>
+                                            <Button.Triggers>
+                                                <DataTrigger Binding="{Binding IsFavorited}"
+                                                             TargetType="Button"
+                                                             Value="False">
+                                                    <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=FavoriteBorder}" />
+                                                    <Setter Property="mi:MauiIcon.IconColor" Value="Gray" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsFavorited}"
+                                                             TargetType="Button"
+                                                             Value="True">
+                                                    <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=Favorite}" />
+                                                    <Setter Property="mi:MauiIcon.IconColor" Value="#ff3040" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
                                         </Button>
 
                                         <Button Grid.Column="1"
+                                                BackgroundColor="{DynamicResource Primary}"
+                                                Command="{Binding BindingContext.ShowPasswordCommand, Source={x:Reference RootPage}}"
+                                                CommandParameter="{Binding .}"
+                                                ToolTipProperties.Text="Şifreyi Göster/Gizle">
+                                            <Button.WidthRequest>
+                                                <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
+                                            </Button.WidthRequest>
+                                            <Button.HeightRequest>
+                                                <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
+                                            </Button.HeightRequest>
+                                            <Button.Triggers>
+                                                <DataTrigger Binding="{Binding IsPasswordVisible}"
+                                                             TargetType="Button"
+                                                             Value="False">
+                                                    <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=Visibility}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsPasswordVisible}"
+                                                             TargetType="Button"
+                                                             Value="True">
+                                                    <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=VisibilityOff}" />
+                                                    <Setter Property="mi:MauiIcon.IconColor" Value="{DynamicResource Primary}" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+
+                                        <Button Grid.Column="2"
                                                 mi:MauiIcon.Value="{mi:MaterialSharp Icon=ContentCopy}"
-                                                Command="{Binding SafeViewModel.CopyPasswordCommand, Source={StaticResource VMLocator}}"
+                                                Command="{Binding BindingContext.CopyPasswordCommand, Source={x:Reference RootPage}}"
                                                 CommandParameter="{Binding EncryptedPassword}"
-                                                ToolTipProperties.Text="Copy Password">
+                                                ToolTipProperties.Text="Şifreyi Kopyala">
                                             <Button.WidthRequest>
                                                 <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
                                             </Button.WidthRequest>
@@ -201,11 +236,24 @@
                                             </Button.HeightRequest>
                                         </Button>
 
-                                        <Button Grid.Column="2"
+                                        <Button Grid.Column="3"
+                                                mi:MauiIcon.Value="{mi:MaterialSharp Icon=Edit}"
+                                                Command="{Binding BindingContext.EditPasswordCommand, Source={x:Reference RootPage}}"
+                                                CommandParameter="{Binding .}"
+                                                ToolTipProperties.Text="Şifreyi Düzenle">
+                                            <Button.WidthRequest>
+                                                <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
+                                            </Button.WidthRequest>
+                                            <Button.HeightRequest>
+                                                <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
+                                            </Button.HeightRequest>
+                                        </Button>
+
+                                        <Button Grid.Column="4"
                                                 mi:MauiIcon.Value="{mi:MaterialSharp Icon=Delete}"
-                                                Command="{Binding SafeViewModel.DeletePasswordCommand, Source={StaticResource VMLocator}}"
-                                                CommandParameter="{Binding Id}"
-                                                HeightRequest="70" ToolTipProperties.Text="Delete password" WidthRequest="70">
+                                                Command="{Binding BindingContext.DeletePasswordCommand, Source={x:Reference RootPage}}"
+                                                CommandParameter="{Binding .}"
+                                                HeightRequest="70" ToolTipProperties.Text="Şifreyi Sil" WidthRequest="70">
                                             <Button.IsVisible>
                                                 <OnIdiom x:TypeArguments="x:Boolean" Default="False" Desktop="True" />
                                             </Button.IsVisible>

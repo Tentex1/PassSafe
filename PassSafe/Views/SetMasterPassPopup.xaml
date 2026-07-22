@@ -1,53 +1,79 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mopups:PopupPage x:Class="PassSafe.Views.SetMasterPassPopup"
                   xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
-                  x:DataType="viewmodels:SetMasterPassViewModel" BackgroundColor="#B3000000"
+                  xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
+                  x:DataType="viewmodels:SetMasterPassViewModel" BackgroundColor="#CC000000"
                   BindingContext="{Binding SetMasterPassViewModel, Source={StaticResource VMLocator}}"
-                  CloseWhenBackgroundIsClicked="False" NavigationPage.HasNavigationBar="False">
+                  CloseWhenBackgroundIsClicked="False">
 
-    <Border BackgroundColor="{AppThemeBinding Dark=#181818,
-                                              Light=#FAF9F6}"
-            HorizontalOptions="Center" StrokeShape="RoundRectangle 12" StrokeThickness="0" VerticalOptions="Center">
-        <Border.Resources>
-            <Style TargetType="Label">
-                <Setter Property="TextColor" Value="{AppThemeBinding Dark=#FAF9F6, Light=#1C1917}" />
-            </Style>
-        </Border.Resources>
+    <Border BackgroundColor="{AppThemeBinding Dark=#1E1E1E,
+                                              Light=#FFFFFF}"
+            HorizontalOptions="Center"
+            Stroke="{AppThemeBinding Dark=#333333,
+                                     Light=#E2E8F0}"
+            StrokeShape="RoundRectangle 16" StrokeThickness="1" VerticalOptions="Center">
         <Border.WidthRequest>
-            <OnIdiom Default="350" Desktop="500" />
+            <OnIdiom Default="350" Desktop="450" />
         </Border.WidthRequest>
 
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Label FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" Text="Ana Şifre Belirleyin" />
+        <VerticalStackLayout Padding="25" Spacing="15">
+            <mi:MauiIcon HorizontalOptions="Center"
+                         Icon="{mi:MaterialSharp Icon=Lock}"
+                         IconColor="{DynamicResource Primary}"
+                         IconSize="40" />
+            <Label FontAttributes="Bold" FontSize="22" HorizontalOptions="Center" Text="Kasanızı Oluşturun"
+                   TextColor="{AppThemeBinding Dark=#E2E8F0,
+                                               Light=#1e293b}" />
+            <Label Margin="0,0,0,10"
+                   FontSize="13" HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Verilerinizi şifrelemek için güçlü bir ana parola belirleyin." TextColor="Gray" />
 
-            <Entry IsPassword="True" Placeholder="Ana Şifre*"
+            <Entry IsPassword="True" Placeholder="Ana Şifre"
                    Text="{Binding MasterPass}"
-                   TextColor="{Binding MasterPassRepeatColor}" />
-
-            <Entry IsPassword="True" Placeholder="Ana Şifre* (Tekrar)"
+                   TextColor="{AppThemeBinding Dark=White,
+                                               Light=Black}" />
+            <Entry IsPassword="True" Placeholder="Ana Şifre (Tekrar)"
                    Text="{Binding MasterPassRepeat}"
-                   TextColor="{Binding MasterPassRepeatColor}" />
+                   TextColor="{AppThemeBinding Dark=White,
+                                               Light=Black}" />
 
-            <Picker Title="Güvenlik Soruları" SelectedItem="{Binding SecurityQuestion}">
+            <Label FontAttributes="Bold" FontSize="12" HorizontalOptions="End"
+                   IsVisible="{Binding ErrorMessage, Converter={toolkit:IsNotNullConverter}}"
+                   Text="{Binding ErrorMessage}"
+                   TextColor="#FF3040" />
+
+            <Picker Title="Güvenlik Sorusu Seçin"
+                    SelectedItem="{Binding SecurityQuestion}"
+                    TextColor="{AppThemeBinding Dark=White,
+                                                Light=Black}">
                 <Picker.Items>
                     <x:String>İlk evcil hayvanın adı nedir?</x:String>
                     <x:String>Doğduğun şehrin adı nedir?</x:String>
-                    <x:String>Çocukken büyüdüğün sokak/caddenin adı neydi?</x:String>
-                    <x:String>İlk işinden kazandığın ilk maaşla ne satın almıştın?</x:String>
-                    <x:String>Gittiğin ilk yurt dışı veya şehir dışı tatil yeri neresiydi?</x:String>
+                    <x:String>Çocukken büyüdüğün sokağın adı?</x:String>
+                    <x:String>İlk maaşınla ne satın almıştın?</x:String>
+                    <x:String>Gittiğin ilk tatil yeri neresiydi?</x:String>
                 </Picker.Items>
             </Picker>
 
-            <Entry Text="{Binding SecurityQuestionAnswer, Mode=TwoWay}" />
+            <Entry Placeholder="Güvenlik Cevabı"
+                   Text="{Binding SecurityQuestionAnswer, Mode=TwoWay}"
+                   TextColor="{AppThemeBinding Dark=White,
+                                               Light=Black}" />
 
-            <Button Command="{Binding SetMasterPassCommand}"
+            <Button Margin="0,10,0,0"
+                    Command="{Binding SetMasterPassCommand}"
+                    CornerRadius="8" FontAttributes="Bold"
                     IsEnabled="{Binding AreConditionsMet}"
-                    Text="Kaydet" />
+                    Text="KASAYI OLUŞTUR" />
 
-            <Border />
+            <BoxView Margin="0,5"
+                     HeightRequest="1"
+                     Color="{AppThemeBinding Dark=#333333,
+                                             Light=#E2E8F0}" />
 
-            <Button Command="{Binding ImportOldDatabaseCommand}" Text="Veya eski bir veritabanını yükleyin" />
+            <Button BackgroundColor="Transparent"
+                    Command="{Binding ImportOldDatabaseCommand}"
+                    FontAttributes="Bold" Text="Yedekten Geri Yükle"
+                    TextColor="{DynamicResource Primary}" />
         </VerticalStackLayout>
     </Border>
 </mopups:PopupPage>

@@ -8,159 +8,200 @@ namespace PassSafe.ViewModels
     using PassSafe.Models;
     using PassSafe.Services;
     using PassSafe.Views;
+    using PassSafe.Messages;    
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Threading.Tasks;
 
-    public partial class SafeViewModel : ObservableObject
+    public partial class CategoryItem : ObservableObject
     {
+        [ObservableProperty]
+        private string name;
+
+        [ObservableProperty]
+        private bool isSelected;
+    }
+
+    public partial class SafeViewModel : ObservableObject, IRecipient<CategoryAddedMessage>
+    {
+        private readonly IDialogService _dialogService;
+        private readonly IDatabaseService _databaseService;
+        private readonly ICryptoService _cryptoService;
+
         private string masterPass;
-
-        public IDialogService _dialogService;
-
-        public IDatabaseService _databaseService;
-
-        public ICryptoService _cryptoService;
+        private List<Password> _allPasswords = new();
 
         [ObservableProperty]
         private ObservableCollection<Password> collectionViewItemSource;
 
         [ObservableProperty]
-        private string selectedCategory = "Hepsi";    
+        private ObservableCollection<CategoryItem> categories;
+
+        [ObservableProperty]
+        private string selectedCategory = "Hepsi";
 
         [ObservableProperty]
         private string dbStatus;
-
-        [ObservableProperty]
-        private ObservableCollection<Password> passwords;
-
-        [ObservableProperty]
-        private ObservableCollection<Password> favoritePasswords;
-
-        [ObservableProperty]
-        private string password;
 
         [ObservableProperty]
         private bool isRefreshing;
 
         public SafeViewModel(ICryptoService cryptoService, IDialogService dialogService, IDatabaseService databaseService)
         {
+            _cryptoService = cryptoService;
             _dialogService = dialogService;
             _databaseService = databaseService;
-            _cryptoService = cryptoService;
+
+            Categories = new ObservableCollection<CategoryItem>
+            {
+                new CategoryItem { Name = "Hepsi", IsSelected = true },
+                new CategoryItem { Name = "Favoriler", IsSelected = false },
+                new CategoryItem { Name = "Sosyal Medya", IsSelected = false },
+                new CategoryItem { Name = "Banka", IsSelected = false },
+                new CategoryItem { Name = "İş", IsSelected = false },
+                new CategoryItem { Name = "Oyun", IsSelected = false }
+            };
+
+            var customCats = Preferences.Get("CustomCategories", "");
+            if (!string.IsNullOrEmpty(customCats))
+            {
+                foreach (var cat in customCats.Split(','))
+                {
+                    Categories.Add(new CategoryItem { Name = cat, IsSelected = false });
+                }
+            }
 
             WeakReferenceMessenger.Default.RegisterAll(this);
+            _ = LoadPasswordsAsync();
+        }
+
+        public void Receive(CategoryAddedMessage message)
+        {
+            if (!Categories.Any(c => c.Name == message.Value))
+            {
+                Categories.Add(new CategoryItem { Name = message.Value, IsSelected = false });
+            }
         }
 
         [RelayCommand]
         private async Task LoadPasswordsAsync()
         {
+            IsRefreshing = true;
+            DbStatus = "Veriler yükleniyor...";
             try
             {
-                masterPass = await SecureStorage.GetAsync("masterPass");
+                if (string.IsNullOrEmpty(masterPass))
+                    masterPass = await SecureStorage.GetAsync("masterPass");
+
                 var dbDatas = await _databaseService.GetDatabaseAsync();
-                if (dbDatas != null)
+
+                if (dbDatas != null && dbDatas.Any())
                 {
-                    Passwords = new ObservableCollection<Password>(dbDatas);
-                    DbStatus = Passwords.Count <= 0 ? "Veriler Yüklendi, Hiç Parolanız yok." : "Veriler Yüklendi";
+                    _allPasswords = dbDatas.ToList();
+                    DbStatus = string.Empty;
                 }
                 else
                 {
-                    Passwords = new ObservableCollection<Password>();
-                    DbStatus = "Veritabanı boş veya yüklenemedi.";
+                    _allPasswords = new List<Password>();
                 }
-
-                if (SelectedCategory == "Hepsi")
-                {
-                    CollectionViewItemSource = Passwords;
-                }
+                FilterPasswords();
             }
             catch (Exception ex)
             {
                 DbStatus = "Veri yükleme hatası!";
-                System.Diagnostics.Debug.WriteLine($"[Load Error] -> {ex.Message}");
+            }
+            finally
+            {
+                IsRefreshing = false;
             }
         }
 
         [RelayCommand]
-        private async Task LoadFavoritesAsync()
+        private void SelectCategory(CategoryItem category)
         {
-            try
-            {
-                masterPass = await SecureStorage.GetAsync("masterPass");
-                var dbDatas = await _databaseService.GetFavoritesAsync();
-                if (dbDatas != null)
-                {
-                    FavoritePasswords = new ObservableCollection<Password>(dbDatas);
-                    DbStatus = Passwords.Count <= 0 ? "Veriler Yüklendi, Hiç Parolanız yok." : "Veriler Yüklendi";
-                }
-                else
-                {
-                    FavoritePasswords = new ObservableCollection<Password>();
-                    DbStatus = "Veritabanı boş veya yüklenemedi.";
-                }
+            if (SelectedCategory == category.Name) return;
 
-                if (SelectedCategory == "Favoriler")
-                {
-                    CollectionViewItemSource = FavoritePasswords;
-                }
-            }
-            catch (Exception ex)
-            {
-                DbStatus = "Veri yükleme hatası!";
-                await _dialogService.ShowErrorAsync(ex);
-            }
+            foreach (var cat in Categories) cat.IsSelected = false;
+
+            category.IsSelected = true;
+            SelectedCategory = category.Name;
+            FilterPasswords();
         }
 
-        partial void OnIsRefreshingChanged(bool value)
+        private void FilterPasswords()
         {
-            if (value)
-            {
-                DbStatus = "Veriler denetleniyor";
+            if (_allPasswords == null) return;
+            IEnumerable<Password> filteredList;
 
-                MainThread.BeginInvokeOnMainThread(async () =>
-                {
-                    await LoadPasswordsAsync();
-                    await LoadFavoritesAsync();
-                    IsRefreshing = false;
-                });
-            }
+            if (SelectedCategory == "Hepsi") filteredList = _allPasswords;
+            else if (SelectedCategory == "Favoriler") filteredList = _allPasswords.Where(p => p.IsFavorited);
+            else filteredList = _allPasswords.Where(p => p.Category == SelectedCategory);
+
+            CollectionViewItemSource = new ObservableCollection<Password>(filteredList);
+
+            if (!CollectionViewItemSource.Any())
+                DbStatus = SelectedCategory == "Hepsi" ? "Hiç parolanız yok." : "Bu kategoride parola bulunamadı.";
+            else
+                DbStatus = string.Empty;
         }
 
         [RelayCommand]
-        private async Task ShowAddPasswordPopup() => await _dialogService.ShowPopupAsync(new AddPasswordPopup());
+        private async Task ShowAddPasswordPopup()
+        {
+            var vm = App.Services.GetService<AddPasswordViewModel>();
+            await _dialogService.ShowPopupAsync(new AddPasswordPopup(vm));
+        }
 
         [RelayCommand]
-        private async Task ShowPassword(string password)
+        private async Task EditPassword(Password password)
         {
             if (string.IsNullOrEmpty(masterPass))
-            {
                 masterPass = await SecureStorage.GetAsync("masterPass");
+
+            var decrypted = _cryptoService.Decrypt(password.EncryptedPassword, masterPass);
+
+            var vm = App.Services.GetService<AddPasswordViewModel>();
+            vm.LoadPasswordForEdit(password, decrypted);
+
+            await _dialogService.ShowPopupAsync(new AddPasswordPopup(vm));
+        }
+
+        [RelayCommand]
+        private async Task ShowPassword(Password password)
+        {
+            if (password.IsPasswordVisible)
+            {
+                password.DisplayPassword = "••••••••";
+                password.IsPasswordVisible = false;
             }
-            var passSolution = _cryptoService.Decrypt(password, masterPass);
-            await _dialogService.ShowAlertAsync("", passSolution, "OK");
+            else
+            {
+                if (string.IsNullOrEmpty(masterPass)) masterPass = await SecureStorage.GetAsync("masterPass");
+                password.DisplayPassword = _cryptoService.Decrypt(password.EncryptedPassword, masterPass);
+                password.IsPasswordVisible = true;
+            }
         }
 
         [RelayCommand]
         private async Task CopyPassword(string password)
         {
-            if (string.IsNullOrEmpty(masterPass))
-            {
-                masterPass = await SecureStorage.GetAsync("masterPass");
-            }
+            if (string.IsNullOrEmpty(masterPass)) masterPass = await SecureStorage.GetAsync("masterPass");
             var pass = _cryptoService.Decrypt(password, masterPass);
             await Clipboard.SetTextAsync(pass);
-            await Toast.Make("Şifre panoya kopyalandı", CommunityToolkit.Maui.Core.ToastDuration.Short, 14).Show();
+            await Toast.Make("Şifre panoya kopyalandı").Show();
         }
 
         [RelayCommand]
-        private async Task DeletePasswordAsync(int id)
+        private async Task DeletePasswordAsync(Password password)
         {
-            var dialog = await _dialogService.ShowConfirmAsync("Delete Password?", "Are you sure you want to delete this password? This action cannot be undone.", "Delete", "Cancel");
+            var dialog = await _dialogService.ShowConfirmAsync("Parolayı Sil", "Bu parolayı silmek istediğinize emin misiniz?", "Sil", "İptal");
             if (dialog == true)
             {
-                await _databaseService.DeletePasswordAsync(id);
-                IsRefreshing = true;
+                await _databaseService.DeletePasswordAsync(password.Id);
+                _allPasswords.Remove(password);
+                FilterPasswords();
             }
         }
 
@@ -169,36 +210,8 @@ namespace PassSafe.ViewModels
         {
             password.IsFavorited = !password.IsFavorited;
             await _databaseService.UpdatePasswordAsync(password);
-
-            await LoadFavoritesAsync();
-
-            if (SelectedCategory == "Favoriler")
-            {
-                CollectionViewItemSource = FavoritePasswords;
-            }
-
-            System.Diagnostics.Debug.WriteLine("parola updatelendi");
-        }
-
-        [RelayCommand]
-        private async Task SelectCategoryAsync(string categoryName)
-        {
-            SelectedCategory = categoryName;
-
-            if (categoryName == "Favoriler")
-            {
-                await LoadFavoritesAsync();
-                CollectionViewItemSource = FavoritePasswords;
-            }
-            else if (categoryName == "Hepsi")
-            {
-                await LoadPasswordsAsync();
-                CollectionViewItemSource = Passwords;
-            }
-            else
-            {
-                CollectionViewItemSource = Passwords;
-            }
+            FilterPasswords();
+            await Toast.Make(password.IsFavorited ? "Favorilere eklendi ❤️" : "Favorilerden çıkarıldı 💔").Show();
         }
     }
 }

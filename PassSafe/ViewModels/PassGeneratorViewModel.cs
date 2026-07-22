@@ -2,13 +2,14 @@
 {
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Maui.Alerts;
+    using Microsoft.Maui.ApplicationModel.DataTransfer;
     using PassSafe.Helpers;
     using PassSafe.Views;
+    using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
-    /// <summary>
-    /// Defines the <see cref="PassGeneratorViewModel" />
-    /// </summary>
     public partial class PassGeneratorViewModel : ObservableObject
     {
         [ObservableProperty]
@@ -29,54 +30,41 @@
         [ObservableProperty]
         private int generatedPassLength = 8;
 
-        List<char> alphabetUpper = new List<char>
-        {
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-        };
-
-        List<char> alphabetLower = new List<char>
-        {
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
-        };
-
-        List<char> digits = new List<char>
-        {
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-        };
-
-        List<char> passwordSymbols = new List<char>
-        {
-            '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '='
-        };
-
+        // RAM Tasarrufu için Readonly Diziler
+        private readonly char[] _alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        private readonly char[] _alphabetLower = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
+        private readonly char[] _digits = "0123456789".ToCharArray();
+        private readonly char[] _passwordSymbols = "!@#$%^&*()-_+=".ToCharArray();
 
         public PassGeneratorViewModel()
         {
-            GeneratePasswordCommand.Execute(null);
+            GeneratePassword();
         }
+
+        // Anahtarlar kapatılıp/açıldığında Şifreyi Anında Yenile!
+        partial void OnIsUseUpperLetterChanged(bool value) => GeneratePassword();
+        partial void OnIsUseLowerLetterChanged(bool value) => GeneratePassword();
+        partial void OnIsUseNumbersChanged(bool value) => GeneratePassword();
+        partial void OnIsUseSymbolsChanged(bool value) => GeneratePassword();
+        partial void OnGeneratedPassLengthChanged(int value) => GeneratePassword();
 
         [RelayCommand]
         private void GeneratePassword()
         {
             List<char> dynamicPool = new List<char>();
 
-            if (IsUseUpperLetter) dynamicPool.AddRange(alphabetUpper);
-            if (IsUseLowerLetter) dynamicPool.AddRange(alphabetLower);
-            if (IsUseNumbers) dynamicPool.AddRange(digits);
-            if (IsUseSymbols) dynamicPool.AddRange(passwordSymbols);
+            if (IsUseUpperLetter) dynamicPool.AddRange(_alphabetUpper);
+            if (IsUseLowerLetter) dynamicPool.AddRange(_alphabetLower);
+            if (IsUseNumbers) dynamicPool.AddRange(_digits);
+            if (IsUseSymbols) dynamicPool.AddRange(_passwordSymbols);
 
             if (dynamicPool.Count == 0)
             {
-                GeneratedPass = "Lütfen en az bir seçenek seçin!";
+                GeneratedPass = "Seçim Yapın!";
                 return;
             }
 
-            int passwordLength = GeneratedPassLength;
-
-            char[] chosenChars = Random.Shared.GetItems(dynamicPool.ToArray(), passwordLength);
-
+            char[] chosenChars = Random.Shared.GetItems(dynamicPool.ToArray(), GeneratedPassLength);
             GeneratedPass = new string(chosenChars);
         }
 
@@ -84,6 +72,7 @@
         private async Task CopyPassword()
         {
             await Clipboard.Default.SetTextAsync(GeneratedPass);
+            await Toast.Make("Şifre kopyalandı!").Show();
         }
 
         [RelayCommand]

@@ -1,48 +1,78 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mopups:PopupPage x:Class="PassSafe.Views.ImportDatabaseVerifyPopup"
                   xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
-                  x:DataType="viewmodels:ImportDatabaseVerifyViewModel" BackgroundColor="#B3000000"
+                  xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
+                  x:DataType="viewmodels:ImportDatabaseVerifyViewModel" BackgroundColor="#CC000000"
                   BindingContext="{Binding ImportDatabaseVerifyViewModel, Source={StaticResource VMLocator}}"
-                  CloseWhenBackgroundIsClicked="False" NavigationPage.HasNavigationBar="False">
+                  CloseWhenBackgroundIsClicked="False">
 
-    <Border BackgroundColor="{AppThemeBinding Dark=#181818,
-                                              Light=#FAF9F6}"
-            HorizontalOptions="Center" StrokeShape="RoundRectangle 12" StrokeThickness="0" VerticalOptions="Center">
-        <Border.Resources>
-            <Style TargetType="Label">
-                <Setter Property="TextColor" Value="{AppThemeBinding Dark=#FAF9F6, Light=#1C1917}" />
-            </Style>
-        </Border.Resources>
+    <Border BackgroundColor="{AppThemeBinding Dark=#1E1E1E,
+                                              Light=#FFFFFF}"
+            HorizontalOptions="Center"
+            Stroke="{AppThemeBinding Dark=#333333,
+                                     Light=#E2E8F0}"
+            StrokeShape="RoundRectangle 16" StrokeThickness="1" VerticalOptions="Center">
         <Border.WidthRequest>
-            <OnIdiom Default="350" Desktop="500" />
+            <OnIdiom Default="350" Desktop="450" />
         </Border.WidthRequest>
 
-        <VerticalStackLayout Padding="20" Spacing="12">
-            <Label FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" Text="Veritabanı İçe Aktar" />
+        <VerticalStackLayout Padding="25" Spacing="15">
+            <mi:MauiIcon HorizontalOptions="Center"
+                         Icon="{mi:MaterialSharp Icon=Restore}"
+                         IconColor="{DynamicResource Primary}"
+                         IconSize="40" />
+            <Label FontAttributes="Bold" FontSize="22" HorizontalOptions="Center" Text="Yedekten Dön"
+                   TextColor="{AppThemeBinding Dark=#E2E8F0,
+                                               Light=#1e293b}" />
 
-            <Label HorizontalOptions="Center"
+            <Label Margin="0,0,0,10"
+                   FontSize="12" HorizontalOptions="Center" HorizontalTextAlignment="Center"
                    Text="{Binding InfoText}"
                    TextColor="{Binding InfoTextColor}" />
 
-            <Entry IsPassword="True" Placeholder="Veritabanı Ana Şifresi*"
-                   Text="{Binding MasterPass}" />
+            <Border Padding="10,0"
+                    BackgroundColor="{AppThemeBinding Dark=#252525,
+                                                      Light=#F1F5F9}"
+                    StrokeShape="RoundRectangle 8" StrokeThickness="0">
+                <Entry IsPassword="True" Placeholder="Eski Ana Şifreniz"
+                       Text="{Binding MasterPass}"
+                       TextColor="{AppThemeBinding Dark=White,
+                                                   Light=Black}" />
+            </Border>
 
-            <Picker Title="Güvenlik Sorusu Seçin*" SelectedItem="{Binding SecurityQuestion}">
-                <Picker.Items>
-                    <x:String>İlk evcil hayvanın adı nedir?</x:String>
-                    <x:String>Doğduğun şehrin adı nedir?</x:String>
-                    <x:String>Çocukken büyüdüğün sokak/caddenin adı neydi?</x:String>
-                    <x:String>İlk işinden kazandığın ilk maaşla ne satın almıştın?</x:String>
-                    <x:String>Gittiğin ilk yurt dışı veya şehir dışı tatil yeri neresiydi?</x:String>
-                </Picker.Items>
-            </Picker>
+            <Border Padding="10,0"
+                    BackgroundColor="{AppThemeBinding Dark=#252525,
+                                                      Light=#F1F5F9}"
+                    StrokeShape="RoundRectangle 8" StrokeThickness="0">
+                <Picker Title="Güvenlik Sorusu Seçin"
+                        SelectedItem="{Binding SecurityQuestion}"
+                        TextColor="{AppThemeBinding Dark=White,
+                                                    Light=Black}">
+                    <Picker.Items>
+                        <x:String>İlk evcil hayvanın adı nedir?</x:String>
+                        <x:String>Doğduğun şehrin adı nedir?</x:String>
+                        <x:String>Çocukken büyüdüğün sokağın adı?</x:String>
+                        <x:String>İlk maaşınla ne satın almıştın?</x:String>
+                        <x:String>Gittiğin ilk tatil yeri neresiydi?</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Border>
 
-            <Entry Placeholder="Güvenlik Sorusu Cevabı*" Text="{Binding SecurityQuestionAnswer, Mode=TwoWay}" />
+            <Border Padding="10,0"
+                    BackgroundColor="{AppThemeBinding Dark=#252525,
+                                                      Light=#F1F5F9}"
+                    StrokeShape="RoundRectangle 8" StrokeThickness="0">
+                <Entry Placeholder="Güvenlik Cevabı"
+                       Text="{Binding SecurityQuestionAnswer, Mode=TwoWay}"
+                       TextColor="{AppThemeBinding Dark=White,
+                                                   Light=Black}" />
+            </Border>
 
-            <Button Command="{Binding VerifyCommand}"
+            <Button Margin="0,10,0,0"
+                    Command="{Binding VerifyCommand}"
+                    CornerRadius="8" FontAttributes="Bold"
                     IsEnabled="{Binding IsButtonEnabled}"
-                    Text="Doğrula ve Kaydet" />
+                    Text="DOĞRULA VE YÜKLE" />
         </VerticalStackLayout>
     </Border>
 </mopups:PopupPage>

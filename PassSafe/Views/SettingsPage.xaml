@@ -5,115 +5,207 @@
              Title="Ayarlar"
              x:DataType="viewmodels:SettingsViewModel"
              BindingContext="{Binding SettingsViewModel, Source={StaticResource VMLocator}}">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark=#E2E8F0, Light=#1e293b}" />
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="TextColor" Value="{DynamicResource Primary}" />
+            <Setter Property="TitleColor" Value="Gray" />
+        </Style>
+        <!--  Ayar kartları için ortak tasarım  -->
+        <Style x:Key="SettingsCardStyle" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#1E1E1E, Light=#FFFFFF}" />
+            <Setter Property="Stroke" Value="{AppThemeBinding Dark=#333333, Light=#E2E8F0}" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="Padding" Value="15,10" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+        </Style>
+    </ContentPage.Resources>
+
     <ScrollView>
-        <Grid Margin="15"
-              RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="15">
-            <Label Grid.Row="0"
-                   FontAttributes="Bold" FontSize="25" Text="Ayarlar" />
+        <VerticalStackLayout Margin="15,10,15,30" Spacing="25">
 
-            <VerticalStackLayout Grid.Row="1" Spacing="10">
-                <VerticalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ImportDatabaseCommand}" />
-                </VerticalStackLayout.GestureRecognizers>
-                <Label FontAttributes="Bold" FontSize="18" Text="Veritabanı" />
-                <Border Padding="24"
-                        Stroke="{DynamicResource Primary}"
-                        StrokeDashArray="5,5" StrokeThickness="2">
+            <Label FontAttributes="Bold" FontSize="28" Text="Ayarlar" />
 
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="12" />
-                    </Border.StrokeShape>
+            <!--  BÖLÜM 1: GÜVENLİK  -->
+            <VerticalStackLayout Spacing="8">
+                <Label Margin="5,0,0,0"
+                       FontAttributes="Bold" FontSize="12" Text="GÜVENLİK" TextColor="Gray" />
+                <VerticalStackLayout Spacing="10">
 
-                    <VerticalStackLayout HorizontalOptions="Center" InputTransparent="True" Spacing="8">
-                        <Image mi:MauiIcon.Value="{mi:MaterialSharp Icon=CloudUpload}"
-                               HeightRequest="36" HorizontalOptions="Center" WidthRequest="36" />
+                    <Border Style="{StaticResource SettingsCardStyle}">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <mi:MauiIcon Grid.Column="0"
+                                         Margin="0,0,15,0"
+                                         Icon="{mi:MaterialSharp Icon=Password}"
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label FontAttributes="Bold" FontSize="15" Text="Ana Şifreyi Değiştir" />
+                                <Label FontSize="12" Text="Kasanıza giriş şifrenizi güncelleyin" TextColor="Gray" />
+                            </VerticalStackLayout>
+                            <mi:MauiIcon Grid.Column="2"
+                                         Icon="{mi:MaterialSharp Icon=ChevronRight}"
+                                         IconColor="Gray" IconSize="24" VerticalOptions="Center" />
+                        </Grid>
+                        <!--  Buraya Şifre değiştirme Command'ini bağlayabilirsin  -->
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding }"/>
+                        </Border.GestureRecognizers>
+                    </Border>
 
-                        <Label FontAttributes="Bold" FontSize="16" HorizontalOptions="Center" Text="SQLite Veritabanı İçe Aktar"
-                               TextColor="{AppThemeBinding Dark=#E2E8F0,
-                                                           Light=#4a4a4a}" />
+                    <Border Style="{StaticResource SettingsCardStyle}">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <mi:MauiIcon Grid.Column="0"
+                                         Margin="0,0,15,0"
+                                         Icon="{mi:MaterialSharp Icon=Timer}"
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label FontAttributes="Bold" FontSize="15" Text="Otomatik Kilitleme" />
+                                <Label FontSize="12" Text="Uygulama arka plana atıldığında kilitlensin" TextColor="Gray" />
+                            </VerticalStackLayout>
+                            <Picker Grid.Column="2"
+                                    HorizontalOptions="End"
+                                    SelectedItem="{Binding AutoLockTime}"
+                                    VerticalOptions="Center" WidthRequest="120">
+                                <Picker.Items>
+                                    <x:String>Anında</x:String>
+                                    <x:String>1 Dakika</x:String>
+                                    <x:String>5 Dakika</x:String>
+                                    <x:String>Asla</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </Border>
 
-                        <Label FontSize="12" HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Sadece .db, .db3 ve .sqlite uzantılı dosyalar desteklenir" TextColor="#FF9800" />
-                    </VerticalStackLayout>
-                </Border>
-                <Border Padding="12,16"
-                        BackgroundColor="Transparent"
-                        Stroke="{DynamicResource Primary}"
-                        StrokeThickness="1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="8" />
-                    </Border.StrokeShape>
+                    <Border Style="{StaticResource SettingsCardStyle}">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <mi:MauiIcon Grid.Column="0"
+                                         Margin="0,0,15,0"
+                                         Icon="{mi:MaterialSharp Icon=ContentPasteOff}"
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label FontAttributes="Bold" FontSize="15" Text="Panoyu Temizle" />
+                                <Label FontSize="12" Text="Kopyalanan şifreyi hafızadan siler" TextColor="Gray" />
+                            </VerticalStackLayout>
+                            <Picker Grid.Column="2"
+                                    HorizontalOptions="End"
+                                    SelectedItem="{Binding ClipboardClearTime}"
+                                    VerticalOptions="Center" WidthRequest="120">
+                                <Picker.Items>
+                                    <x:String>15 Saniye</x:String>
+                                    <x:String>30 Saniye</x:String>
+                                    <x:String>1 Dakika</x:String>
+                                    <x:String>Kapat</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </Border>
 
-                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
-                        <VerticalStackLayout Grid.Column="0"
-                                             InputTransparent="False" Spacing="2">
-                            <VerticalStackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ExportDatabaseCommand}" />
-                            </VerticalStackLayout.GestureRecognizers>
-                            <Label FontAttributes="Bold" FontSize="15" Text="Mevcut Veritabanını Dışa Aktar"
-                                   TextColor="{AppThemeBinding Dark=#E2E8F0,
-                                                               Light=#4a4a4a}" />
-                            <Label FontSize="12" Text="Verilerinizi .sqlite formatında cihazınıza yedekleyin."
-                                   TextColor="{AppThemeBinding Dark=#94A3B8,
-                                                               Light=#4d4c4c}" />
-                        </VerticalStackLayout>
-
-                        <Image Grid.Column="1"
-                               mi:MauiIcon.Value="{mi:MaterialSharp Icon=CloudDownload}"
-                               HeightRequest="40" InputTransparent="True" VerticalOptions="Center" WidthRequest="40" />
-                    </Grid>
-
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer />
-                    </Border.GestureRecognizers>
-                </Border>
+                </VerticalStackLayout>
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Row="2">
-                <Label FontAttributes="Bold" FontSize="18" Text="Ana Şifre" />
-                <Border Padding="12,16"
-                        Background="Transparent"
-                        Stroke="{DynamicResource Primary}">
+            <!--  BÖLÜM 2: GÖRÜNÜM & DİL  -->
+            <VerticalStackLayout Spacing="8">
+                <Label Margin="5,0,0,0"
+                       FontAttributes="Bold" FontSize="12" Text="GÖRÜNÜM VE DİL" TextColor="Gray" />
+                <VerticalStackLayout Spacing="10">
 
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="8" />
-                    </Border.StrokeShape>
+                    <Border Style="{StaticResource SettingsCardStyle}">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <mi:MauiIcon Grid.Column="0"
+                                         Margin="0,0,15,0"
+                                         Icon="{mi:MaterialSharp Icon=DarkMode}"
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
+                            <Label Grid.Column="1"
+                                   FontAttributes="Bold" FontSize="15" Text="Tema" VerticalOptions="Center" />
+                            <Picker Grid.Column="2"
+                                    HorizontalOptions="End"
+                                    SelectedItem="{Binding SelectedTheme}"
+                                    VerticalOptions="Center" WidthRequest="120">
+                                <Picker.Items>
+                                    <x:String>Sistem</x:String>
+                                    <x:String>Açık</x:String>
+                                    <x:String>Koyu</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </Border>
 
-                    <HorizontalStackLayout Spacing="15">
-                        <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=Password}" Text="Şifreyi değişttir" />
-                    </HorizontalStackLayout>
-                </Border>
+                    <Border Style="{StaticResource SettingsCardStyle}">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <mi:MauiIcon Grid.Column="0"
+                                         Margin="0,0,15,0"
+                                         Icon="{mi:MaterialSharp Icon=Language}"
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
+                            <Label Grid.Column="1"
+                                   FontAttributes="Bold" FontSize="15" Text="Uygulama Dili" VerticalOptions="Center" />
+                            <Picker Grid.Column="2"
+                                    HorizontalOptions="End" SelectedIndex="1" VerticalOptions="Center" WidthRequest="120">
+                                <Picker.Items>
+                                    <x:String>English</x:String>
+                                    <x:String>Türkçe</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Row="3">
-                <Label FontAttributes="Bold" FontSize="18" Text="Dil" />
-                <Border Padding="12,16"
-                        BackgroundColor="Transparent"
-                        Stroke="{DynamicResource Primary}"
-                        StrokeThickness="1">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="8" />
-                    </Border.StrokeShape>
+            <!--  BÖLÜM 3: VERİ YÖNETİMİ  -->
+            <VerticalStackLayout Spacing="8">
+                <Label Margin="5,0,0,0"
+                       FontAttributes="Bold" FontSize="12" Text="VERİ YÖNETİMİ (YEDEKLEME)" TextColor="Gray" />
+                <VerticalStackLayout Spacing="10">
 
-                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
+                    <Border Style="{StaticResource SettingsCardStyle}">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <mi:MauiIcon Grid.Column="0"
+                                         Margin="0,0,15,0"
+                                         Icon="{mi:MaterialSharp Icon=CloudUpload}"
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label FontAttributes="Bold" FontSize="15" Text="Yedekleme İçe Aktar (.sqlite)" />
+                                <Label FontSize="12" Text="Eski kasanızı cihaza yükleyin" TextColor="Gray" />
+                            </VerticalStackLayout>
+                            <mi:MauiIcon Grid.Column="2"
+                                         Icon="{mi:MaterialSharp Icon=ChevronRight}"
+                                         IconColor="Gray" IconSize="24" VerticalOptions="Center" />
+                        </Grid>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ImportDatabaseCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
 
-                        <Picker Title="Dil" Grid.Column="0">
-                            <Picker.Items>
-                                <x:String>English</x:String>
-                                <x:String>Türkçe</x:String>
-                                <x:String>Русский</x:String>
-                            </Picker.Items>
-                        </Picker>
-
-                        <Image Grid.Column="1"
-                               mi:MauiIcon.Value="{mi:MaterialSharp Icon=Language}"
-                               HeightRequest="40" InputTransparent="True" VerticalOptions="Center" WidthRequest="40" />
-                    </Grid>
-
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer />
-                    </Border.GestureRecognizers>
-                </Border>
+                    <Border Style="{StaticResource SettingsCardStyle}">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <mi:MauiIcon Grid.Column="0"
+                                         Margin="0,0,15,0"
+                                         Icon="{mi:MaterialSharp Icon=CloudDownload}"
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label FontAttributes="Bold" FontSize="15" Text="Mevcut Veritabanını Dışa Aktar" />
+                                <Label FontSize="12" Text="Verilerinizi güvenli bir yere yedekleyin" TextColor="Gray" />
+                            </VerticalStackLayout>
+                            <mi:MauiIcon Grid.Column="2"
+                                         Icon="{mi:MaterialSharp Icon=ChevronRight}"
+                                         IconColor="Gray" IconSize="24" VerticalOptions="Center" />
+                        </Grid>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ExportDatabaseCommand}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+                </VerticalStackLayout>
             </VerticalStackLayout>
-        </Grid>
+
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -48,11 +48,8 @@ namespace PassSafe.ViewModels
         private async Task ChangePasswordAsync(Password password)
         {
             var vm = App.Services.GetService<AddPasswordViewModel>();
-
             string decrypted = _cryptoService.Decrypt(password.EncryptedPassword, masterPass);
-
             vm.LoadPasswordForEdit(password, decrypted);
-
             await Mopups.Services.MopupService.Instance.PushAsync(new AddPasswordPopup(vm));
         }
 
@@ -61,7 +58,11 @@ namespace PassSafe.ViewModels
         {
             try
             {
-                masterPass = await SecureStorage.GetAsync("masterPass");
+                IsRefreshing = true;
+
+                if (string.IsNullOrEmpty(masterPass))
+                    masterPass = await SecureStorage.GetAsync("masterPass");
+
                 var encryptedData = await _databaseService.GetDatabaseAsync();
 
                 if (encryptedData == null || !encryptedData.Any())
@@ -70,71 +71,76 @@ namespace PassSafe.ViewModels
                     return;
                 }
 
-                CriticalActions.Clear();
-                AnalysisCards.Clear();
-
-                int strongCount = 0;
-                int weakCount = 0;
-                int riskyCount = 0;
-
-                var decryptedList = new List<(Password Original, string PlainText)>();
-                foreach (var pwd in encryptedData)
+                // Arayüzün donmaması için ağır işlemleri Arka Plana atıyoruz
+                var analysisResult = await Task.Run(() =>
                 {
-                    string plainText = _cryptoService.Decrypt(pwd.EncryptedPassword, masterPass);
-                    decryptedList.Add((pwd, plainText));
-                }
+                    int strong = 0, weak = 0, risky = 0;
+                    var tempCriticals = new List<CriticalAction>();
 
-                var passwordCounts = decryptedList.GroupBy(x => x.PlainText).ToDictionary(g => g.Key, g => g.Count());
-
-                foreach (var item in decryptedList)
-                {
-                    bool isWeak = false;
-                    bool isRisky = false;
-
-                    if (item.PlainText.Length < 8 || item.PlainText == "123456" || item.PlainText == "12345678")
+                    var decryptedList = encryptedData.Select(pwd => new
                     {
-                        weakCount++;
-                        isWeak = true;
+                        Original = pwd,
+                        PlainText = _cryptoService.Decrypt(pwd.EncryptedPassword, masterPass)
+                    }).ToList();
 
-                        CriticalActions.Add(new CriticalAction
-                        {
-                            Title = item.Original.Title,
-                            Description = $"Çok zayıf şifre: \"{item.PlainText}\"",
-                            IconKey = item.Original.Icon,
-                            Color = "#FF5252",
-                            TargetPassword = item.Original
-                        });
-                    }
+                    var passwordCounts = decryptedList.GroupBy(x => x.PlainText).ToDictionary(g => g.Key, g => g.Count());
 
-                    if (passwordCounts.TryGetValue(item.PlainText, out int count) && count > 1)
+                    foreach (var item in decryptedList)
                     {
-                        riskyCount++;
-                        isRisky = true;
+                        bool isWeak = false;
+                        bool isRisky = false;
 
-                        if (!CriticalActions.Any(a => a.Title == item.Original.Title && a.Description.Contains("Tekrar eden")))
+                        if (item.PlainText.Length < 8 || item.PlainText == "123456" || item.PlainText == "12345678")
                         {
-                            CriticalActions.Add(new CriticalAction
+                            weak++;
+                            isWeak = true;
+                            tempCriticals.Add(new CriticalAction
                             {
                                 Title = item.Original.Title,
-                                Description = "Tekrar eden şifre kullanılıyor",
+                                Description = $"Çok zayıf şifre: \"{item.PlainText}\"",
                                 IconKey = item.Original.Icon,
-                                Color = "#FFAB40",
+                                Color = "#FF5252",
                                 TargetPassword = item.Original
                             });
                         }
+
+                        if (passwordCounts.TryGetValue(item.PlainText, out int count) && count > 1)
+                        {
+                            risky++;
+                            isRisky = true;
+
+                            if (!tempCriticals.Any(a => a.Title == item.Original.Title && a.Description.Contains("Tekrar eden")))
+                            {
+                                tempCriticals.Add(new CriticalAction
+                                {
+                                    Title = item.Original.Title,
+                                    Description = "Tekrar eden şifre kullanılıyor",
+                                    IconKey = item.Original.Icon,
+                                    Color = "#FFAB40",
+                                    TargetPassword = item.Original
+                                });
+                            }
+                        }
+
+                        if (!isWeak && !isRisky) strong++;
                     }
 
-                    if (!isWeak && !isRisky)
-                    {
-                        strongCount++;
-                    }
+                    return new { Strong = strong, Weak = weak, Risky = risky, Criticals = tempCriticals };
+                });
+
+                // Sonuçları UI'a (Ana Ekrana) yazdırıyoruz
+                CriticalActions.Clear();
+                foreach (var action in analysisResult.Criticals)
+                {
+                    CriticalActions.Add(action);
                 }
 
-                AnalysisCards.Add(new AnalysisCard { Title = "Güçlü", Count = strongCount, SideColor = "#20E19B", Description = "Karmaşık ve uzun karakterli güvenli şifreler.", IconKey = "VerifiedUser" });
-                AnalysisCards.Add(new AnalysisCard { Title = "Zayıf", Count = weakCount, SideColor = "#FF5252", Description = "8 karakterden kısa veya çok basit dizimler.", IconKey = "Warning" });
-                AnalysisCards.Add(new AnalysisCard { Title = "Riskli", Count = riskyCount, SideColor = "#FFAB40", Description = "Birden fazla hesapta tekrar eden şifreler.", IconKey = "ContentCopy" });
+                AnalysisCards.Clear();
+                AnalysisCards.Add(new AnalysisCard { Title = "Güçlü", Count = analysisResult.Strong, SideColor = "#20E19B", Description = "Karmaşık ve uzun karakterli güvenli şifreler.", IconKey = "VerifiedUser" });
+                AnalysisCards.Add(new AnalysisCard { Title = "Zayıf", Count = analysisResult.Weak, SideColor = "#FF5252", Description = "8 karakterden kısa veya çok basit dizimler.", IconKey = "Warning" });
+                AnalysisCards.Add(new AnalysisCard { Title = "Riskli", Count = analysisResult.Risky, SideColor = "#FFAB40", Description = "Birden fazla hesapta tekrar eden şifreler.", IconKey = "ContentCopy" });
 
-                CalculateScore(strongCount, encryptedData.Count);
+                CalculateScore(analysisResult.Strong, encryptedData.Count);
             }
             catch (Exception ex)
             {
@@ -149,13 +155,9 @@ namespace PassSafe.ViewModels
         private void CalculateScore(int strongCount, int totalCount)
         {
             if (totalCount > 0)
-            {
                 SecurityScore = (int)((double)strongCount / totalCount * 100);
-            }
             else
-            {
                 SecurityScore = 100;
-            }
 
             if (SecurityScore >= 80)
             {
@@ -165,7 +167,7 @@ namespace PassSafe.ViewModels
             else if (SecurityScore >= 50)
             {
                 GeneralStatusText = "İyi";
-                GeneralStatusDescription = "Dijital kasanız güvende görünüyor, ancak birkaç iyileştirme ile kusursuz olabilir.";
+                GeneralStatusDescription = "Kasanız güvende görünüyor, ancak birkaç iyileştirme ile kusursuz olabilir.";
             }
             else
             {

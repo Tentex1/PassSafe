@@ -7,11 +7,13 @@
     using MauiIcons.Material.Sharp;
     using Microsoft.Maui.Graphics;
     using Microsoft.Maui.Storage;
+    using PassSafe.Messages;
     using PassSafe.Models;
     using PassSafe.Services;
     using PassSafe.Views;
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -43,6 +45,15 @@
         [NotifyPropertyChangedFor(nameof(SecurityColor))]
         private string password = string.Empty;
 
+        [ObservableProperty]
+        private ObservableCollection<string> categories;
+
+        [ObservableProperty]
+        private string selectedCategory;
+
+        [ObservableProperty]
+        private string newCategoryName;
+
         private readonly List<MauiIcon> _icons = new List<MauiIcon>
         {
             new MauiIcon() { Icon = MaterialSharpIcons.VpnKey },
@@ -50,19 +61,15 @@
             new MauiIcon() { Icon = MaterialSharpIcons.Fingerprint },
             new MauiIcon() { Icon = MaterialSharpIcons.Shield },
             new MauiIcon() { Icon = MaterialSharpIcons.AccountCircle },
-
             new MauiIcon() { Icon = MaterialSharpIcons.Group },
-
             new MauiIcon() { Icon = MaterialSharpIcons.CreditCard },
             new MauiIcon() { Icon = MaterialSharpIcons.Payments },
             new MauiIcon() { Icon = MaterialSharpIcons.CurrencyBitcoin },
             new MauiIcon() { Icon = MaterialSharpIcons.ShoppingBag },
-
             new MauiIcon() { Icon = MaterialSharpIcons.AccountBalance },
             new MauiIcon() { Icon = MaterialSharpIcons.Mail },
             new MauiIcon() { Icon = MaterialSharpIcons.Forum },
             new MauiIcon() { Icon = MaterialSharpIcons.Public },
-
             new MauiIcon() { Icon = MaterialSharpIcons.SportsEsports },
             new MauiIcon() { Icon = MaterialSharpIcons.Tv },
             new MauiIcon() { Icon = MaterialSharpIcons.Work },
@@ -75,6 +82,67 @@
         private int _currentIconIndex = 0;
 
         public MauiIcon CurrentIcon => _icons[CurrentIconIndex];
+
+        public AddPasswordViewModel(IDatabaseService databaseService, ICryptoService cryptoService, IDialogService dialogService, SafeViewModel sfvm)
+        {
+            _databaseService = databaseService;
+            _cryptoService = cryptoService;
+            _dialogService = dialogService;
+            _sfvm = sfvm;
+
+            LoadCategories();   
+
+            Mopups.Services.MopupService.Instance.Popped += (s, e) =>
+            {
+                PasswordId = 0;
+                Password = string.Empty;
+                UserName = string.Empty;
+                Title = string.Empty;
+                CurrentIconIndex = 0;
+                PopupTitle = "Şifre Ekle";
+                ActionButtonText = "Ekle";
+                SelectedCategory = Categories.FirstOrDefault();  
+
+                NextCommand.NotifyCanExecuteChanged();
+                PreviousCommand.NotifyCanExecuteChanged();
+            };
+        }
+
+        private void LoadCategories()
+        {
+            var cats = new List<string> { "Sosyal Medya", "Banka", "İş", "Oyun" };
+
+            var customCats = Preferences.Get("CustomCategories", "");
+            if (!string.IsNullOrEmpty(customCats))
+            {
+                cats.AddRange(customCats.Split(','));
+            }
+
+            Categories = new ObservableCollection<string>(cats);
+            SelectedCategory = Categories.FirstOrDefault();
+        }
+
+        [RelayCommand]
+        private void AddNewCategory()
+        {
+            if (string.IsNullOrWhiteSpace(NewCategoryName)) return;
+
+            string cat = NewCategoryName.Trim();
+
+            if (!Categories.Contains(cat))
+            {
+                Categories.Add(cat);
+
+                var custom = Preferences.Get("CustomCategories", "");
+                custom = string.IsNullOrEmpty(custom) ? cat : custom + "," + cat;
+                Preferences.Set("CustomCategories", custom);
+
+                WeakReferenceMessenger.Default.Send(new CategoryAddedMessage(cat));
+            }
+
+            SelectedCategory = cat;     
+            NewCategoryName = string.Empty;   
+        }
 
         [RelayCommand(CanExecute = nameof(CanNext))]
         private void Next()
@@ -100,12 +168,12 @@
 
         public string SecurityStatus => CalculatePasswordScore() switch
         {
-            0 => "Empty",
-            1 => "Very Weak",
-            2 => "Weak",
-            3 => "Medium",
-            4 => "Strong",
-            5 => "Impossible",
+            0 => "Boş",
+            1 => "Çok Zayıf",
+            2 => "Zayıf",
+            3 => "Orta",
+            4 => "Güçlü",
+            5 => "Kusursuz",
             _ => "Unknown"
         };
 
@@ -120,34 +188,15 @@
             _ => Colors.Gray
         };
 
-        public AddPasswordViewModel(IDatabaseService databaseService, ICryptoService cryptoService, IDialogService dialogService, SafeViewModel sfvm)
-        {
-            _databaseService = databaseService;
-            _cryptoService = cryptoService;
-            _dialogService = dialogService;
-            _sfvm = sfvm;
-
-            Mopups.Services.MopupService.Instance.Popped += (s, e) =>
-            {
-                PasswordId = 0;     
-                Password = string.Empty;
-                UserName = string.Empty;
-                Title = string.Empty;
-                CurrentIconIndex = 0;
-                PopupTitle = "Şifre Ekle";      
-                ActionButtonText = "Ekle";
-
-                NextCommand.NotifyCanExecuteChanged();
-                PreviousCommand.NotifyCanExecuteChanged();
-            };
-        }
-
         public void LoadPasswordForEdit(Password pwd, string decryptedPass)
         {
             PasswordId = pwd.Id;
             Title = pwd.Title;
             UserName = pwd.UserName;
             Password = decryptedPass;
+
+            if (!string.IsNullOrEmpty(pwd.Category) && Categories.Contains(pwd.Category))
+                SelectedCategory = pwd.Category;
 
             var index = _icons.FindIndex(x => x.Icon.ToString() == pwd.Icon);
             CurrentIconIndex = index >= 0 ? index : 0;
@@ -177,10 +226,11 @@
 
             if (string.IsNullOrEmpty(masterPass))
             {
-                var result = await _dialogService.ShowConfirmAsync("Hata", "Master key ayarlanmamış", "ayarla", "ayarlama");
+                var result = await _dialogService.ShowConfirmAsync("Hata", "Master key ayarlanmamış", "Ayarla", "İptal");
                 if (result == true)
                 {
                     await _dialogService.ShowPopupAsync(new SetMasterPassPopup());
+                    return;
                 }
             }
 
@@ -188,10 +238,11 @@
 
             var data = new Password()
             {
-                Id = PasswordId > 0 ? PasswordId : 0,             
+                Id = PasswordId > 0 ? PasswordId : 0,
                 Title = Title,
                 UserName = UserName,
                 Icon = CurrentIcon.Icon.ToString(),
+                Category = SelectedCategory,      
                 SecurityProgress = SecurityProgress,
                 SecurityStatus = SecurityStatus,
                 EncryptedPassword = encrypted
@@ -200,12 +251,10 @@
             if (PasswordId > 0)
             {
                 await _databaseService.UpdatePasswordAsync(data);
-                System.Diagnostics.Debug.WriteLine("!!GÜNCELLENDİ!!");
             }
             else
             {
                 await _databaseService.AddPasswordAsync(data);
-                System.Diagnostics.Debug.WriteLine("!!EKLENDİ!!");
             }
 
             await _sfvm.LoadPasswordsCommand.ExecuteAsync(null);

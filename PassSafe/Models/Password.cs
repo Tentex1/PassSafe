@@ -1,7 +1,6 @@
 ﻿namespace PassSafe.Models
 {
-    using MauiIcons.Core;
-    using MauiIcons.Material.Sharp;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using SQLite;
 
     /// <summary>
@@ -20,11 +19,20 @@
 
         public string Icon { get; set; }
 
-        [ObservableProperty]
-        private bool isFavorited = false;
+        public double SecurityProgress { get; set; }
 
         public string SecurityStatus { get; set; }
 
-        public double SecurityProgress { get; set; }
+        public bool IsFavorited { get; set; }
+
+        public string Category { get; set; }
+
+        [property: Ignore]
+        [ObservableProperty]
+        private bool isPasswordVisible;
+
+        [property: Ignore]
+        [ObservableProperty]
+        private string displayPassword = "••••••••";
     }
 }

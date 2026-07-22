@@ -2,8 +2,12 @@
 {
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.Messaging;
+    using Microsoft.Maui.ApplicationModel;
     using PassSafe.Messages;
     using PassSafe.Services;
+    using System;
+    using System.Threading.Tasks;
 
     public partial class SetMasterPassViewModel : ObservableObject, IRecipient<DatabaseImportedMessage>
     {
@@ -17,7 +21,7 @@
         private string masterPassRepeat;
 
         [ObservableProperty]
-        private Color masterPassRepeatColor;
+        private string errorMessage;
 
         [ObservableProperty]
         private string securityQuestion;
@@ -25,60 +29,46 @@
         [ObservableProperty]
         private string securityQuestionAnswer;
 
-        public IDialogService _dialogService;
+        private readonly IDialogService _dialogService;
+        private readonly SettingsViewModel _svm;
+        private readonly SafeViewModel _sfvm;
 
-        public SettingsViewModel _svm;
-
-        public SafeViewModel _sfvm;
-
-        public ImportDatabaseVerifyViewModel _idvvm;
-
-        public SetMasterPassViewModel(IDialogService dialogService, SettingsViewModel settingsViewModel, ImportDatabaseVerifyViewModel importDatabaseVerifyViewModel, SafeViewModel safeViewModel)
+        public SetMasterPassViewModel(IDialogService dialogService, SettingsViewModel settingsViewModel, SafeViewModel safeViewModel)
         {
             _dialogService = dialogService;
             _svm = settingsViewModel;
             _sfvm = safeViewModel;
-            _idvvm = importDatabaseVerifyViewModel;
 
             WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
-        partial void OnMasterPassChanged(string value)
-        {
-            CheckConditions();
-        }
-
-        partial void OnMasterPassRepeatChanged(string value)
-        {
-            CheckConditions();
-        }
-
-        partial void OnSecurityQuestionAnswerChanged(string value)
-        {
-            CheckConditions();
-        }
-
-        partial void OnSecurityQuestionChanged(string value)
-        {
-            CheckConditions();
-        }
+        partial void OnMasterPassChanged(string value) => CheckConditions();
+        partial void OnMasterPassRepeatChanged(string value) => CheckConditions();
+        partial void OnSecurityQuestionAnswerChanged(string value) => CheckConditions();
+        partial void OnSecurityQuestionChanged(string value) => CheckConditions();
 
         private void CheckConditions()
         {
+            bool isPasswordValid = false;
+
             if (string.IsNullOrEmpty(MasterPass) || string.IsNullOrEmpty(MasterPassRepeat))
             {
-                MasterPassRepeatColor = Application.Current.RequestedTheme == AppTheme.Dark ? Colors.White : Colors.Black;
+                ErrorMessage = string.Empty;
             }
-            else if (MasterPass == MasterPassRepeat)
+            else if (MasterPass != MasterPassRepeat)
             {
-                MasterPassRepeatColor = Application.Current.RequestedTheme == AppTheme.Dark ? Colors.White : Colors.Black;
+                ErrorMessage = "Şifreler uyuşmuyor!";
+            }
+            else if (MasterPass.Length < 4)
+            {
+                ErrorMessage = "Şifre çok kısa!";
             }
             else
             {
-                MasterPassRepeatColor = Color.FromRgb(255, 0, 0);
+                ErrorMessage = string.Empty;
+                isPasswordValid = true;
             }
 
-            bool isPasswordValid = !string.IsNullOrEmpty(MasterPass) && MasterPass == MasterPassRepeat;
             bool isQuestionValid = !string.IsNullOrEmpty(SecurityQuestion);
             bool isAnswerValid = !string.IsNullOrWhiteSpace(SecurityQuestionAnswer);
 
@@ -90,17 +80,21 @@
         {
             try
             {
-                var result = await _dialogService.ShowConfirmAsync("Emin misin??", "Eğer güvenlik sorusunun cevabını unutursan bi daha şifreni değiştiremezsin ve şifrelerini kaybedersin!", "Tamam", "Değiştireceğim");
+                var result = await _dialogService.ShowConfirmAsync("Emin misiniz?", "Eğer güvenlik sorusunun cevabını unutursanız şifrenizi sıfırlayamaz ve kasanızı tamamen kaybedersiniz!", "Evet, eminim", "İptal");
                 if (result == true)
                 {
                     await SecureStorage.SetAsync("masterPass", MasterPass);
                     await SecureStorage.SetAsync("securityQuestion", SecurityQuestion);
                     await SecureStorage.SetAsync("securityQuestionAnswer", SecurityQuestionAnswer);
-                    await _dialogService.ShowAlertAsync("Hoşgeldiniz!", "Ana şifre başarıyla ayarlandı!", "Tamam");
+
+                    await _dialogService.ShowAlertAsync("Hoş Geldiniz!", "Ana şifreniz başarıyla oluşturuldu. Kasanız kullanıma hazır.", "Tamam");
                     await Mopups.Services.MopupService.Instance.PopAsync();
                 }
             }
-            catch (Exception ex) { await _dialogService.ShowConfirmAsync("Error", "'masterPass' could not be set.", "Copy Error Code", "OK"); }
+            catch (Exception)
+            {
+                await _dialogService.ShowAlertAsync("Hata", "Şifre kaydedilirken bir sorun oluştu.", "Tamam");
+            }
         }
 
         [RelayCommand]
@@ -114,7 +108,6 @@
             WeakReferenceMessenger.Default.UnregisterAll(this);
             await Mopups.Services.MopupService.Instance.PopAsync();
             await _sfvm.LoadPasswordsCommand.ExecuteAsync(null);
-            await _sfvm.LoadFavoritesCommand.ExecuteAsync(null);
         }
     }
 }
