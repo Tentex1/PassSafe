@@ -4,6 +4,7 @@
     using CommunityToolkit.Maui.Storage;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
+    using Microsoft.Maui.ApplicationModel;
     using PassSafe.Services;
     using System;
     using System.IO;
@@ -14,6 +15,8 @@
     public partial class SettingsViewModel : ObservableObject
     {
         private readonly IDialogService _dialogService;
+        private readonly IDatabaseService _databaseService;     
+        private readonly ICryptoService _cryptoService;           
 
         [ObservableProperty]
         private bool isImportSuccessfull = false;
@@ -30,9 +33,11 @@
         [ObservableProperty]
         private string clipboardClearTime;
 
-        public SettingsViewModel(IDialogService dialogService)
+        public SettingsViewModel(IDialogService dialogService, IDatabaseService databaseService, ICryptoService cryptoService)
         {
             _dialogService = dialogService;
+            _databaseService = databaseService;
+            _cryptoService = cryptoService;
 
             SelectedTheme = Preferences.Get("AppTheme", "Sistem");
             AutoLockTime = Preferences.Get("AutoLockTime", "5 Dakika");
@@ -48,8 +53,66 @@
         }
 
         partial void OnAutoLockTimeChanged(string value) => Preferences.Set("AutoLockTime", value);
-
         partial void OnClipboardClearTimeChanged(string value) => Preferences.Set("ClipboardClearTime", value);
+
+        [RelayCommand]
+        private async Task ChangeMasterPasswordAsync()
+        {
+            var currentMasterPass = await SecureStorage.GetAsync("masterPass");
+            if (string.IsNullOrEmpty(currentMasterPass))
+            {
+                await _dialogService.ShowAlertAsync("Hata", "Ana şifre bulunamadı.", "Tamam");
+                return;
+            }
+
+            string oldPassInput = await Application.Current.MainPage.DisplayPromptAsync("Doğrulama", "Mevcut ana şifrenizi girin:", "Devam", "İptal");
+            if (oldPassInput == null) return;     
+
+            if (oldPassInput != currentMasterPass)
+            {
+                await _dialogService.ShowAlertAsync("Hata", "Mevcut şifrenizi yanlış girdiniz!", "Tamam");
+                return;
+            }
+
+            string newPassInput = await Application.Current.MainPage.DisplayPromptAsync("Yeni Şifre", "Yeni ana şifrenizi girin (En az 4 karakter):", "Değiştir", "İptal");
+            if (newPassInput == null) return;
+
+            if (newPassInput.Length < 4)
+            {
+                await _dialogService.ShowAlertAsync("Hata", "Yeni şifre çok kısa! Lütfen daha güçlü bir şifre belirleyin.", "Tamam");
+                return;
+            }
+
+            string newPassConfirm = await Application.Current.MainPage.DisplayPromptAsync("Tekrar Girin", "Lütfen yeni ana şifrenizi onaylayın:", "Onayla", "İptal");
+            if (newPassConfirm == null) return;
+
+            if (newPassInput != newPassConfirm)
+            {
+                await _dialogService.ShowAlertAsync("Hata", "Girdiğiniz yeni şifreler uyuşmuyor!", "Tamam");
+                return;
+            }
+
+            try
+            {
+                var allPasswords = await _databaseService.GetDatabaseAsync();
+                if (allPasswords != null && allPasswords.Any())
+                {
+                    foreach (var p in allPasswords)
+                    {
+                        string plainText = _cryptoService.Decrypt(p.EncryptedPassword, currentMasterPass);
+                        p.EncryptedPassword = _cryptoService.Encrypt(plainText, newPassInput);
+                        await _databaseService.UpdatePasswordAsync(p);
+                    }
+                }
+
+                await SecureStorage.SetAsync("masterPass", newPassInput);
+                await _dialogService.ShowAlertAsync("Başarılı!", "Ana şifreniz başarıyla değiştirildi ve tüm kasanız yeni şifrenizle güvence altına alındı.", "Tamam");
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowAlertAsync("Kritik Hata", $"Şifreler güncellenirken bir hata oluştu: {ex.Message}", "Tamam");
+            }
+        }
 
         [RelayCommand]
         private async Task ImportDatabaseAsync()
@@ -91,11 +154,7 @@
                 if (popupVM?.IsVerified == true)
                 {
                     await _dialogService.ShowAlertAsync("Başarılı!", "Veritabanınız başarıyla içe aktarıldı.", "Tamam");
-
-                    if (backupCreated && File.Exists(backupPath))
-                    {
-                        File.Delete(backupPath);
-                    }
+                    if (backupCreated && File.Exists(backupPath)) File.Delete(backupPath);
                 }
                 else
                 {
@@ -131,10 +190,7 @@
                     var allFiles = Directory.GetFiles(FileSystem.AppDataDirectory);
                     var possibleDb = allFiles.FirstOrDefault(f => f.EndsWith(".sqlite") || f.EndsWith(".db") || f.EndsWith(".db3"));
 
-                    if (possibleDb != null)
-                    {
-                        dbPath = possibleDb;
-                    }
+                    if (possibleDb != null) dbPath = possibleDb;
                     else
                     {
                         await _dialogService.ShowAlertAsync("Hata", "Dışa aktarılacak veritabanı bulunamadı! Kasanız şu an boş olabilir.", "Tamam");
@@ -156,12 +212,7 @@
                 var fileSaverResult = await FileSaver.Default.SaveAsync("passwords_backup.sqlite", streamToSave, CancellationToken.None);
 
                 if (fileSaverResult.IsSuccessful)
-                {
-                    await _dialogService.ShowAlertAsync("Yedekleme Başarılı!", $"Veritabanı güvenle cihazınıza dışa aktarıldı.\n\nKonum: {fileSaverResult.FilePath}", "Tamam");
-                }
-                else
-                {
-                }
+                    await _dialogService.ShowAlertAsync("Yedekleme Başarılı!", $"Veritabanı güvenle dışa aktarıldı.\n\nKonum: {fileSaverResult.FilePath}", "Tamam");
             }
             catch (Exception ex)
             {

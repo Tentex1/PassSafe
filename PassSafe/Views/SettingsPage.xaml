@@ -14,7 +14,6 @@
             <Setter Property="TextColor" Value="{DynamicResource Primary}" />
             <Setter Property="TitleColor" Value="Gray" />
         </Style>
-        <!--  Ayar kartları için ortak tasarım  -->
         <Style x:Key="SettingsCardStyle" TargetType="Border">
             <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#1E1E1E, Light=#FFFFFF}" />
             <Setter Property="Stroke" Value="{AppThemeBinding Dark=#333333, Light=#E2E8F0}" />
@@ -29,7 +28,6 @@
 
             <Label FontAttributes="Bold" FontSize="28" Text="Ayarlar" />
 
-            <!--  BÖLÜM 1: GÜVENLİK  -->
             <VerticalStackLayout Spacing="8">
                 <Label Margin="5,0,0,0"
                        FontAttributes="Bold" FontSize="12" Text="GÜVENLİK" TextColor="Gray" />
@@ -50,9 +48,9 @@
                                          Icon="{mi:MaterialSharp Icon=ChevronRight}"
                                          IconColor="Gray" IconSize="24" VerticalOptions="Center" />
                         </Grid>
-                        <!--  Buraya Şifre değiştirme Command'ini bağlayabilirsin  -->
+
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding }"/>
+                            <TapGestureRecognizer Command="{Binding ChangeMasterPasswordCommand}" />
                         </Border.GestureRecognizers>
                     </Border>
 
@@ -109,7 +107,6 @@
                 </VerticalStackLayout>
             </VerticalStackLayout>
 
-            <!--  BÖLÜM 2: GÖRÜNÜM & DİL  -->
             <VerticalStackLayout Spacing="8">
                 <Label Margin="5,0,0,0"
                        FontAttributes="Bold" FontSize="12" Text="GÖRÜNÜM VE DİL" TextColor="Gray" />
@@ -158,7 +155,6 @@
                 </VerticalStackLayout>
             </VerticalStackLayout>
 
-            <!--  BÖLÜM 3: VERİ YÖNETİMİ  -->
             <VerticalStackLayout Spacing="8">
                 <Label Margin="5,0,0,0"
                        FontAttributes="Bold" FontSize="12" Text="VERİ YÖNETİMİ (YEDEKLEME)" TextColor="Gray" />

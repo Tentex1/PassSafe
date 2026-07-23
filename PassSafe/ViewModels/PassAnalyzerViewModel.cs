@@ -71,7 +71,6 @@ namespace PassSafe.ViewModels
                     return;
                 }
 
-                // Arayüzün donmaması için ağır işlemleri Arka Plana atıyoruz
                 var analysisResult = await Task.Run(() =>
                 {
                     int strong = 0, weak = 0, risky = 0;
@@ -128,7 +127,6 @@ namespace PassSafe.ViewModels
                     return new { Strong = strong, Weak = weak, Risky = risky, Criticals = tempCriticals };
                 });
 
-                // Sonuçları UI'a (Ana Ekrana) yazdırıyoruz
                 CriticalActions.Clear();
                 foreach (var action in analysisResult.Criticals)
                 {
