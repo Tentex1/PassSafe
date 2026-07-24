@@ -26,6 +26,11 @@
             else { return; }
         }
 
+        public async Task<string> ShowPromptAsync(string title, string message, string accept, string cancel)
+        {
+            return await mainPage.DisplayPromptAsync(title, message, accept, cancel);
+        }
+
         public async Task ShowPopupAsync(PopupPage popup)
         {
             await MopupService.Instance.PushAsync(popup);

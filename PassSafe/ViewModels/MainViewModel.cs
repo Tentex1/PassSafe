@@ -1,10 +1,14 @@
 ﻿using Plugin.Maui.Biometric;
 using System.Security.Authentication;
+using PassSafe.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace PassSafe.ViewModels
 {
     public partial class MainViewModel(SafeViewModel sfvm, IDialogService dialogService, INavigationService navigationService, IBiometric biometricService, IDatabaseService databaseService) : ObservableObject
     {
+        public LocalizationManager Loc => LocalizationManager.Instance;
 
         [RelayCommand]
         private async Task InitializeAsync()
@@ -23,8 +27,8 @@ namespace PassSafe.ViewModels
             {
                 AuthenticationRequest ar = new AuthenticationRequest
                 {
-                    Title = "Doğrulamayı tamamlayın.",
-                    Description = "Şifrelerinize erişmek için doğrulamayı tamamlayın.",
+                    Title = Loc["AuthTitle"],
+                    Description = Loc["AuthDesc"],
                     AuthStrength = AuthenticatorStrength.Strong,
                     AllowPasswordAuth = true
                 };
@@ -38,7 +42,6 @@ namespace PassSafe.ViewModels
                 else
                 {
                     await dialogService.ShowErrorAsync(new AuthenticationException());
-                    await Task.Delay(1000);
                     Application.Current?.Quit();
                     return false;
                 }
@@ -63,10 +66,10 @@ namespace PassSafe.ViewModels
                 }
                 else
                 {
-                    var result = await dialogService.ShowConfirmAsync("Giriş", "Ana şifre belirlememişsiniz", "Belirle", "İptal");
+                    var result = await dialogService.ShowConfirmAsync(Loc["LoginTitle"], Loc["NoMasterPassFound"], Loc["SetBtn"], Loc["CancelBtn"]);
                     if (result == true)
                     {
-                        await dialogService.ShowPopupAsync(new SetMasterPassPopup());
+                        await dialogService.ShowPopupAsync(new Views.SetMasterPassPopup());
 
                         masterPass = await SecureStorage.GetAsync("masterPass");
 

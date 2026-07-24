@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="PassSafe.Views.PassGeneratorPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:PassSafe.Converters" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:sys="clr-namespace:System;assembly=netstandard" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
-             Title="Oluşturucu"
+             xmlns:converters="clr-namespace:PassSafe.Converters" xmlns:loc="clr-namespace:PassSafe.Helpers" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:sys="clr-namespace:System;assembly=netstandard" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
+             Title="{Binding Loc[TabGenerator]}"
              x:DataType="viewmodels:PassGeneratorViewModel"
              BindingContext="{Binding PassGeneratorViewModel, Source={StaticResource VMLocator}}">
 
@@ -17,11 +17,11 @@
         <Border Grid.Row="0"
                 Margin="15"
                 BackgroundColor="{AppThemeBinding Light={StaticResource White}}"
-                Stroke="{DynamicResource Primary}"
                 StrokeShape="RoundRectangle 20">
             <Grid Margin="15" RowDefinitions="Auto,Auto">
                 <Label Grid.Row="0"
-                       FontAttributes="Bold" FontSize="18" Text="ŞİFRENİZ" />
+                       FontAttributes="Bold" FontSize="18"
+                       Text="{Binding Loc[GenYourPassword]}" />
 
                 <Grid Grid.Row="1" ColumnDefinitions="Auto,*">
                     <Label Grid.Column="0"
@@ -30,6 +30,7 @@
                            VerticalOptions="Center" />
                     <Button Grid.Column="1"
                             mi:MauiIcon.Value="{mi:MaterialSharp Icon=Refresh}"
+                            BackgroundColor="{DynamicResource Primary}"
                             Command="{Binding GeneratePasswordCommand}"
                             HorizontalOptions="End" VerticalOptions="Center" />
                 </Grid>
@@ -39,13 +40,13 @@
         <Border Grid.Row="1"
                 Margin="15"
                 BackgroundColor="{AppThemeBinding Light={StaticResource White}}"
-                Stroke="{DynamicResource Primary}"
                 StrokeShape="RoundRectangle 20">
             <Grid Margin="15" RowDefinitions="Auto,*">
                 <Label Grid.Row="0"
-                       FontAttributes="Bold" FontSize="18" Text="UZUNLUK" />
+                       FontAttributes="Bold" FontSize="18"
+                       Text="{Binding Loc[GenLength]}" />
 
-                <Picker Title="Password Length"
+                <Picker Title="{Binding Loc[GenLength]}"
                         Grid.Row="1"
                         SelectedItem="{Binding GeneratedPassLength, Converter={StaticResource StringToIntConverter}}">
                     <Picker.Items>
@@ -61,63 +62,63 @@
         <Grid Grid.Row="2"
               Margin="15"
               RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="15">
-
-            <Border Grid.Row="0"
-                    Stroke="{DynamicResource Primary}"
-                    StrokeShape="RoundRectangle 20">
+            <Border Grid.Row="0" StrokeShape="RoundRectangle 20">
                 <Grid Padding="10,5,5,5" ColumnDefinitions="*, Auto">
                     <Label Grid.Column="0"
-                           FontAttributes="Bold" FontSize="15" Text="Büyük Harf (A-Z)" VerticalOptions="Center" />
+                           FontAttributes="Bold" FontSize="15"
+                           Text="{Binding Loc[GenUppercase]}"
+                           VerticalOptions="Center" />
                     <Switch Grid.Column="1"
                             IsToggled="{Binding IsUseUpperLetter}"
                             VerticalOptions="Center" />
                 </Grid>
             </Border>
 
-            <Border Grid.Row="1"
-                    Stroke="{DynamicResource Primary}"
-                    StrokeShape="RoundRectangle 20">
+            <Border Grid.Row="1" StrokeShape="RoundRectangle 20">
                 <Grid Padding="10,5,5,5" ColumnDefinitions="*, Auto">
                     <Label Grid.Column="0"
-                           FontAttributes="Bold" FontSize="15" Text="Küçük Harf (a-z)" VerticalOptions="Center" />
+                           FontAttributes="Bold" FontSize="15"
+                           Text="{Binding Loc[GenLowercase]}"
+                           VerticalOptions="Center" />
                     <Switch Grid.Column="1"
                             IsToggled="{Binding IsUseLowerLetter}"
                             VerticalOptions="Center" />
                 </Grid>
             </Border>
 
-            <Border Grid.Row="2"
-                    Stroke="{DynamicResource Primary}"
-                    StrokeShape="RoundRectangle 20">
+            <Border Grid.Row="2" StrokeShape="RoundRectangle 20">
                 <Grid Padding="10,5,5,5" ColumnDefinitions="*, Auto">
                     <Label Grid.Column="0"
-                           FontAttributes="Bold" FontSize="15" Text="Sayılar (0-9)" VerticalOptions="Center" />
+                           FontAttributes="Bold" FontSize="15"
+                           Text="{Binding Loc[GenNumbers]}"
+                           VerticalOptions="Center" />
                     <Switch Grid.Column="1"
                             IsToggled="{Binding IsUseNumbers}"
                             VerticalOptions="Center" />
                 </Grid>
             </Border>
 
-            <Border Grid.Row="3"
-                    Stroke="{DynamicResource Primary}"
-                    StrokeShape="RoundRectangle 20">
+            <Border Grid.Row="3" StrokeShape="RoundRectangle 20">
                 <Grid Padding="10,5,5,5" ColumnDefinitions="*, Auto">
                     <Label Grid.Column="0"
-                           FontAttributes="Bold" FontSize="15" Text="Semboller (!@#$%^*)" VerticalOptions="Center" />
+                           FontAttributes="Bold" FontSize="15"
+                           Text="{Binding Loc[GenSymbols]}"
+                           VerticalOptions="Center" />
                     <Switch Grid.Column="1"
                             IsToggled="{Binding IsUseSymbols}"
                             VerticalOptions="Center" />
                 </Grid>
             </Border>
         </Grid>
+
         <HorizontalStackLayout Grid.Row="3"
                                HorizontalOptions="Center" Spacing="5" VerticalOptions="Center">
-            <Button Grid.Row="3"
-                    Command="{Binding CopyPasswordCommand}"
-                    Text="Şifreyi kopyala" ToolTipProperties.Text="Copy Password" />
-            <Button Grid.Row="3"
-                    Command="{Binding AddPasswordToSafeCommand}"
-                    Text="Şifreyi ekle" ToolTipProperties.Text="Add password to Safe" />
+            <Button Command="{Binding CopyPasswordCommand}"
+                    Text="{Binding Loc[GenCopyBtn]}"
+                    ToolTipProperties.Text="{Binding Loc[TooltipCopy]}" />
+            <Button Command="{Binding AddPasswordToSafeCommand}"
+                    Text="{Binding Loc[GenAddBtn]}"
+                    ToolTipProperties.Text="{Binding Loc[TooltipAddSafe]}" />
         </HorizontalStackLayout>
     </Grid>
 </ContentPage>

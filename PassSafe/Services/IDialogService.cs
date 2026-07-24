@@ -13,6 +13,8 @@
 
         Task ShowErrorAsync(Exception ex = null, string message = null);
 
+        Task<string> ShowPromptAsync(string title, string message, string accept, string cancel);
+
         Task ShowPopupAsync(PopupPage popup);
     }
 }

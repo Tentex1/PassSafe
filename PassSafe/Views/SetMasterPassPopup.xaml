@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mopups:PopupPage x:Class="PassSafe.Views.SetMasterPassPopup"
                   xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
+                  xmlns:loc="clr-namespace:PassSafe.Helpers" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Converters;assembly=CommunityToolkit.Maui" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
                   x:DataType="viewmodels:SetMasterPassViewModel" BackgroundColor="#CC000000"
                   BindingContext="{Binding SetMasterPassViewModel, Source={StaticResource VMLocator}}"
                   CloseWhenBackgroundIsClicked="False">
@@ -21,17 +21,23 @@
                          Icon="{mi:MaterialSharp Icon=Lock}"
                          IconColor="{DynamicResource Primary}"
                          IconSize="40" />
-            <Label FontAttributes="Bold" FontSize="22" HorizontalOptions="Center" Text="Kasanızı Oluşturun"
+
+            <Label FontAttributes="Bold" FontSize="22" HorizontalOptions="Center"
+                   Text="{Binding Loc[CreateVaultTitle]}"
                    TextColor="{AppThemeBinding Dark=#E2E8F0,
                                                Light=#1e293b}" />
             <Label Margin="0,0,0,10"
-                   FontSize="13" HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Verilerinizi şifrelemek için güçlü bir ana parola belirleyin." TextColor="Gray" />
+                   FontSize="13" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                   Text="{Binding Loc[CreateVaultDesc]}"
+                   TextColor="Gray" />
 
-            <Entry IsPassword="True" Placeholder="Ana Şifre"
+            <Entry IsPassword="True"
+                   Placeholder="{Binding Loc[MasterPassPlaceholder]}"
                    Text="{Binding MasterPass}"
                    TextColor="{AppThemeBinding Dark=White,
                                                Light=Black}" />
-            <Entry IsPassword="True" Placeholder="Ana Şifre (Tekrar)"
+            <Entry IsPassword="True"
+                   Placeholder="{Binding Loc[MasterPassRepeatPlaceholder]}"
                    Text="{Binding MasterPassRepeat}"
                    TextColor="{AppThemeBinding Dark=White,
                                                Light=Black}" />
@@ -41,7 +47,7 @@
                    Text="{Binding ErrorMessage}"
                    TextColor="#FF3040" />
 
-            <Picker Title="Güvenlik Sorusu Seçin"
+            <Picker Title="{Binding Loc[SecurityQuestionTitle]}"
                     SelectedItem="{Binding SecurityQuestion}"
                     TextColor="{AppThemeBinding Dark=White,
                                                 Light=Black}">
@@ -54,7 +60,7 @@
                 </Picker.Items>
             </Picker>
 
-            <Entry Placeholder="Güvenlik Cevabı"
+            <Entry Placeholder="{Binding Loc[SecurityAnswerPlaceholder]}"
                    Text="{Binding SecurityQuestionAnswer, Mode=TwoWay}"
                    TextColor="{AppThemeBinding Dark=White,
                                                Light=Black}" />
@@ -63,7 +69,7 @@
                     Command="{Binding SetMasterPassCommand}"
                     CornerRadius="8" FontAttributes="Bold"
                     IsEnabled="{Binding AreConditionsMet}"
-                    Text="KASAYI OLUŞTUR" />
+                    Text="{Binding Loc[CreateVaultBtn]}" />
 
             <BoxView Margin="0,5"
                      HeightRequest="1"
@@ -72,7 +78,8 @@
 
             <Button BackgroundColor="Transparent"
                     Command="{Binding ImportOldDatabaseCommand}"
-                    FontAttributes="Bold" Text="Yedekten Geri Yükle"
+                    FontAttributes="Bold"
+                    Text="{Binding Loc[RestoreBackupBtn]}"
                     TextColor="{DynamicResource Primary}" />
         </VerticalStackLayout>
     </Border>

@@ -2,7 +2,8 @@
 <ContentPage x:Class="PassSafe.Views.SafePage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:PassSafe.Converters" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:models="clr-namespace:PassSafe.Models" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:vm="clr-namespace:PassSafe.ViewModels"
-             x:Name="RootPage" Title="Kasa"
+             x:Name="RootPage"
+             Title="{Binding Loc[TabSafe]}"
              x:DataType="vm:SafeViewModel"
              BindingContext="{Binding SafeViewModel, Source={StaticResource VMLocator}}">
 
@@ -72,8 +73,11 @@
             <Button Grid.Column="1"
                     Margin="10,0,0,0"
                     mi:MauiIcon.Value="{mi:MaterialSharp Icon=Add}"
+                    BackgroundColor="{DynamicResource Primary}"
                     Command="{Binding ShowAddPasswordPopupCommand}"
-                    HorizontalOptions="End" VerticalOptions="Center" />
+                    HorizontalOptions="End"
+                    Style="{x:Null}"
+                    VerticalOptions="Center" />
         </Grid>
 
         <RefreshView Grid.Row="1"
@@ -174,13 +178,16 @@
                                                 BackgroundColor="{DynamicResource Primary}"
                                                 Command="{Binding BindingContext.SetFavoritePasswordCommand, Source={x:Reference RootPage}}"
                                                 CommandParameter="{Binding .}"
-                                                ToolTipProperties.Text="Favorilere Ekle/Çıkar">
+                                                ToolTipProperties.Text="{Binding Loc[TooltipFavorite]}">
                                             <Button.WidthRequest>
                                                 <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
                                             </Button.WidthRequest>
                                             <Button.HeightRequest>
                                                 <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
                                             </Button.HeightRequest>
+                                            <Button.IsVisible>
+                                                <OnIdiom x:TypeArguments="x:Boolean" Default="False" Desktop="True" />
+                                            </Button.IsVisible>
                                             <Button.Triggers>
                                                 <DataTrigger Binding="{Binding IsFavorited}"
                                                              TargetType="Button"
@@ -201,7 +208,7 @@
                                                 BackgroundColor="{DynamicResource Primary}"
                                                 Command="{Binding BindingContext.ShowPasswordCommand, Source={x:Reference RootPage}}"
                                                 CommandParameter="{Binding .}"
-                                                ToolTipProperties.Text="Şifreyi Göster/Gizle">
+                                                ToolTipProperties.Text="{Binding Loc[TooltipVisibility]}">
                                             <Button.WidthRequest>
                                                 <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
                                             </Button.WidthRequest>
@@ -225,9 +232,10 @@
 
                                         <Button Grid.Column="2"
                                                 mi:MauiIcon.Value="{mi:MaterialSharp Icon=ContentCopy}"
+                                                BackgroundColor="{DynamicResource Primary}"
                                                 Command="{Binding BindingContext.CopyPasswordCommand, Source={x:Reference RootPage}}"
                                                 CommandParameter="{Binding EncryptedPassword}"
-                                                ToolTipProperties.Text="Şifreyi Kopyala">
+                                                ToolTipProperties.Text="{Binding Loc[TooltipCopy]}">
                                             <Button.WidthRequest>
                                                 <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
                                             </Button.WidthRequest>
@@ -238,9 +246,10 @@
 
                                         <Button Grid.Column="3"
                                                 mi:MauiIcon.Value="{mi:MaterialSharp Icon=Edit}"
+                                                BackgroundColor="{DynamicResource Primary}"
                                                 Command="{Binding BindingContext.EditPasswordCommand, Source={x:Reference RootPage}}"
                                                 CommandParameter="{Binding .}"
-                                                ToolTipProperties.Text="Şifreyi Düzenle">
+                                                ToolTipProperties.Text="{Binding Loc[TooltipEdit]}">
                                             <Button.WidthRequest>
                                                 <OnIdiom x:TypeArguments="x:Double" Default="50" Desktop="70" />
                                             </Button.WidthRequest>
@@ -251,9 +260,12 @@
 
                                         <Button Grid.Column="4"
                                                 mi:MauiIcon.Value="{mi:MaterialSharp Icon=Delete}"
+                                                BackgroundColor="{DynamicResource Primary}"
                                                 Command="{Binding BindingContext.DeletePasswordCommand, Source={x:Reference RootPage}}"
                                                 CommandParameter="{Binding .}"
-                                                HeightRequest="70" ToolTipProperties.Text="Şifreyi Sil" WidthRequest="70">
+                                                HeightRequest="70"
+                                                ToolTipProperties.Text="{Binding Loc[TooltipDelete]}"
+                                                WidthRequest="70">
                                             <Button.IsVisible>
                                                 <OnIdiom x:TypeArguments="x:Boolean" Default="False" Desktop="True" />
                                             </Button.IsVisible>

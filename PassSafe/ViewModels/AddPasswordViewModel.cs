@@ -7,6 +7,7 @@
     using MauiIcons.Material.Sharp;
     using Microsoft.Maui.Graphics;
     using Microsoft.Maui.Storage;
+    using PassSafe.Helpers;
     using PassSafe.Messages;
     using PassSafe.Models;
     using PassSafe.Services;
@@ -19,6 +20,8 @@
 
     public partial class AddPasswordViewModel : ObservableObject
     {
+        public LocalizationManager Loc => LocalizationManager.Instance;
+
         IDatabaseService _databaseService;
         ICryptoService _cryptoService;
         IDialogService _dialogService;
@@ -28,10 +31,10 @@
         private int passwordId = 0;
 
         [ObservableProperty]
-        private string popupTitle = "Şifre Ekle";
+        private string popupTitle;
 
         [ObservableProperty]
-        private string actionButtonText = "Ekle";
+        private string actionButtonText;
 
         [ObservableProperty]
         private string title = string.Empty;
@@ -90,7 +93,10 @@
             _dialogService = dialogService;
             _sfvm = sfvm;
 
-            LoadCategories();   
+            PopupTitle = Loc["TitleAddPass"];
+            ActionButtonText = Loc["AddBtn"];
+
+            LoadCategories();
 
             Mopups.Services.MopupService.Instance.Popped += (s, e) =>
             {
@@ -99,9 +105,9 @@
                 UserName = string.Empty;
                 Title = string.Empty;
                 CurrentIconIndex = 0;
-                PopupTitle = "Şifre Ekle";
-                ActionButtonText = "Ekle";
-                SelectedCategory = Categories.FirstOrDefault();  
+                PopupTitle = Loc["TitleAddPass"];
+                ActionButtonText = Loc["AddBtn"];
+                SelectedCategory = Categories.FirstOrDefault();
 
                 NextCommand.NotifyCanExecuteChanged();
                 PreviousCommand.NotifyCanExecuteChanged();
@@ -110,7 +116,7 @@
 
         private void LoadCategories()
         {
-            var cats = new List<string> { "Sosyal Medya", "Banka", "İş", "Oyun" };
+            var cats = new List<string>();
 
             var customCats = Preferences.Get("CustomCategories", "");
             if (!string.IsNullOrEmpty(customCats))
@@ -140,8 +146,8 @@
                 WeakReferenceMessenger.Default.Send(new CategoryAddedMessage(cat));
             }
 
-            SelectedCategory = cat;     
-            NewCategoryName = string.Empty;   
+            SelectedCategory = cat;
+            NewCategoryName = string.Empty;
         }
 
         [RelayCommand(CanExecute = nameof(CanNext))]
@@ -168,12 +174,12 @@
 
         public string SecurityStatus => CalculatePasswordScore() switch
         {
-            0 => "Boş",
-            1 => "Çok Zayıf",
-            2 => "Zayıf",
-            3 => "Orta",
-            4 => "Güçlü",
-            5 => "Kusursuz",
+            0 => Loc["SecEmpty"],
+            1 => Loc["SecVeryWeak"],
+            2 => Loc["SecWeak"],
+            3 => Loc["SecMedium"],
+            4 => Loc["SecStrong"],
+            5 => Loc["SecPerfect"],
             _ => "Unknown"
         };
 
@@ -201,8 +207,8 @@
             var index = _icons.FindIndex(x => x.Icon.ToString() == pwd.Icon);
             CurrentIconIndex = index >= 0 ? index : 0;
 
-            PopupTitle = "Şifre Güncelle";
-            ActionButtonText = "Güncelle";
+            PopupTitle = Loc["TitleEditPass"];
+            ActionButtonText = Loc["UpdateBtn"];
         }
 
         private int CalculatePasswordScore()
@@ -226,7 +232,7 @@
 
             if (string.IsNullOrEmpty(masterPass))
             {
-                var result = await _dialogService.ShowConfirmAsync("Hata", "Master key ayarlanmamış", "Ayarla", "İptal");
+                var result = await _dialogService.ShowConfirmAsync(Loc["ErrorTitle"], Loc["NoMasterPassFound"], Loc["SetBtn"], Loc["CancelBtn"]);
                 if (result == true)
                 {
                     await _dialogService.ShowPopupAsync(new SetMasterPassPopup());
@@ -242,7 +248,7 @@
                 Title = Title,
                 UserName = UserName,
                 Icon = CurrentIcon.Icon.ToString(),
-                Category = SelectedCategory,      
+                Category = SelectedCategory,
                 SecurityProgress = SecurityProgress,
                 SecurityStatus = SecurityStatus,
                 EncryptedPassword = encrypted

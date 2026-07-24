@@ -4,6 +4,7 @@
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.Messaging;
     using Microsoft.Maui.ApplicationModel;
+    using PassSafe.Helpers;
     using PassSafe.Messages;
     using PassSafe.Services;
     using System;
@@ -11,6 +12,8 @@
 
     public partial class SetMasterPassViewModel : ObservableObject, IRecipient<DatabaseImportedMessage>
     {
+        public LocalizationManager Loc => LocalizationManager.Instance;
+
         [ObservableProperty]
         private bool areConditionsMet;
 
@@ -57,11 +60,11 @@
             }
             else if (MasterPass != MasterPassRepeat)
             {
-                ErrorMessage = "Şifreler uyuşmuyor!";
+                ErrorMessage = Loc["ErrorPasswordsNotMatch"];
             }
             else if (MasterPass.Length < 4)
             {
-                ErrorMessage = "Şifre çok kısa!";
+                ErrorMessage = Loc["ErrorPasswordTooShort"];
             }
             else
             {
@@ -80,20 +83,20 @@
         {
             try
             {
-                var result = await _dialogService.ShowConfirmAsync("Emin misiniz?", "Eğer güvenlik sorusunun cevabını unutursanız şifrenizi sıfırlayamaz ve kasanızı tamamen kaybedersiniz!", "Evet, eminim", "İptal");
+                var result = await _dialogService.ShowConfirmAsync(Loc["AreYouSureTitle"], Loc["WarningMasterPassForget"], Loc["YesImSureBtn"], Loc["CancelBtn"]);
                 if (result == true)
                 {
                     await SecureStorage.SetAsync("masterPass", MasterPass);
                     await SecureStorage.SetAsync("securityQuestion", SecurityQuestion);
                     await SecureStorage.SetAsync("securityQuestionAnswer", SecurityQuestionAnswer);
 
-                    await _dialogService.ShowAlertAsync("Hoş Geldiniz!", "Ana şifreniz başarıyla oluşturuldu. Kasanız kullanıma hazır.", "Tamam");
+                    await _dialogService.ShowAlertAsync(Loc["WelcomeTitle"], Loc["SuccessVaultCreated"], Loc["OkBtn"]);
                     await Mopups.Services.MopupService.Instance.PopAsync();
                 }
             }
             catch (Exception)
             {
-                await _dialogService.ShowAlertAsync("Hata", "Şifre kaydedilirken bir sorun oluştu.", "Tamam");
+                await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["ErrorPassSaveFailed"], Loc["OkBtn"]);
             }
         }
 

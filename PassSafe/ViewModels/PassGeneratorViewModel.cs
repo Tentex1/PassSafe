@@ -12,6 +12,8 @@
 
     public partial class PassGeneratorViewModel : ObservableObject
     {
+        public LocalizationManager Loc => LocalizationManager.Instance;
+
         [ObservableProperty]
         private string generatedPass;
 
@@ -30,7 +32,6 @@
         [ObservableProperty]
         private int generatedPassLength = 8;
 
-        // RAM Tasarrufu için Readonly Diziler
         private readonly char[] _alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
         private readonly char[] _alphabetLower = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
         private readonly char[] _digits = "0123456789".ToCharArray();
@@ -41,7 +42,6 @@
             GeneratePassword();
         }
 
-        // Anahtarlar kapatılıp/açıldığında Şifreyi Anında Yenile!
         partial void OnIsUseUpperLetterChanged(bool value) => GeneratePassword();
         partial void OnIsUseLowerLetterChanged(bool value) => GeneratePassword();
         partial void OnIsUseNumbersChanged(bool value) => GeneratePassword();
@@ -60,7 +60,7 @@
 
             if (dynamicPool.Count == 0)
             {
-                GeneratedPass = "Seçim Yapın!";
+                GeneratedPass = Loc["GenSelectError"];
                 return;
             }
 
@@ -72,7 +72,7 @@
         private async Task CopyPassword()
         {
             await Clipboard.Default.SetTextAsync(GeneratedPass);
-            await Toast.Make("Şifre kopyalandı!").Show();
+            await Toast.Make(Loc["MsgCopied"]).Show();
         }
 
         [RelayCommand]

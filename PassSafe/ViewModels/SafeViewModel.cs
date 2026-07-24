@@ -5,10 +5,11 @@ namespace PassSafe.ViewModels
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.Messaging;
     using Microsoft.Maui.ApplicationModel;
+    using PassSafe.Helpers;
+    using PassSafe.Messages;
     using PassSafe.Models;
     using PassSafe.Services;
     using PassSafe.Views;
-    using PassSafe.Messages;    
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -26,6 +27,8 @@ namespace PassSafe.ViewModels
 
     public partial class SafeViewModel : ObservableObject, IRecipient<CategoryAddedMessage>
     {
+        public LocalizationManager Loc => LocalizationManager.Instance;
+
         private readonly IDialogService _dialogService;
         private readonly IDatabaseService _databaseService;
         private readonly ICryptoService _cryptoService;
@@ -40,7 +43,7 @@ namespace PassSafe.ViewModels
         private ObservableCollection<CategoryItem> categories;
 
         [ObservableProperty]
-        private string selectedCategory = "Hepsi";
+        private string selectedCategory;
 
         [ObservableProperty]
         private string dbStatus;
@@ -54,14 +57,12 @@ namespace PassSafe.ViewModels
             _dialogService = dialogService;
             _databaseService = databaseService;
 
+            SelectedCategory = Loc["CatAll"];
+
             Categories = new ObservableCollection<CategoryItem>
             {
-                new CategoryItem { Name = "Hepsi", IsSelected = true },
-                new CategoryItem { Name = "Favoriler", IsSelected = false },
-                new CategoryItem { Name = "Sosyal Medya", IsSelected = false },
-                new CategoryItem { Name = "Banka", IsSelected = false },
-                new CategoryItem { Name = "İş", IsSelected = false },
-                new CategoryItem { Name = "Oyun", IsSelected = false }
+                new CategoryItem { Name = Loc["CatAll"], IsSelected = true },
+                new CategoryItem { Name = Loc["CatFavorites"], IsSelected = false }
             };
 
             var customCats = Preferences.Get("CustomCategories", "");
@@ -72,6 +73,23 @@ namespace PassSafe.ViewModels
                     Categories.Add(new CategoryItem { Name = cat, IsSelected = false });
                 }
             }
+
+            LocalizationManager.Instance.PropertyChanged += (s, e) =>
+            {
+                if (Categories != null && Categories.Count >= 2)
+                {
+                    bool wasAllSelected = Categories[0].IsSelected;
+                    bool wasFavSelected = Categories[1].IsSelected;
+
+                    Categories[0].Name = Loc["CatAll"];
+                    Categories[1].Name = Loc["CatFavorites"];
+
+                    if (wasAllSelected) SelectedCategory = Loc["CatAll"];
+                    else if (wasFavSelected) SelectedCategory = Loc["CatFavorites"];
+
+                    FilterPasswords();
+                }
+            };
 
             WeakReferenceMessenger.Default.RegisterAll(this);
             _ = LoadPasswordsAsync();
@@ -89,7 +107,7 @@ namespace PassSafe.ViewModels
         private async Task LoadPasswordsAsync()
         {
             IsRefreshing = true;
-            DbStatus = "Veriler yükleniyor...";
+            DbStatus = Loc["DbLoading"];
             try
             {
                 if (string.IsNullOrEmpty(masterPass))
@@ -108,9 +126,9 @@ namespace PassSafe.ViewModels
                 }
                 FilterPasswords();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                DbStatus = "Veri yükleme hatası!";
+                DbStatus = Loc["ErrorDataLoad"];
             }
             finally
             {
@@ -135,14 +153,14 @@ namespace PassSafe.ViewModels
             if (_allPasswords == null) return;
             IEnumerable<Password> filteredList;
 
-            if (SelectedCategory == "Hepsi") filteredList = _allPasswords;
-            else if (SelectedCategory == "Favoriler") filteredList = _allPasswords.Where(p => p.IsFavorited);
+            if (SelectedCategory == Loc["CatAll"]) filteredList = _allPasswords;
+            else if (SelectedCategory == Loc["CatFavorites"]) filteredList = _allPasswords.Where(p => p.IsFavorited);
             else filteredList = _allPasswords.Where(p => p.Category == SelectedCategory);
 
             CollectionViewItemSource = new ObservableCollection<Password>(filteredList);
 
             if (!CollectionViewItemSource.Any())
-                DbStatus = SelectedCategory == "Hepsi" ? "Hiç parolanız yok." : "Bu kategoride parola bulunamadı.";
+                DbStatus = SelectedCategory == Loc["CatAll"] ? Loc["DbEmpty"] : Loc["DbNoCategory"];
             else
                 DbStatus = string.Empty;
         }
@@ -190,13 +208,13 @@ namespace PassSafe.ViewModels
             if (string.IsNullOrEmpty(masterPass)) masterPass = await SecureStorage.GetAsync("masterPass");
             var pass = _cryptoService.Decrypt(password, masterPass);
             await Clipboard.SetTextAsync(pass);
-            await Toast.Make("Şifre panoya kopyalandı").Show();
+            await Toast.Make(Loc["MsgCopied"]).Show();
         }
 
         [RelayCommand]
         private async Task DeletePasswordAsync(Password password)
         {
-            var dialog = await _dialogService.ShowConfirmAsync("Parolayı Sil", "Bu parolayı silmek istediğinize emin misiniz?", "Sil", "İptal");
+            var dialog = await _dialogService.ShowConfirmAsync(Loc["ConfirmDeleteTitle"], Loc["ConfirmDeleteDesc"], Loc["DeleteBtn"], Loc["CancelBtn"]);
             if (dialog == true)
             {
                 await _databaseService.DeletePasswordAsync(password.Id);
@@ -211,7 +229,7 @@ namespace PassSafe.ViewModels
             password.IsFavorited = !password.IsFavorited;
             await _databaseService.UpdatePasswordAsync(password);
             FilterPasswords();
-            await Toast.Make(password.IsFavorited ? "Favorilere eklendi ❤️" : "Favorilerden çıkarıldı 💔").Show();
+            await Toast.Make(password.IsFavorited ? $"{password.Title} {Loc["MsgFavAdded"]}" : $"{password.Title} {Loc["MsgFavRemoved"]}").Show();
         }
     }
 }

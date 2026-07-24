@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
 using System.Reflection;
+using Microsoft.Maui.Storage;
+using PassSafe.Helpers;     
 using Color = Microsoft.Maui.Graphics.Color;
 
 namespace PassSafe
@@ -19,42 +21,20 @@ namespace PassSafe
         public App(IServiceProvider serviceProvider)
         {
             InitializeComponent();
-            UserAppTheme = PlatformAppTheme;
             Services = serviceProvider;
-            Color systemColor = null;
-#if ANDROID
-            systemColor = PlatformThemeHelper.GetAndroidAccentColor();
-#elif WINDOWS
-            systemColor = PassSafe.WinUI.PlatformThemeHelper.GetWindowsAccentColor();
-#endif
 
-            if (systemColor != null)
-            {
-                bool found = false;
+            string savedLang = Preferences.Get("AppLanguage", "en");   
+            LocalizationManager.Instance.SetLanguage(savedLang);
 
-                foreach (var dictionary in Application.Current.Resources.MergedDictionaries)
-                {
-                    if (dictionary.ContainsKey("Primary"))
-                    {
-                        dictionary["Primary"] = systemColor;
-
-                        if (dictionary.ContainsKey("PrimaryBrush"))
-                        {
-                            dictionary["PrimaryBrush"] = new SolidColorBrush(systemColor);
-                        }
-
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (!found)
-                {
-                    Application.Current.Resources["Primary"] = systemColor;
-                }
-            }
-
+            string savedTheme = Preferences.Get("AppTheme", "system");
+            if (savedTheme == "light")
+                UserAppTheme = AppTheme.Light;
+            else if (savedTheme == "dark")
+                UserAppTheme = AppTheme.Dark;
+            else
+                UserAppTheme = AppTheme.Unspecified;
         }
+
         public static IDictionary<string, Type> Routes => _routes;
     }
 }

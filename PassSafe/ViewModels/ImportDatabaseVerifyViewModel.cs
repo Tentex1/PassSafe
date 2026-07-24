@@ -4,6 +4,7 @@
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.Messaging;
     using Microsoft.Maui.ApplicationModel;
+    using PassSafe.Helpers;
     using PassSafe.Messages;
     using PassSafe.Services;
     using System;
@@ -11,6 +12,8 @@
 
     public partial class ImportDatabaseVerifyViewModel : ObservableObject
     {
+        public LocalizationManager Loc => LocalizationManager.Instance;
+
         private readonly IDatabaseService _databaseService;
         private readonly IDialogService _dialogService;
 
@@ -30,7 +33,7 @@
         private string securityQuestionAnswer;
 
         [ObservableProperty]
-        private string infoText = "Lütfen eski kasanızın şifresini ve güvenlik bilgilerini girin.";
+        private string infoText;
 
         [ObservableProperty]
         private Color infoTextColor = Colors.Gray;
@@ -39,6 +42,7 @@
         {
             _databaseService = databaseService;
             _dialogService = dialogService;
+            InfoText = Loc["InfoEnterOldVaultDetails"];
         }
 
         partial void OnMasterPassChanged(string value) => CheckConditions();
@@ -65,7 +69,7 @@
                 if (result)
                 {
                     InfoTextColor = Colors.Green;
-                    InfoText = "Şifre doğrulandı! Kasanız yükleniyor...";
+                    InfoText = Loc["InfoPassVerifiedLoad"];
 
                     await SecureStorage.SetAsync("masterPass", MasterPass);
                     await SecureStorage.SetAsync("securityQuestion", SecurityQuestion);
@@ -80,7 +84,7 @@
                 else
                 {
                     InfoTextColor = Colors.Red;
-                    InfoText = "Parola yanlış! Lütfen tekrar deneyin.";
+                    InfoText = Loc["InfoPassWrong"];
                     IsVerified = false;
                     CheckConditions();
                 }

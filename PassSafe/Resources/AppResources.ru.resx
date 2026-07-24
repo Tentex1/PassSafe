@@ -118,480 +118,480 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccentColorTitle" xml:space="preserve">
-    <value>Accent Color</value>
+    <value>Цвет акцента</value>
   </data>
   <data name="AddBtn" xml:space="preserve">
-    <value>Add</value>
+    <value>Добавить</value>
   </data>
   <data name="AnaChangeBtn" xml:space="preserve">
-    <value>Change</value>
+    <value>Изменить</value>
   </data>
   <data name="AnaCritical" xml:space="preserve">
-    <value>CRITICAL ACTIONS</value>
+    <value>КРИТИЧЕСКИЕ ДЕЙСТВИЯ</value>
   </data>
   <data name="AnaEmpty" xml:space="preserve">
-    <value>Vault is Empty</value>
+    <value>Хранилище пусто</value>
   </data>
   <data name="AnaEmptyDesc" xml:space="preserve">
-    <value>No passwords saved yet.</value>
+    <value>У вас пока нет сохраненных паролей.</value>
   </data>
   <data name="AnaFixNow" xml:space="preserve">
-    <value>! Fix Immediately</value>
+    <value>! Исправить немедленно</value>
   </data>
   <data name="AnaRefreshBtn" xml:space="preserve">
-    <value>Refresh Analysis</value>
+    <value>Обновить анализ</value>
   </data>
   <data name="AnaRisky" xml:space="preserve">
-    <value>Risky</value>
+    <value>Рискованные</value>
   </data>
   <data name="AnaRiskyDesc" xml:space="preserve">
-    <value>Reused passwords.</value>
+    <value>Повторяющиеся пароли.</value>
   </data>
   <data name="AnaScore" xml:space="preserve">
-    <value>SCORE</value>
+    <value>СЧЕТ</value>
   </data>
   <data name="AnaStatusGood" xml:space="preserve">
-    <value>Good</value>
+    <value>Хорошо</value>
   </data>
   <data name="AnaStatusGoodDesc" xml:space="preserve">
-    <value>Safe, but could use minor improvements.</value>
+    <value>Безопасно, но можно улучшить.</value>
   </data>
   <data name="AnaStatusPerfect" xml:space="preserve">
-    <value>Perfect</value>
+    <value>Отлично</value>
   </data>
   <data name="AnaStatusPerfectDesc" xml:space="preserve">
-    <value>Your vault is completely secure.</value>
+    <value>Ваше хранилище в полной безопасности.</value>
   </data>
   <data name="AnaStatusRisk" xml:space="preserve">
-    <value>At Risk</value>
+    <value>Под угрозой</value>
   </data>
   <data name="AnaStatusRiskDesc" xml:space="preserve">
-    <value>Critical vulnerabilities. Update weak passwords!</value>
+    <value>Есть уязвимости. Обновите пароли!</value>
   </data>
   <data name="AnaStrong" xml:space="preserve">
-    <value>Strong</value>
+    <value>Надежные</value>
   </data>
   <data name="AnaStrongDesc" xml:space="preserve">
-    <value>Complex and safe passwords.</value>
+    <value>Сложные и безопасные пароли.</value>
   </data>
   <data name="AnaSummary" xml:space="preserve">
-    <value>SUMMARY ANALYSIS</value>
+    <value>СВОДНЫЙ АНАЛИЗ</value>
   </data>
   <data name="AnaWeak" xml:space="preserve">
-    <value>Weak</value>
+    <value>Слабые</value>
   </data>
   <data name="AnaWeakDesc" xml:space="preserve">
-    <value>Short or simple passwords.</value>
+    <value>Короткие или простые пароли.</value>
   </data>
   <data name="AppearanceSection" xml:space="preserve">
-    <value>APPEARANCE &amp; LANGUAGE</value>
+    <value>ВНЕШНИЙ ВИД И ЯЗЫК</value>
   </data>
   <data name="AreYouSureTitle" xml:space="preserve">
-    <value>Are you sure?</value>
+    <value>Вы уверены?</value>
   </data>
   <data name="AuthDesc" xml:space="preserve">
-    <value>Complete verification to access your passwords.</value>
+    <value>Пройдите аутентификацию для доступа к паролям.</value>
   </data>
   <data name="AuthTitle" xml:space="preserve">
-    <value>Complete verification.</value>
+    <value>Пройдите аутентификацию.</value>
   </data>
   <data name="AutoLockDesc" xml:space="preserve">
-    <value>Lock when app goes to background</value>
+    <value>Блокировать в фоновом режиме</value>
   </data>
   <data name="AutoLockTitle" xml:space="preserve">
-    <value>Auto-Lock</value>
+    <value>Автоблокировка</value>
   </data>
   <data name="CancelBtn" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Отмена</value>
   </data>
   <data name="CatAll" xml:space="preserve">
-    <value>All</value>
+    <value>Все</value>
   </data>
   <data name="CatBank" xml:space="preserve">
-    <value>Bank</value>
+    <value>Банк</value>
   </data>
   <data name="CatFavorites" xml:space="preserve">
-    <value>Favorites</value>
+    <value>Избранное</value>
   </data>
   <data name="CatGame" xml:space="preserve">
-    <value>Games</value>
+    <value>Игры</value>
   </data>
   <data name="CatSocial" xml:space="preserve">
-    <value>Social Media</value>
+    <value>Соцсети</value>
   </data>
   <data name="CatWork" xml:space="preserve">
-    <value>Work</value>
+    <value>Работа</value>
   </data>
   <data name="ChangeBtn" xml:space="preserve">
-    <value>Change</value>
+    <value>Изменить</value>
   </data>
   <data name="ChangeMasterPassDesc" xml:space="preserve">
-    <value>Update your vault login password</value>
+    <value>Обновите пароль для входа</value>
   </data>
   <data name="ChangeMasterPassTitle" xml:space="preserve">
-    <value>Change Master Password</value>
+    <value>Изменить мастер-пароль</value>
   </data>
   <data name="ClearClipboardDesc" xml:space="preserve">
-    <value>Removes copied password from memory</value>
+    <value>Удаляет скопированный пароль</value>
   </data>
   <data name="ClearClipboardTitle" xml:space="preserve">
-    <value>Clear Clipboard</value>
+    <value>Очистить буфер обмена</value>
   </data>
   <data name="ColorEmerald" xml:space="preserve">
-    <value>Emerald Green</value>
+    <value>Изумрудный</value>
   </data>
   <data name="ColorFire" xml:space="preserve">
-    <value>Fire Red</value>
+    <value>Огненно-красный</value>
   </data>
   <data name="ColorOcean" xml:space="preserve">
-    <value>Ocean Blue</value>
+    <value>Океанский синий</value>
   </data>
   <data name="ColorPurple" xml:space="preserve">
-    <value>Night Purple</value>
+    <value>Ночной фиолетовый</value>
   </data>
   <data name="ColorRestartToast" xml:space="preserve">
-    <value>Restart to apply the system color.</value>
+    <value>Перезапустите для применения цвета.</value>
   </data>
   <data name="ColorSun" xml:space="preserve">
-    <value>Sun Yellow</value>
+    <value>Солнечный желтый</value>
   </data>
   <data name="ConfirmBtn" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Подтвердить</value>
   </data>
   <data name="ConfirmDeleteDesc" xml:space="preserve">
-    <value>Are you sure you want to delete this password?</value>
+    <value>Вы уверены, что хотите удалить этот пароль?</value>
   </data>
   <data name="ConfirmDeleteTitle" xml:space="preserve">
-    <value>Delete Password</value>
+    <value>Удалить пароль</value>
   </data>
   <data name="ConfirmNewMasterPass" xml:space="preserve">
-    <value>Please confirm your new master password:</value>
+    <value>Пожалуйста, подтвердите новый мастер-пароль:</value>
   </data>
   <data name="ContinueBtn" xml:space="preserve">
-    <value>Continue</value>
+    <value>Продолжить</value>
   </data>
   <data name="CreateVaultBtn" xml:space="preserve">
-    <value>CREATE VAULT</value>
+    <value>СОЗДАТЬ ХРАНИЛИЩЕ</value>
   </data>
   <data name="CreateVaultDesc" xml:space="preserve">
-    <value>Set a strong master password to encrypt your data.</value>
+    <value>Установите надежный мастер-пароль.</value>
   </data>
   <data name="CreateVaultTitle" xml:space="preserve">
-    <value>Create Your Vault</value>
+    <value>Создайте хранилище</value>
   </data>
   <data name="CriticalErrorTitle" xml:space="preserve">
-    <value>Critical Error</value>
+    <value>Критическая ошибка</value>
   </data>
   <data name="DataManagementSection" xml:space="preserve">
-    <value>DATA MANAGEMENT (BACKUP)</value>
+    <value>УПРАВЛЕНИЕ ДАННЫМИ</value>
   </data>
   <data name="DbEmpty" xml:space="preserve">
-    <value>You have no passwords.</value>
+    <value>У вас нет паролей.</value>
   </data>
   <data name="DbLoading" xml:space="preserve">
-    <value>Loading data...</value>
+    <value>Загрузка данных...</value>
   </data>
   <data name="DbNoCategory" xml:space="preserve">
-    <value>No passwords in this category.</value>
+    <value>Нет паролей в этой категории.</value>
   </data>
   <data name="DeleteBtn" xml:space="preserve">
-    <value>Delete</value>
+    <value>Удалить</value>
   </data>
   <data name="EnterAgainTitle" xml:space="preserve">
-    <value>Enter Again</value>
+    <value>Введите снова</value>
   </data>
   <data name="EnterCurrentMasterPass" xml:space="preserve">
-    <value>Enter current master password:</value>
+    <value>Введите текущий мастер-пароль:</value>
   </data>
   <data name="EnterNewMasterPass" xml:space="preserve">
-    <value>Enter new master password (Min 4 chars):</value>
+    <value>Введите новый мастер-пароль (Мин 4 символа):</value>
   </data>
   <data name="ErrorDataLoad" xml:space="preserve">
-    <value>Data load error!</value>
+    <value>Ошибка загрузки данных!</value>
   </data>
   <data name="ErrorDbNotFoundToExport" xml:space="preserve">
-    <value>No database  found to export! Your vault might be empty.</value>
+    <value>База данных для экспорта не найдена! Возможно, хранилище пусто.</value>
   </data>
   <data name="ErrorDbVerifyFailed" xml:space="preserve">
-    <value>Database password verification failed. Reverting changes.</value>
+    <value>Не удалось проверить пароль базы данных. Отмена изменений.</value>
   </data>
   <data name="ErrorExportFailed" xml:space="preserve">
-    <value>Export failed</value>
+    <value>Ошибка экспорта</value>
   </data>
   <data name="ErrorInvalidDbFile" xml:space="preserve">
-    <value>Please select a valid SQLite database file.</value>
+    <value>Пожалуйста, выберите действительный файл базы данных SQLite.</value>
   </data>
   <data name="ErrorPassSaveFailed" xml:space="preserve">
-    <value>An error occurred while saving the password.</value>
+    <value>Произошла ошибка при сохранении пароля.</value>
   </data>
   <data name="ErrorPassUpdateFailed" xml:space="preserve">
-    <value>Error updating passwords</value>
+    <value>Ошибка при обновлении паролей</value>
   </data>
   <data name="ErrorPasswordsNotMatch" xml:space="preserve">
-    <value>Passwords do not match!</value>
+    <value>Пароли не совпадают!</value>
   </data>
   <data name="ErrorPasswordTooShort" xml:space="preserve">
-    <value>Password is too short!</value>
+    <value>Пароль слишком короткий!</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Error</value>
+    <value>Ошибка</value>
   </data>
   <data name="ErrorWrongMasterPass" xml:space="preserve">
-    <value>Incorrect master password!</value>
+    <value>Неверный мастер-пароль!</value>
   </data>
   <data name="ExportDbDesc" xml:space="preserve">
-    <value>Backup your data safely</value>
+    <value>Сделайте резервную копию данных</value>
   </data>
   <data name="ExportDbTitle" xml:space="preserve">
-    <value>Export Current Database</value>
+    <value>Экспорт текущей базы данных</value>
   </data>
   <data name="FailedTitle" xml:space="preserve">
-    <value>Failed!</value>
+    <value>Не удалось!</value>
   </data>
   <data name="GenAddBtn" xml:space="preserve">
-    <value>Add to vault</value>
+    <value>Добавить в хранилище</value>
   </data>
   <data name="GenCopyBtn" xml:space="preserve">
-    <value>Copy password</value>
+    <value>Копировать пароль</value>
   </data>
   <data name="GenLength" xml:space="preserve">
-    <value>LENGTH</value>
+    <value>ДЛИНА</value>
   </data>
   <data name="GenLowercase" xml:space="preserve">
-    <value>Lowercase (a-z)</value>
+    <value>Строчные буквы (a-z)</value>
   </data>
   <data name="GenNumbers" xml:space="preserve">
-    <value>Numbers (0-9)</value>
+    <value>Цифры (0-9)</value>
   </data>
   <data name="GenSelectError" xml:space="preserve">
-    <value>Make a Selection!</value>
+    <value>Сделайте выбор!</value>
   </data>
   <data name="GenSymbols" xml:space="preserve">
-    <value>Symbols (!@#$%)</value>
+    <value>Символы (!@#$%)</value>
   </data>
   <data name="GenUppercase" xml:space="preserve">
-    <value>Uppercase (A-Z)</value>
+    <value>Заглавные буквы (A-Z)</value>
   </data>
   <data name="GenYourPassword" xml:space="preserve">
-    <value>YOUR PASSWORD</value>
+    <value>ВАШ ПАРОЛЬ</value>
   </data>
   <data name="ImportBackupDesc" xml:space="preserve">
-    <value>Load your old vault to device</value>
+    <value>Загрузите старое хранилище</value>
   </data>
   <data name="ImportBackupTitle" xml:space="preserve">
-    <value>Import Backup (.sqlite)</value>
+    <value>Импорт резервной копии (.sqlite)</value>
   </data>
   <data name="LangRestartToast" xml:space="preserve">
-    <value>Language change will be applied on the next restart.</value>
+    <value>Язык изменится после перезапуска.</value>
   </data>
   <data name="LanguageTitle" xml:space="preserve">
-    <value>App Language</value>
+    <value>Язык приложения</value>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>Location</value>
+    <value>Расположение</value>
   </data>
   <data name="LoginTitle" xml:space="preserve">
-    <value>Login</value>
+    <value>Вход</value>
   </data>
   <data name="MasterPassPlaceholder" xml:space="preserve">
-    <value>Master Password</value>
+    <value>Мастер-пароль</value>
   </data>
   <data name="MasterPassRepeatPlaceholder" xml:space="preserve">
-    <value>Master Password (Repeat)</value>
+    <value>Мастер-пароль (Повтор)</value>
   </data>
   <data name="MsgCopied" xml:space="preserve">
-    <value>Password copied to clipboard!</value>
+    <value>Пароль скопирован в буфер обмена!</value>
   </data>
   <data name="MsgFavAdded" xml:space="preserve">
-    <value>added to favorites ❤️</value>
+    <value>добавлено в избранное ❤️</value>
   </data>
   <data name="MsgFavRemoved" xml:space="preserve">
-    <value>removed from favorites 💔</value>
+    <value>удалено из избранного 💔</value>
   </data>
   <data name="NewCategoryPlaceholder" xml:space="preserve">
-    <value>Or type new category...</value>
+    <value>Или введите новую...</value>
   </data>
   <data name="NewPassTitle" xml:space="preserve">
-    <value>New Password</value>
+    <value>Новый пароль</value>
   </data>
   <data name="NoMasterPassFound" xml:space="preserve">
-    <value>Master key not set</value>
+    <value>Мастер-пароль не установлен</value>
   </data>
   <data name="OkBtn" xml:space="preserve">
-    <value>ОК</value>
+    <value>OK</value>
   </data>
   <data name="OldMasterPassPlaceholder" xml:space="preserve">
-    <value>Old Master Password</value>
+    <value>Старый мастер-пароль</value>
   </data>
   <data name="PassTitlePlaceholder" xml:space="preserve">
-    <value>Title (e.g. Google)</value>
+    <value>Заголовок (напр. Google)</value>
   </data>
   <data name="RestoreBackupBtn" xml:space="preserve">
-    <value>Restore from Backup</value>
+    <value>Восстановить из копии</value>
   </data>
   <data name="ReusedPassDesc" xml:space="preserve">
-    <value>Reused password detected</value>
+    <value>Обнаружен повторяющийся пароль</value>
   </data>
   <data name="SecEmpty" xml:space="preserve">
-    <value>Empty</value>
+    <value>Пусто</value>
   </data>
   <data name="SecMedium" xml:space="preserve">
-    <value>Medium</value>
+    <value>Средний</value>
   </data>
   <data name="SecPerfect" xml:space="preserve">
-    <value>Perfect</value>
+    <value>Идеальный</value>
   </data>
   <data name="SecStrong" xml:space="preserve">
-    <value>Strong</value>
+    <value>Надежный</value>
   </data>
   <data name="SecurityAnswerPlaceholder" xml:space="preserve">
-    <value>Security Answer</value>
+    <value>Ответ на вопрос</value>
   </data>
   <data name="SecurityLabel" xml:space="preserve">
-    <value>Security:</value>
+    <value>Безопасность:</value>
   </data>
   <data name="SecurityQuestionTitle" xml:space="preserve">
-    <value>Select Security Question</value>
+    <value>Выберите секретный вопрос</value>
   </data>
   <data name="SecuritySection" xml:space="preserve">
-    <value>SECURITY</value>
+    <value>БЕЗОПАСНОСТЬ</value>
   </data>
   <data name="SecVeryWeak" xml:space="preserve">
-    <value>Very Weak</value>
+    <value>Очень слабый</value>
   </data>
   <data name="SecWeak" xml:space="preserve">
-    <value>Weak</value>
+    <value>Слабый</value>
   </data>
   <data name="SelectCategoryTitle" xml:space="preserve">
-    <value>Select Category</value>
+    <value>Выберите категорию</value>
   </data>
   <data name="SetBtn" xml:space="preserve">
-    <value>Set</value>
+    <value>Установить</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>Settings</value>
+    <value>Настройки</value>
   </data>
   <data name="SuccessBackupTitle" xml:space="preserve">
-    <value>Backup Successful!</value>
+    <value>Резервное копирование успешно!</value>
   </data>
   <data name="SuccessDbExported" xml:space="preserve">
-    <value>Database exported securely to your device.</value>
+    <value>База данных безопасно экспортирована на ваше устройство.</value>
   </data>
   <data name="SuccessDbImported" xml:space="preserve">
-    <value>Database imported successfully.</value>
+    <value>База данных успешно импортирована.</value>
   </data>
   <data name="SuccessMasterPassChanged" xml:space="preserve">
-    <value>Master password changed securely.</value>
+    <value>Мастер-пароль успешно изменен.</value>
   </data>
   <data name="SuccessTitle" xml:space="preserve">
-    <value>Success!</value>
+    <value>Успешно!</value>
   </data>
   <data name="SuccessVaultCreated" xml:space="preserve">
-    <value>Master password created successfully. Your vault is ready to use.</value>
+    <value>Мастер-пароль успешно создан. Ваше хранилище готово.</value>
   </data>
   <data name="TabGenerator" xml:space="preserve">
-    <value>Generator</value>
+    <value>Генератор</value>
   </data>
   <data name="TabSafe" xml:space="preserve">
-    <value>Vault</value>
+    <value>Хранилище</value>
   </data>
   <data name="TabSettings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Настройки</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Темная</value>
   </data>
   <data name="ThemeLight" xml:space="preserve">
-    <value>Light</value>
+    <value>Светлая</value>
   </data>
   <data name="ThemeSystem" xml:space="preserve">
-    <value>System</value>
+    <value>Система</value>
   </data>
   <data name="ThemeTitle" xml:space="preserve">
-    <value>Theme</value>
+    <value>Тема</value>
   </data>
   <data name="Time1Min" xml:space="preserve">
-    <value>1 Minute</value>
+    <value>1 Минута</value>
   </data>
   <data name="Time5Min" xml:space="preserve">
-    <value>5 Minutes</value>
+    <value>5 Минут</value>
   </data>
   <data name="Time15Sec" xml:space="preserve">
-    <value>15 Seconds</value>
+    <value>15 Секунд</value>
   </data>
   <data name="Time30Sec" xml:space="preserve">
-    <value>30 Seconds</value>
+    <value>30 Секунд</value>
   </data>
   <data name="TimeInstantly" xml:space="preserve">
-    <value>Instantly</value>
+    <value>Мгновенно</value>
   </data>
   <data name="TimeNever" xml:space="preserve">
-    <value>Never</value>
+    <value>Никогда</value>
   </data>
   <data name="TimeOff" xml:space="preserve">
-    <value>Off</value>
+    <value>Выкл</value>
   </data>
   <data name="TitleAddPass" xml:space="preserve">
-    <value>Add Password</value>
+    <value>Добавить пароль</value>
   </data>
   <data name="TitleEditPass" xml:space="preserve">
-    <value>Update Password</value>
+    <value>Обновить пароль</value>
   </data>
   <data name="TooltipAddSafe" xml:space="preserve">
-    <value>Add to Safe</value>
+    <value>Добавить в сейф</value>
   </data>
   <data name="TooltipCopy" xml:space="preserve">
-    <value>Copy Password</value>
+    <value>Скопировать пароль</value>
   </data>
   <data name="TooltipDelete" xml:space="preserve">
-    <value>Delete Password</value>
+    <value>Удалить пароль</value>
   </data>
   <data name="TooltipEdit" xml:space="preserve">
-    <value>Edit Password</value>
+    <value>Изменить пароль</value>
   </data>
   <data name="TooltipFavorite" xml:space="preserve">
-    <value>Add/Remove Favorite</value>
+    <value>Добавить/Удалить из избранного</value>
   </data>
   <data name="TooltipVisibility" xml:space="preserve">
-    <value>Show/Hide Password</value>
+    <value>Показать/Скрыть пароль</value>
   </data>
   <data name="UpdateBtn" xml:space="preserve">
-    <value>Update</value>
+    <value>Обновить</value>
   </data>
   <data name="UsernamePlaceholder" xml:space="preserve">
-    <value>Username or Email</value>
+    <value>Имя пользователя или E-Mail</value>
   </data>
   <data name="VerifyAndLoadBtn" xml:space="preserve">
-    <value>VERIFY AND LOAD</value>
+    <value>ПОДТВЕРДИТЬ И ЗАГРУЗИТЬ</value>
   </data>
   <data name="VerifyTitle" xml:space="preserve">
-    <value>Verification</value>
+    <value>Проверка</value>
   </data>
   <data name="VeryWeakPassDesc" xml:space="preserve">
-    <value>Very weak password</value>
+    <value>Очень слабый пароль</value>
   </data>
   <data name="WarningMasterPassForget" xml:space="preserve">
-    <value>If you forget the security answer, you cannot reset your password and will lose your vault completely!</value>
+    <value>Если вы забудете ответ на секретный вопрос, вы не сможете сбросить пароль и полностью потеряете хранилище!</value>
   </data>
   <data name="WelcomeTitle" xml:space="preserve">
-    <value>Welcome!</value>
+    <value>Добро пожаловать!</value>
   </data>
   <data name="YesImSureBtn" xml:space="preserve">
-    <value>Yes, I'm sure</value>
+    <value>Да, я уверен</value>
   </data>
   <data name="YourPasswordPlaceholder" xml:space="preserve">
-    <value>Your Password</value>
+    <value>Ваш пароль</value>
   </data>
   <data name="TabAnalyzer" xml:space="preserve">
-    <value>Analyzer</value>
+    <value>Аналитика</value>
   </data>
   <data name="InfoEnterOldVaultDetails" xml:space="preserve">
-    <value>Please enter your old vault's password and security details.</value>
+    <value>Введите пароль и данные безопасности старого хранилища.</value>
   </data>
   <data name="InfoPassVerifiedLoad" xml:space="preserve">
-    <value>Password verified! Loading your vault...</value>
+    <value>Пароль подтвержден! Загрузка хранилища...</value>
   </data>
   <data name="InfoPassWrong" xml:space="preserve">
-    <value>Incorrect password! Please try again.</value>
+    <value>Неверный пароль! Попробуйте еще раз.</value>
   </data>
 </root>

@@ -59,5 +59,1436 @@ namespace PassSafe.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Accent Color benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AccentColorTitle {
+            get {
+                return ResourceManager.GetString("AccentColorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AddBtn {
+            get {
+                return ResourceManager.GetString("AddBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Change benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaChangeBtn {
+            get {
+                return ResourceManager.GetString("AnaChangeBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   CRITICAL ACTIONS benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaCritical {
+            get {
+                return ResourceManager.GetString("AnaCritical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Vault is Empty benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaEmpty {
+            get {
+                return ResourceManager.GetString("AnaEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No passwords saved yet. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaEmptyDesc {
+            get {
+                return ResourceManager.GetString("AnaEmptyDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ! Fix Immediately benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaFixNow {
+            get {
+                return ResourceManager.GetString("AnaFixNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Refresh Analysis benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaRefreshBtn {
+            get {
+                return ResourceManager.GetString("AnaRefreshBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Risky benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaRisky {
+            get {
+                return ResourceManager.GetString("AnaRisky", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reused passwords. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaRiskyDesc {
+            get {
+                return ResourceManager.GetString("AnaRiskyDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SCORE benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaScore {
+            get {
+                return ResourceManager.GetString("AnaScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Good benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaStatusGood {
+            get {
+                return ResourceManager.GetString("AnaStatusGood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Safe, but could use minor improvements. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaStatusGoodDesc {
+            get {
+                return ResourceManager.GetString("AnaStatusGoodDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Perfect benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaStatusPerfect {
+            get {
+                return ResourceManager.GetString("AnaStatusPerfect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Your vault is completely secure. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaStatusPerfectDesc {
+            get {
+                return ResourceManager.GetString("AnaStatusPerfectDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   At Risk benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaStatusRisk {
+            get {
+                return ResourceManager.GetString("AnaStatusRisk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Critical vulnerabilities. Update weak passwords! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaStatusRiskDesc {
+            get {
+                return ResourceManager.GetString("AnaStatusRiskDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Strong benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaStrong {
+            get {
+                return ResourceManager.GetString("AnaStrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Complex and safe passwords. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaStrongDesc {
+            get {
+                return ResourceManager.GetString("AnaStrongDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SUMMARY ANALYSIS benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaSummary {
+            get {
+                return ResourceManager.GetString("AnaSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Weak benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaWeak {
+            get {
+                return ResourceManager.GetString("AnaWeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Short or simple passwords. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AnaWeakDesc {
+            get {
+                return ResourceManager.GetString("AnaWeakDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   APPEARANCE &amp; LANGUAGE benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AppearanceSection {
+            get {
+                return ResourceManager.GetString("AppearanceSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Are you sure? benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AreYouSureTitle {
+            get {
+                return ResourceManager.GetString("AreYouSureTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Complete verification to access your passwords. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AuthDesc {
+            get {
+                return ResourceManager.GetString("AuthDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Complete verification. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AuthTitle {
+            get {
+                return ResourceManager.GetString("AuthTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Lock when app goes to background benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AutoLockDesc {
+            get {
+                return ResourceManager.GetString("AutoLockDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Auto-Lock benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string AutoLockTitle {
+            get {
+                return ResourceManager.GetString("AutoLockTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Cancel benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CancelBtn {
+            get {
+                return ResourceManager.GetString("CancelBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   All benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CatAll {
+            get {
+                return ResourceManager.GetString("CatAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Bank benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CatBank {
+            get {
+                return ResourceManager.GetString("CatBank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Favorites benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CatFavorites {
+            get {
+                return ResourceManager.GetString("CatFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Games benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CatGame {
+            get {
+                return ResourceManager.GetString("CatGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Social Media benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CatSocial {
+            get {
+                return ResourceManager.GetString("CatSocial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Work benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CatWork {
+            get {
+                return ResourceManager.GetString("CatWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Change benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ChangeBtn {
+            get {
+                return ResourceManager.GetString("ChangeBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Update your vault login password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ChangeMasterPassDesc {
+            get {
+                return ResourceManager.GetString("ChangeMasterPassDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Change Master Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ChangeMasterPassTitle {
+            get {
+                return ResourceManager.GetString("ChangeMasterPassTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Removes copied password from memory benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ClearClipboardDesc {
+            get {
+                return ResourceManager.GetString("ClearClipboardDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Clear Clipboard benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ClearClipboardTitle {
+            get {
+                return ResourceManager.GetString("ClearClipboardTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Emerald Green benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ColorEmerald {
+            get {
+                return ResourceManager.GetString("ColorEmerald", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Fire Red benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ColorFire {
+            get {
+                return ResourceManager.GetString("ColorFire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ocean Blue benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ColorOcean {
+            get {
+                return ResourceManager.GetString("ColorOcean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Night Purple benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ColorPurple {
+            get {
+                return ResourceManager.GetString("ColorPurple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Restart to apply the system color. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ColorRestartToast {
+            get {
+                return ResourceManager.GetString("ColorRestartToast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sun Yellow benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ColorSun {
+            get {
+                return ResourceManager.GetString("ColorSun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Confirm benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ConfirmBtn {
+            get {
+                return ResourceManager.GetString("ConfirmBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Are you sure you want to delete this password? benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ConfirmDeleteDesc {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Delete Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ConfirmDeleteTitle {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please confirm your new master password: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ConfirmNewMasterPass {
+            get {
+                return ResourceManager.GetString("ConfirmNewMasterPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Continue benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ContinueBtn {
+            get {
+                return ResourceManager.GetString("ContinueBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   CREATE VAULT benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CreateVaultBtn {
+            get {
+                return ResourceManager.GetString("CreateVaultBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Set a strong master password to encrypt your data. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CreateVaultDesc {
+            get {
+                return ResourceManager.GetString("CreateVaultDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Create Your Vault benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CreateVaultTitle {
+            get {
+                return ResourceManager.GetString("CreateVaultTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Critical Error benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string CriticalErrorTitle {
+            get {
+                return ResourceManager.GetString("CriticalErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   DATA MANAGEMENT (BACKUP) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string DataManagementSection {
+            get {
+                return ResourceManager.GetString("DataManagementSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   You have no passwords. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string DbEmpty {
+            get {
+                return ResourceManager.GetString("DbEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Loading data... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string DbLoading {
+            get {
+                return ResourceManager.GetString("DbLoading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No passwords in this category. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string DbNoCategory {
+            get {
+                return ResourceManager.GetString("DbNoCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Delete benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string DeleteBtn {
+            get {
+                return ResourceManager.GetString("DeleteBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Enter Again benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string EnterAgainTitle {
+            get {
+                return ResourceManager.GetString("EnterAgainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Enter current master password: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string EnterCurrentMasterPass {
+            get {
+                return ResourceManager.GetString("EnterCurrentMasterPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Enter new master password (Min 4 chars): benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string EnterNewMasterPass {
+            get {
+                return ResourceManager.GetString("EnterNewMasterPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Data load error! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorDataLoad {
+            get {
+                return ResourceManager.GetString("ErrorDataLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No database  found to export! Your vault might be empty. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorDbNotFoundToExport {
+            get {
+                return ResourceManager.GetString("ErrorDbNotFoundToExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Database password verification failed. Reverting changes. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorDbVerifyFailed {
+            get {
+                return ResourceManager.GetString("ErrorDbVerifyFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Export failed benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorExportFailed {
+            get {
+                return ResourceManager.GetString("ErrorExportFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please select a valid SQLite database file. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorInvalidDbFile {
+            get {
+                return ResourceManager.GetString("ErrorInvalidDbFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   An error occurred while saving the password. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorPassSaveFailed {
+            get {
+                return ResourceManager.GetString("ErrorPassSaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error updating passwords benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorPassUpdateFailed {
+            get {
+                return ResourceManager.GetString("ErrorPassUpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Passwords do not match! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorPasswordsNotMatch {
+            get {
+                return ResourceManager.GetString("ErrorPasswordsNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Password is too short! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorPasswordTooShort {
+            get {
+                return ResourceManager.GetString("ErrorPasswordTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Error benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Incorrect master password! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ErrorWrongMasterPass {
+            get {
+                return ResourceManager.GetString("ErrorWrongMasterPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Backup your data safely benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ExportDbDesc {
+            get {
+                return ResourceManager.GetString("ExportDbDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Export Current Database benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ExportDbTitle {
+            get {
+                return ResourceManager.GetString("ExportDbTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Failed! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string FailedTitle {
+            get {
+                return ResourceManager.GetString("FailedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add to vault benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string GenAddBtn {
+            get {
+                return ResourceManager.GetString("GenAddBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Copy password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string GenCopyBtn {
+            get {
+                return ResourceManager.GetString("GenCopyBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   LENGTH benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string GenLength {
+            get {
+                return ResourceManager.GetString("GenLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Lowercase (a-z) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string GenLowercase {
+            get {
+                return ResourceManager.GetString("GenLowercase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Numbers (0-9) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string GenNumbers {
+            get {
+                return ResourceManager.GetString("GenNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Make a Selection! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string GenSelectError {
+            get {
+                return ResourceManager.GetString("GenSelectError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Symbols (!@#$%) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string GenSymbols {
+            get {
+                return ResourceManager.GetString("GenSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Uppercase (A-Z) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string GenUppercase {
+            get {
+                return ResourceManager.GetString("GenUppercase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   YOUR PASSWORD benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string GenYourPassword {
+            get {
+                return ResourceManager.GetString("GenYourPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Load your old vault to device benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ImportBackupDesc {
+            get {
+                return ResourceManager.GetString("ImportBackupDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Import Backup (.sqlite) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ImportBackupTitle {
+            get {
+                return ResourceManager.GetString("ImportBackupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please enter your old vault&apos;s password and security details. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string InfoEnterOldVaultDetails {
+            get {
+                return ResourceManager.GetString("InfoEnterOldVaultDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Password verified! Loading your vault... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string InfoPassVerifiedLoad {
+            get {
+                return ResourceManager.GetString("InfoPassVerifiedLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Incorrect password! Please try again. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string InfoPassWrong {
+            get {
+                return ResourceManager.GetString("InfoPassWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Language change will be applied on the next restart. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string LangRestartToast {
+            get {
+                return ResourceManager.GetString("LangRestartToast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   App Language benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string LanguageTitle {
+            get {
+                return ResourceManager.GetString("LanguageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Location benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Login benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string LoginTitle {
+            get {
+                return ResourceManager.GetString("LoginTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Master Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string MasterPassPlaceholder {
+            get {
+                return ResourceManager.GetString("MasterPassPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Master Password (Repeat) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string MasterPassRepeatPlaceholder {
+            get {
+                return ResourceManager.GetString("MasterPassRepeatPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Password copied to clipboard! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string MsgCopied {
+            get {
+                return ResourceManager.GetString("MsgCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   added to favorites ❤️ benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string MsgFavAdded {
+            get {
+                return ResourceManager.GetString("MsgFavAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   removed from favorites 💔 benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string MsgFavRemoved {
+            get {
+                return ResourceManager.GetString("MsgFavRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Or type new category... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string NewCategoryPlaceholder {
+            get {
+                return ResourceManager.GetString("NewCategoryPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   New Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string NewPassTitle {
+            get {
+                return ResourceManager.GetString("NewPassTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Master key not set benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string NoMasterPassFound {
+            get {
+                return ResourceManager.GetString("NoMasterPassFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ОК benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string OkBtn {
+            get {
+                return ResourceManager.GetString("OkBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Old Master Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string OldMasterPassPlaceholder {
+            get {
+                return ResourceManager.GetString("OldMasterPassPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Title (e.g. Google) benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string PassTitlePlaceholder {
+            get {
+                return ResourceManager.GetString("PassTitlePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Restore from Backup benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string RestoreBackupBtn {
+            get {
+                return ResourceManager.GetString("RestoreBackupBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reused password detected benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ReusedPassDesc {
+            get {
+                return ResourceManager.GetString("ReusedPassDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Empty benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecEmpty {
+            get {
+                return ResourceManager.GetString("SecEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Medium benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecMedium {
+            get {
+                return ResourceManager.GetString("SecMedium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Perfect benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecPerfect {
+            get {
+                return ResourceManager.GetString("SecPerfect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Strong benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecStrong {
+            get {
+                return ResourceManager.GetString("SecStrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Security Answer benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecurityAnswerPlaceholder {
+            get {
+                return ResourceManager.GetString("SecurityAnswerPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Security: benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecurityLabel {
+            get {
+                return ResourceManager.GetString("SecurityLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Select Security Question benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecurityQuestionTitle {
+            get {
+                return ResourceManager.GetString("SecurityQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SECURITY benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecuritySection {
+            get {
+                return ResourceManager.GetString("SecuritySection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Very Weak benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecVeryWeak {
+            get {
+                return ResourceManager.GetString("SecVeryWeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Weak benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecWeak {
+            get {
+                return ResourceManager.GetString("SecWeak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Select Category benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SelectCategoryTitle {
+            get {
+                return ResourceManager.GetString("SelectCategoryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Set benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SetBtn {
+            get {
+                return ResourceManager.GetString("SetBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Settings benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SettingsTitle {
+            get {
+                return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Backup Successful! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SuccessBackupTitle {
+            get {
+                return ResourceManager.GetString("SuccessBackupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Database exported securely to your device. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SuccessDbExported {
+            get {
+                return ResourceManager.GetString("SuccessDbExported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Database imported successfully. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SuccessDbImported {
+            get {
+                return ResourceManager.GetString("SuccessDbImported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Master password changed securely. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SuccessMasterPassChanged {
+            get {
+                return ResourceManager.GetString("SuccessMasterPassChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Success! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SuccessTitle {
+            get {
+                return ResourceManager.GetString("SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Master password created successfully. Your vault is ready to use. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SuccessVaultCreated {
+            get {
+                return ResourceManager.GetString("SuccessVaultCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Analyzer benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TabAnalyzer {
+            get {
+                return ResourceManager.GetString("TabAnalyzer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Generator benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TabGenerator {
+            get {
+                return ResourceManager.GetString("TabGenerator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Vault benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TabSafe {
+            get {
+                return ResourceManager.GetString("TabSafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Settings benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TabSettings {
+            get {
+                return ResourceManager.GetString("TabSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Dark benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ThemeDark {
+            get {
+                return ResourceManager.GetString("ThemeDark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Light benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ThemeLight {
+            get {
+                return ResourceManager.GetString("ThemeLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   System benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ThemeSystem {
+            get {
+                return ResourceManager.GetString("ThemeSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Theme benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ThemeTitle {
+            get {
+                return ResourceManager.GetString("ThemeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   15 Seconds benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string Time15Sec {
+            get {
+                return ResourceManager.GetString("Time15Sec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   1 Minute benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string Time1Min {
+            get {
+                return ResourceManager.GetString("Time1Min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   30 Seconds benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string Time30Sec {
+            get {
+                return ResourceManager.GetString("Time30Sec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   5 Minutes benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string Time5Min {
+            get {
+                return ResourceManager.GetString("Time5Min", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Instantly benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TimeInstantly {
+            get {
+                return ResourceManager.GetString("TimeInstantly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Never benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TimeNever {
+            get {
+                return ResourceManager.GetString("TimeNever", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Off benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TimeOff {
+            get {
+                return ResourceManager.GetString("TimeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TitleAddPass {
+            get {
+                return ResourceManager.GetString("TitleAddPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Update Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TitleEditPass {
+            get {
+                return ResourceManager.GetString("TitleEditPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add to Safe benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TooltipAddSafe {
+            get {
+                return ResourceManager.GetString("TooltipAddSafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Copy Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TooltipCopy {
+            get {
+                return ResourceManager.GetString("TooltipCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Delete Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TooltipDelete {
+            get {
+                return ResourceManager.GetString("TooltipDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Edit Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TooltipEdit {
+            get {
+                return ResourceManager.GetString("TooltipEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Add/Remove Favorite benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TooltipFavorite {
+            get {
+                return ResourceManager.GetString("TooltipFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Show/Hide Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string TooltipVisibility {
+            get {
+                return ResourceManager.GetString("TooltipVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Update benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string UpdateBtn {
+            get {
+                return ResourceManager.GetString("UpdateBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Username or Email benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string UsernamePlaceholder {
+            get {
+                return ResourceManager.GetString("UsernamePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   VERIFY AND LOAD benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string VerifyAndLoadBtn {
+            get {
+                return ResourceManager.GetString("VerifyAndLoadBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Verification benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string VerifyTitle {
+            get {
+                return ResourceManager.GetString("VerifyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Very weak password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string VeryWeakPassDesc {
+            get {
+                return ResourceManager.GetString("VeryWeakPassDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   If you forget the security answer, you cannot reset your password and will lose your vault completely! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string WarningMasterPassForget {
+            get {
+                return ResourceManager.GetString("WarningMasterPassForget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Welcome! benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string WelcomeTitle {
+            get {
+                return ResourceManager.GetString("WelcomeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Yes, I&apos;m sure benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string YesImSureBtn {
+            get {
+                return ResourceManager.GetString("YesImSureBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Your Password benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string YourPasswordPlaceholder {
+            get {
+                return ResourceManager.GetString("YourPasswordPlaceholder", resourceCulture);
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <mopups:PopupPage x:Class="PassSafe.Views.ImportDatabaseVerifyPopup"
                   xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
+                  xmlns:loc="clr-namespace:PassSafe.Helpers" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
                   x:DataType="viewmodels:ImportDatabaseVerifyViewModel" BackgroundColor="#CC000000"
                   BindingContext="{Binding ImportDatabaseVerifyViewModel, Source={StaticResource VMLocator}}"
                   CloseWhenBackgroundIsClicked="False">
@@ -21,7 +21,8 @@
                          Icon="{mi:MaterialSharp Icon=Restore}"
                          IconColor="{DynamicResource Primary}"
                          IconSize="40" />
-            <Label FontAttributes="Bold" FontSize="22" HorizontalOptions="Center" Text="Yedekten Dön"
+            <Label FontAttributes="Bold" FontSize="22" HorizontalOptions="Center"
+                   Text="{Binding Loc[RestoreBackupBtn]}"
                    TextColor="{AppThemeBinding Dark=#E2E8F0,
                                                Light=#1e293b}" />
 
@@ -34,7 +35,8 @@
                     BackgroundColor="{AppThemeBinding Dark=#252525,
                                                       Light=#F1F5F9}"
                     StrokeShape="RoundRectangle 8" StrokeThickness="0">
-                <Entry IsPassword="True" Placeholder="Eski Ana Şifreniz"
+                <Entry IsPassword="True"
+                       Placeholder="{Binding Loc[OldMasterPassPlaceholder]}"
                        Text="{Binding MasterPass}"
                        TextColor="{AppThemeBinding Dark=White,
                                                    Light=Black}" />
@@ -44,7 +46,7 @@
                     BackgroundColor="{AppThemeBinding Dark=#252525,
                                                       Light=#F1F5F9}"
                     StrokeShape="RoundRectangle 8" StrokeThickness="0">
-                <Picker Title="Güvenlik Sorusu Seçin"
+                <Picker Title="{Binding Loc[SecurityQuestionTitle]}"
                         SelectedItem="{Binding SecurityQuestion}"
                         TextColor="{AppThemeBinding Dark=White,
                                                     Light=Black}">
@@ -62,7 +64,7 @@
                     BackgroundColor="{AppThemeBinding Dark=#252525,
                                                       Light=#F1F5F9}"
                     StrokeShape="RoundRectangle 8" StrokeThickness="0">
-                <Entry Placeholder="Güvenlik Cevabı"
+                <Entry Placeholder="{Binding Loc[SecurityAnswerPlaceholder]}"
                        Text="{Binding SecurityQuestionAnswer, Mode=TwoWay}"
                        TextColor="{AppThemeBinding Dark=White,
                                                    Light=Black}" />
@@ -72,7 +74,7 @@
                     Command="{Binding VerifyCommand}"
                     CornerRadius="8" FontAttributes="Bold"
                     IsEnabled="{Binding IsButtonEnabled}"
-                    Text="DOĞRULA VE YÜKLE" />
+                    Text="{Binding Loc[VerifyAndLoadBtn]}" />
         </VerticalStackLayout>
     </Border>
 </mopups:PopupPage>

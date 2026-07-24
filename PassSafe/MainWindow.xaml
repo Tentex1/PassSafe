@@ -5,9 +5,7 @@
         Title="PassSafe"
         mc:Ignorable="d">
     <Window.TitleBar>
-        <TitleBar BackgroundColor="{StaticResource Primary}"
-                  ForegroundColor="{StaticResource OnPrimary}"
-                  HeightRequest="48">
+        <TitleBar BackgroundColor="{DynamicResource Primary}" HeightRequest="48">
             <TitleBar.LeadingContent>
                 <Label Margin="20,0,0,0"
                        Style="{StaticResource AppTitle}"

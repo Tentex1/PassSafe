@@ -1,101 +1,597 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccentColorTitle" xml:space="preserve">
+    <value>Vurgu Rengi</value>
+  </data>
+  <data name="AddBtn" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="AnaChangeBtn" xml:space="preserve">
+    <value>Değiştir</value>
+  </data>
+  <data name="AnaCritical" xml:space="preserve">
+    <value>KRİTİK EYLEMLER</value>
+  </data>
+  <data name="AnaEmpty" xml:space="preserve">
+    <value>Kasa Boş</value>
+  </data>
+  <data name="AnaEmptyDesc" xml:space="preserve">
+    <value>Kasanızda henüz kayıtlı parola yok.</value>
+  </data>
+  <data name="AnaFixNow" xml:space="preserve">
+    <value>! Hemen Düzeltin</value>
+  </data>
+  <data name="AnaRefreshBtn" xml:space="preserve">
+    <value>Analizi Yenile</value>
+  </data>
+  <data name="AnaRisky" xml:space="preserve">
+    <value>Riskli</value>
+  </data>
+  <data name="AnaRiskyDesc" xml:space="preserve">
+    <value>Tekrar eden şifreler.</value>
+  </data>
+  <data name="AnaScore" xml:space="preserve">
+    <value>SKOR</value>
+  </data>
+  <data name="AnaStatusGood" xml:space="preserve">
+    <value>İyi</value>
+  </data>
+  <data name="AnaStatusGoodDesc" xml:space="preserve">
+    <value>Kasanız güvende, ufak iyileştirmeler yapılabilir.</value>
+  </data>
+  <data name="AnaStatusPerfect" xml:space="preserve">
+    <value>Mükemmel</value>
+  </data>
+  <data name="AnaStatusPerfectDesc" xml:space="preserve">
+    <value>Dijital kasanız tamamen güvende.</value>
+  </data>
+  <data name="AnaStatusRisk" xml:space="preserve">
+    <value>Risk Altında</value>
+  </data>
+  <data name="AnaStatusRiskDesc" xml:space="preserve">
+    <value>Kritik açıklar var. Zayıf şifreleri güncelleyin!</value>
+  </data>
+  <data name="AnaStrong" xml:space="preserve">
+    <value>Güçlü</value>
+  </data>
+  <data name="AnaStrongDesc" xml:space="preserve">
+    <value>Karmaşık ve güvenli şifreler.</value>
+  </data>
+  <data name="AnaSummary" xml:space="preserve">
+    <value>ÖZET ANALİZ</value>
+  </data>
+  <data name="AnaWeak" xml:space="preserve">
+    <value>Zayıf</value>
+  </data>
+  <data name="AnaWeakDesc" xml:space="preserve">
+    <value>8 karakterden kısa basit şifreler.</value>
+  </data>
+  <data name="AppearanceSection" xml:space="preserve">
+    <value>GÖRÜNÜM VE DİL</value>
+  </data>
+  <data name="AreYouSureTitle" xml:space="preserve">
+    <value>Emin misiniz?</value>
+  </data>
+  <data name="AuthDesc" xml:space="preserve">
+    <value>Şifrelerinize erişmek için doğrulamayı tamamlayın.</value>
+  </data>
+  <data name="AuthTitle" xml:space="preserve">
+    <value>Doğrulamayı tamamlayın.</value>
+  </data>
+  <data name="AutoLockDesc" xml:space="preserve">
+    <value>Uygulama arka plana atıldığında kilitlensin</value>
+  </data>
+  <data name="AutoLockTitle" xml:space="preserve">
+    <value>Otomatik Kilitleme</value>
+  </data>
+  <data name="CancelBtn" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="CatAll" xml:space="preserve">
+    <value>Hepsi</value>
+  </data>
+  <data name="CatBank" xml:space="preserve">
+    <value>Banka</value>
+  </data>
+  <data name="CatFavorites" xml:space="preserve">
+    <value>Favoriler</value>
+  </data>
+  <data name="CatGame" xml:space="preserve">
+    <value>Oyun</value>
+  </data>
+  <data name="CatSocial" xml:space="preserve">
+    <value>Sosyal Medya</value>
+  </data>
+  <data name="CatWork" xml:space="preserve">
+    <value>İş</value>
+  </data>
+  <data name="ChangeBtn" xml:space="preserve">
+    <value>Değiştir</value>
+  </data>
+  <data name="ChangeMasterPassDesc" xml:space="preserve">
+    <value>Kasanıza giriş şifrenizi güncelleyin</value>
+  </data>
+  <data name="ChangeMasterPassTitle" xml:space="preserve">
+    <value>Ana Şifreyi Değiştir</value>
+  </data>
+  <data name="ClearClipboardDesc" xml:space="preserve">
+    <value>Kopyalanan şifreyi hafızadan siler</value>
+  </data>
+  <data name="ClearClipboardTitle" xml:space="preserve">
+    <value>Panoyu Temizle</value>
+  </data>
+  <data name="ColorEmerald" xml:space="preserve">
+    <value>Zümrüt Yeşili</value>
+  </data>
+  <data name="ColorFire" xml:space="preserve">
+    <value>Ateş Kırmızısı</value>
+  </data>
+  <data name="ColorOcean" xml:space="preserve">
+    <value>Okyanus Mavisi</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Gece Moru</value>
+  </data>
+  <data name="ColorRestartToast" xml:space="preserve">
+    <value>Sistem renginin uygulanması için yeniden başlatın.</value>
+  </data>
+  <data name="ColorSun" xml:space="preserve">
+    <value>Güneş Sarısı</value>
+  </data>
+  <data name="ConfirmBtn" xml:space="preserve">
+    <value>Onayla</value>
+  </data>
+  <data name="ConfirmDeleteDesc" xml:space="preserve">
+    <value>Bu parolayı silmek istediğinize emin misiniz?</value>
+  </data>
+  <data name="ConfirmDeleteTitle" xml:space="preserve">
+    <value>Parolayı Sil</value>
+  </data>
+  <data name="ConfirmNewMasterPass" xml:space="preserve">
+    <value>Lütfen yeni ana şifrenizi onaylayın:</value>
+  </data>
+  <data name="ContinueBtn" xml:space="preserve">
+    <value>Devam</value>
+  </data>
+  <data name="CreateVaultBtn" xml:space="preserve">
+    <value>KASAYI OLUŞTUR</value>
+  </data>
+  <data name="CreateVaultDesc" xml:space="preserve">
+    <value>Verilerinizi şifrelemek için güçlü bir ana parola belirleyin.</value>
+  </data>
+  <data name="CreateVaultTitle" xml:space="preserve">
+    <value>Kasanızı Oluşturun</value>
+  </data>
+  <data name="CriticalErrorTitle" xml:space="preserve">
+    <value>Kritik Hata</value>
+  </data>
+  <data name="DataManagementSection" xml:space="preserve">
+    <value>VERİ YÖNETİMİ (YEDEKLEME)</value>
+  </data>
+  <data name="DbEmpty" xml:space="preserve">
+    <value>Hiç parolanız yok.</value>
+  </data>
+  <data name="DbLoading" xml:space="preserve">
+    <value>Veriler yükleniyor...</value>
+  </data>
+  <data name="DbNoCategory" xml:space="preserve">
+    <value>Bu kategoride parola bulunamadı.</value>
+  </data>
+  <data name="DeleteBtn" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="EnterAgainTitle" xml:space="preserve">
+    <value>Tekrar Girin</value>
+  </data>
+  <data name="EnterCurrentMasterPass" xml:space="preserve">
+    <value>Mevcut ana şifrenizi girin:</value>
+  </data>
+  <data name="EnterNewMasterPass" xml:space="preserve">
+    <value>Yeni ana şifrenizi girin (En az 4 karakter):</value>
+  </data>
+  <data name="ErrorDataLoad" xml:space="preserve">
+    <value>Veri yükleme hatası!</value>
+  </data>
+  <data name="ErrorDbNotFoundToExport" xml:space="preserve">
+    <value>Dışa aktarılacak veritabanı bulunamadı! Kasanız şu an boş olabilir.</value>
+  </data>
+  <data name="ErrorDbVerifyFailed" xml:space="preserve">
+    <value>Veritabanının şifresi doğrulanamadı. Değişiklikler geri alınıyor.</value>
+  </data>
+  <data name="ErrorExportFailed" xml:space="preserve">
+    <value>Dışa aktarma başarısız oldu</value>
+  </data>
+  <data name="ErrorInvalidDbFile" xml:space="preserve">
+    <value>Lütfen geçerli bir SQLite veritabanı dosyası seçin.</value>
+  </data>
+  <data name="ErrorPassSaveFailed" xml:space="preserve">
+    <value>Şifre kaydedilirken bir sorun oluştu.</value>
+  </data>
+  <data name="ErrorPassUpdateFailed" xml:space="preserve">
+    <value>Şifreler güncellenirken bir hata oluştu</value>
+  </data>
+  <data name="ErrorPasswordsNotMatch" xml:space="preserve">
+    <value>Şifreler uyuşmuyor!</value>
+  </data>
+  <data name="ErrorPasswordTooShort" xml:space="preserve">
+    <value>Şifre çok kısa!</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="ErrorWrongMasterPass" xml:space="preserve">
+    <value>Mevcut şifrenizi yanlış girdiniz!</value>
+  </data>
+  <data name="ExportDbDesc" xml:space="preserve">
+    <value>Verilerinizi güvenli bir yere yedekleyin</value>
+  </data>
+  <data name="ExportDbTitle" xml:space="preserve">
+    <value>Mevcut Veritabanını Dışa Aktar</value>
+  </data>
+  <data name="FailedTitle" xml:space="preserve">
+    <value>Başarısız!</value>
+  </data>
+  <data name="GenAddBtn" xml:space="preserve">
+    <value>Şifreyi ekle</value>
+  </data>
+  <data name="GenCopyBtn" xml:space="preserve">
+    <value>Şifreyi kopyala</value>
+  </data>
+  <data name="GenLength" xml:space="preserve">
+    <value>UZUNLUK</value>
+  </data>
+  <data name="GenLowercase" xml:space="preserve">
+    <value>Küçük Harf (a-z)</value>
+  </data>
+  <data name="GenNumbers" xml:space="preserve">
+    <value>Sayılar (0-9)</value>
+  </data>
+  <data name="GenSelectError" xml:space="preserve">
+    <value>Seçim Yapın!</value>
+  </data>
+  <data name="GenSymbols" xml:space="preserve">
+    <value>Semboller (!@#$%)</value>
+  </data>
+  <data name="GenUppercase" xml:space="preserve">
+    <value>Büyük Harf (A-Z)</value>
+  </data>
+  <data name="GenYourPassword" xml:space="preserve">
+    <value>ŞİFRENİZ</value>
+  </data>
+  <data name="ImportBackupDesc" xml:space="preserve">
+    <value>Eski kasanızı cihaza yükleyin</value>
+  </data>
+  <data name="ImportBackupTitle" xml:space="preserve">
+    <value>Yedekleme İçe Aktar (.sqlite)</value>
+  </data>
+  <data name="LangRestartToast" xml:space="preserve">
+    <value>Dil değişimi sonraki açılışta uygulanacaktır.</value>
+  </data>
+  <data name="LanguageTitle" xml:space="preserve">
+    <value>Uygulama Dili</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Konum</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="MasterPassPlaceholder" xml:space="preserve">
+    <value>Ana Şifre</value>
+  </data>
+  <data name="MasterPassRepeatPlaceholder" xml:space="preserve">
+    <value>Ana Şifre (Tekrar)</value>
+  </data>
+  <data name="MsgCopied" xml:space="preserve">
+    <value>Şifre panoya kopyalandı!</value>
+  </data>
+  <data name="MsgFavAdded" xml:space="preserve">
+    <value>favorilere eklendi ❤️</value>
+  </data>
+  <data name="MsgFavRemoved" xml:space="preserve">
+    <value>favorilerden çıkarıldı 💔</value>
+  </data>
+  <data name="NewCategoryPlaceholder" xml:space="preserve">
+    <value>Veya yeni kategori yaz...</value>
+  </data>
+  <data name="NewPassTitle" xml:space="preserve">
+    <value>Yeni Şifre</value>
+  </data>
+  <data name="NoMasterPassFound" xml:space="preserve">
+    <value>Ana şifre belirlememişsiniz</value>
+  </data>
+  <data name="OkBtn" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="OldMasterPassPlaceholder" xml:space="preserve">
+    <value>Eski Ana Şifreniz</value>
+  </data>
+  <data name="PassTitlePlaceholder" xml:space="preserve">
+    <value>Şifre Başlığı (Örn: Google)</value>
+  </data>
+  <data name="RestoreBackupBtn" xml:space="preserve">
+    <value>Yedekten Geri Yükle</value>
+  </data>
+  <data name="ReusedPassDesc" xml:space="preserve">
+    <value>Tekrar eden şifre kullanılıyor</value>
+  </data>
+  <data name="SecEmpty" xml:space="preserve">
+    <value>Boş</value>
+  </data>
+  <data name="SecMedium" xml:space="preserve">
+    <value>Orta</value>
+  </data>
+  <data name="SecPerfect" xml:space="preserve">
+    <value>Kusursuz</value>
+  </data>
+  <data name="SecStrong" xml:space="preserve">
+    <value>Güçlü</value>
+  </data>
+  <data name="SecurityAnswerPlaceholder" xml:space="preserve">
+    <value>Güvenlik Cevabı</value>
+  </data>
+  <data name="SecurityLabel" xml:space="preserve">
+    <value>Güvenlik:</value>
+  </data>
+  <data name="SecurityQuestionTitle" xml:space="preserve">
+    <value>Güvenlik Sorusu Seçin</value>
+  </data>
+  <data name="SecuritySection" xml:space="preserve">
+    <value>GÜVENLİK</value>
+  </data>
+  <data name="SecVeryWeak" xml:space="preserve">
+    <value>Çok Zayıf</value>
+  </data>
+  <data name="SecWeak" xml:space="preserve">
+    <value>Zayıf</value>
+  </data>
+  <data name="SelectCategoryTitle" xml:space="preserve">
+    <value>Kategori Seç</value>
+  </data>
+  <data name="SetBtn" xml:space="preserve">
+    <value>Belirle</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="SuccessBackupTitle" xml:space="preserve">
+    <value>Yedekleme Başarılı!</value>
+  </data>
+  <data name="SuccessDbExported" xml:space="preserve">
+    <value>Veritabanı güvenle cihazınıza dışa aktarıldı.</value>
+  </data>
+  <data name="SuccessDbImported" xml:space="preserve">
+    <value>Veritabanınız başarıyla içe aktarıldı.</value>
+  </data>
+  <data name="SuccessMasterPassChanged" xml:space="preserve">
+    <value>Ana şifreniz başarıyla değiştirildi.</value>
+  </data>
+  <data name="SuccessTitle" xml:space="preserve">
+    <value>Başarılı!</value>
+  </data>
+  <data name="SuccessVaultCreated" xml:space="preserve">
+    <value>Ana şifreniz başarıyla oluşturuldu. Kasanız kullanıma hazır.</value>
+  </data>
+  <data name="TabGenerator" xml:space="preserve">
+    <value>Oluşturucu</value>
+  </data>
+  <data name="TabSafe" xml:space="preserve">
+    <value>Kasa</value>
+  </data>
+  <data name="TabSettings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Koyu</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="ThemeSystem" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+  <data name="ThemeTitle" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Time1Min" xml:space="preserve">
+    <value>1 Dakika</value>
+  </data>
+  <data name="Time5Min" xml:space="preserve">
+    <value>5 Dakika</value>
+  </data>
+  <data name="Time15Sec" xml:space="preserve">
+    <value>15 Saniye</value>
+  </data>
+  <data name="Time30Sec" xml:space="preserve">
+    <value>30 Saniye</value>
+  </data>
+  <data name="TimeInstantly" xml:space="preserve">
+    <value>Anında</value>
+  </data>
+  <data name="TimeNever" xml:space="preserve">
+    <value>Asla</value>
+  </data>
+  <data name="TimeOff" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="TitleAddPass" xml:space="preserve">
+    <value>Şifre Ekle</value>
+  </data>
+  <data name="TitleEditPass" xml:space="preserve">
+    <value>Şifre Güncelle</value>
+  </data>
+  <data name="TooltipAddSafe" xml:space="preserve">
+    <value>Kasaya Ekle</value>
+  </data>
+  <data name="TooltipCopy" xml:space="preserve">
+    <value>Şifreyi Kopyala</value>
+  </data>
+  <data name="TooltipDelete" xml:space="preserve">
+    <value>Şifreyi Sil</value>
+  </data>
+  <data name="TooltipEdit" xml:space="preserve">
+    <value>Şifreyi Düzenle</value>
+  </data>
+  <data name="TooltipFavorite" xml:space="preserve">
+    <value>Favorilere Ekle/Çıkar</value>
+  </data>
+  <data name="TooltipVisibility" xml:space="preserve">
+    <value>Şifreyi Göster/Gizle</value>
+  </data>
+  <data name="UpdateBtn" xml:space="preserve">
+    <value>Güncelle</value>
+  </data>
+  <data name="UsernamePlaceholder" xml:space="preserve">
+    <value>Kullanıcı Adı veya E-Posta</value>
+  </data>
+  <data name="VerifyAndLoadBtn" xml:space="preserve">
+    <value>DOĞRULA VE YÜKLE</value>
+  </data>
+  <data name="VerifyTitle" xml:space="preserve">
+    <value>Doğrulama</value>
+  </data>
+  <data name="VeryWeakPassDesc" xml:space="preserve">
+    <value>Çok zayıf şifre</value>
+  </data>
+  <data name="WarningMasterPassForget" xml:space="preserve">
+    <value>Eğer güvenlik sorusunun cevabını unutursanız şifrenizi sıfırlayamaz ve kasanızı tamamen kaybedersiniz!</value>
+  </data>
+  <data name="WelcomeTitle" xml:space="preserve">
+    <value>Hoş Geldiniz!</value>
+  </data>
+  <data name="YesImSureBtn" xml:space="preserve">
+    <value>Evet, eminim</value>
+  </data>
+  <data name="YourPasswordPlaceholder" xml:space="preserve">
+    <value>Şifreniz</value>
+  </data>
+  <data name="TabAnalyzer" xml:space="preserve">
+    <value>İstatistikler</value>
+  </data>
+  <data name="InfoEnterOldVaultDetails" xml:space="preserve">
+    <value>Lütfen eski kasanızın şifresini ve güvenlik bilgilerini girin.</value>
+  </data>
+  <data name="InfoPassVerifiedLoad" xml:space="preserve">
+    <value>Şifre doğrulandı! Kasanız yükleniyor...</value>
+  </data>
+  <data name="InfoPassWrong" xml:space="preserve">
+    <value>Parola yanlış! Lütfen tekrar deneyin.</value>
+  </data>
 </root>

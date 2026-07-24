@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="PassSafe.Views.SettingsPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
-             Title="Ayarlar"
+             xmlns:loc="clr-namespace:PassSafe.Helpers" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:viewmodels="clr-namespace:PassSafe.ViewModels"
+             Title="{Binding Loc[SettingsTitle]}"
              x:DataType="viewmodels:SettingsViewModel"
              BindingContext="{Binding SettingsViewModel, Source={StaticResource VMLocator}}">
 
@@ -15,8 +15,8 @@
             <Setter Property="TitleColor" Value="Gray" />
         </Style>
         <Style x:Key="SettingsCardStyle" TargetType="Border">
-            <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#1E1E1E, Light=#FFFFFF}" />
-            <Setter Property="Stroke" Value="{AppThemeBinding Dark=#333333, Light=#E2E8F0}" />
+            <Setter Property="BackgroundColor" Value="{DynamicResource SystemBackground}" />
+            <Setter Property="Stroke" Value="{DynamicResource Primary}" />
             <Setter Property="StrokeThickness" Value="1" />
             <Setter Property="Padding" Value="15,10" />
             <Setter Property="StrokeShape" Value="RoundRectangle 12" />
@@ -26,11 +26,14 @@
     <ScrollView>
         <VerticalStackLayout Margin="15,10,15,30" Spacing="25">
 
-            <Label FontAttributes="Bold" FontSize="28" Text="Ayarlar" />
+            <Label FontAttributes="Bold" FontSize="28"
+                   Text="{Binding Loc[SettingsTitle]}" />
 
             <VerticalStackLayout Spacing="8">
                 <Label Margin="5,0,0,0"
-                       FontAttributes="Bold" FontSize="12" Text="GÜVENLİK" TextColor="Gray" />
+                       FontAttributes="Bold" FontSize="12"
+                       Text="{Binding Loc[SecuritySection]}"
+                       TextColor="Gray" />
                 <VerticalStackLayout Spacing="10">
 
                     <Border Style="{StaticResource SettingsCardStyle}">
@@ -41,12 +44,16 @@
                                          IconColor="{DynamicResource Primary}"
                                          IconSize="24" VerticalOptions="Center" />
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label FontAttributes="Bold" FontSize="15" Text="Ana Şifreyi Değiştir" />
-                                <Label FontSize="12" Text="Kasanıza giriş şifrenizi güncelleyin" TextColor="Gray" />
+                                <Label FontAttributes="Bold" FontSize="15"
+                                       Text="{Binding Loc[ChangeMasterPassTitle]}" />
+                                <Label FontSize="12"
+                                       Text="{Binding Loc[ChangeMasterPassDesc]}"
+                                       TextColor="Gray" />
                             </VerticalStackLayout>
                             <mi:MauiIcon Grid.Column="2"
                                          Icon="{mi:MaterialSharp Icon=ChevronRight}"
-                                         IconColor="Gray" IconSize="24" VerticalOptions="Center" />
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
                         </Grid>
 
                         <Border.GestureRecognizers>
@@ -62,20 +69,18 @@
                                          IconColor="{DynamicResource Primary}"
                                          IconSize="24" VerticalOptions="Center" />
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label FontAttributes="Bold" FontSize="15" Text="Otomatik Kilitleme" />
-                                <Label FontSize="12" Text="Uygulama arka plana atıldığında kilitlensin" TextColor="Gray" />
+                                <Label FontAttributes="Bold" FontSize="15"
+                                       Text="{Binding Loc[AutoLockTitle]}" />
+                                <Label FontSize="12"
+                                       Text="{Binding Loc[AutoLockDesc]}"
+                                       TextColor="Gray" />
                             </VerticalStackLayout>
                             <Picker Grid.Column="2"
                                     HorizontalOptions="End"
-                                    SelectedItem="{Binding AutoLockTime}"
-                                    VerticalOptions="Center" WidthRequest="120">
-                                <Picker.Items>
-                                    <x:String>Anında</x:String>
-                                    <x:String>1 Dakika</x:String>
-                                    <x:String>5 Dakika</x:String>
-                                    <x:String>Asla</x:String>
-                                </Picker.Items>
-                            </Picker>
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding AutoLockOptions}"
+                                    SelectedItem="{Binding SelectedAutoLockTime}"
+                                    VerticalOptions="Center" WidthRequest="120" />
                         </Grid>
                     </Border>
 
@@ -87,20 +92,18 @@
                                          IconColor="{DynamicResource Primary}"
                                          IconSize="24" VerticalOptions="Center" />
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label FontAttributes="Bold" FontSize="15" Text="Panoyu Temizle" />
-                                <Label FontSize="12" Text="Kopyalanan şifreyi hafızadan siler" TextColor="Gray" />
+                                <Label FontAttributes="Bold" FontSize="15"
+                                       Text="{Binding Loc[ClearClipboardTitle]}" />
+                                <Label FontSize="12"
+                                       Text="{Binding Loc[ClearClipboardDesc]}"
+                                       TextColor="Gray" />
                             </VerticalStackLayout>
                             <Picker Grid.Column="2"
                                     HorizontalOptions="End"
-                                    SelectedItem="{Binding ClipboardClearTime}"
-                                    VerticalOptions="Center" WidthRequest="120">
-                                <Picker.Items>
-                                    <x:String>15 Saniye</x:String>
-                                    <x:String>30 Saniye</x:String>
-                                    <x:String>1 Dakika</x:String>
-                                    <x:String>Kapat</x:String>
-                                </Picker.Items>
-                            </Picker>
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding ClipboardOptions}"
+                                    SelectedItem="{Binding SelectedClipboardClearTime}"
+                                    VerticalOptions="Center" WidthRequest="120" />
                         </Grid>
                     </Border>
 
@@ -109,8 +112,30 @@
 
             <VerticalStackLayout Spacing="8">
                 <Label Margin="5,0,0,0"
-                       FontAttributes="Bold" FontSize="12" Text="GÖRÜNÜM VE DİL" TextColor="Gray" />
+                       FontAttributes="Bold" FontSize="12"
+                       Text="{Binding Loc[AppearanceSection]}"
+                       TextColor="Gray" />
                 <VerticalStackLayout Spacing="10">
+
+                    <Border Style="{StaticResource SettingsCardStyle}">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <mi:MauiIcon Grid.Column="0"
+                                         Margin="0,0,15,0"
+                                         Icon="{mi:MaterialSharp Icon=Palette}"
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
+                            <Label Grid.Column="1"
+                                   FontAttributes="Bold" FontSize="15"
+                                   Text="{Binding Loc[AccentColorTitle]}"
+                                   VerticalOptions="Center" />
+                            <Picker Grid.Column="2"
+                                    HorizontalOptions="End"
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding ColorOptions}"
+                                    SelectedItem="{Binding SelectedAccentColor}"
+                                    VerticalOptions="Center" WidthRequest="150" />
+                        </Grid>
+                    </Border>
 
                     <Border Style="{StaticResource SettingsCardStyle}">
                         <Grid ColumnDefinitions="Auto, *, Auto">
@@ -120,17 +145,15 @@
                                          IconColor="{DynamicResource Primary}"
                                          IconSize="24" VerticalOptions="Center" />
                             <Label Grid.Column="1"
-                                   FontAttributes="Bold" FontSize="15" Text="Tema" VerticalOptions="Center" />
+                                   FontAttributes="Bold" FontSize="15"
+                                   Text="{Binding Loc[ThemeTitle]}"
+                                   VerticalOptions="Center" />
                             <Picker Grid.Column="2"
                                     HorizontalOptions="End"
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding ThemeOptions}"
                                     SelectedItem="{Binding SelectedTheme}"
-                                    VerticalOptions="Center" WidthRequest="120">
-                                <Picker.Items>
-                                    <x:String>Sistem</x:String>
-                                    <x:String>Açık</x:String>
-                                    <x:String>Koyu</x:String>
-                                </Picker.Items>
-                            </Picker>
+                                    VerticalOptions="Center" WidthRequest="120" />
                         </Grid>
                     </Border>
 
@@ -142,14 +165,15 @@
                                          IconColor="{DynamicResource Primary}"
                                          IconSize="24" VerticalOptions="Center" />
                             <Label Grid.Column="1"
-                                   FontAttributes="Bold" FontSize="15" Text="Uygulama Dili" VerticalOptions="Center" />
+                                   FontAttributes="Bold" FontSize="15"
+                                   Text="{Binding Loc[LanguageTitle]}"
+                                   VerticalOptions="Center" />
                             <Picker Grid.Column="2"
-                                    HorizontalOptions="End" SelectedIndex="1" VerticalOptions="Center" WidthRequest="120">
-                                <Picker.Items>
-                                    <x:String>English</x:String>
-                                    <x:String>Türkçe</x:String>
-                                </Picker.Items>
-                            </Picker>
+                                    HorizontalOptions="End"
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding LanguageOptions}"
+                                    SelectedItem="{Binding SelectedLanguage}"
+                                    VerticalOptions="Center" WidthRequest="120" />
                         </Grid>
                     </Border>
                 </VerticalStackLayout>
@@ -157,7 +181,9 @@
 
             <VerticalStackLayout Spacing="8">
                 <Label Margin="5,0,0,0"
-                       FontAttributes="Bold" FontSize="12" Text="VERİ YÖNETİMİ (YEDEKLEME)" TextColor="Gray" />
+                       FontAttributes="Bold" FontSize="12"
+                       Text="{Binding Loc[DataManagementSection]}"
+                       TextColor="Gray" />
                 <VerticalStackLayout Spacing="10">
 
                     <Border Style="{StaticResource SettingsCardStyle}">
@@ -168,12 +194,16 @@
                                          IconColor="{DynamicResource Primary}"
                                          IconSize="24" VerticalOptions="Center" />
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label FontAttributes="Bold" FontSize="15" Text="Yedekleme İçe Aktar (.sqlite)" />
-                                <Label FontSize="12" Text="Eski kasanızı cihaza yükleyin" TextColor="Gray" />
+                                <Label FontAttributes="Bold" FontSize="15"
+                                       Text="{Binding Loc[ImportBackupTitle]}" />
+                                <Label FontSize="12"
+                                       Text="{Binding Loc[ImportBackupDesc]}"
+                                       TextColor="Gray" />
                             </VerticalStackLayout>
                             <mi:MauiIcon Grid.Column="2"
                                          Icon="{mi:MaterialSharp Icon=ChevronRight}"
-                                         IconColor="Gray" IconSize="24" VerticalOptions="Center" />
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
                         </Grid>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ImportDatabaseCommand}" />
@@ -188,12 +218,16 @@
                                          IconColor="{DynamicResource Primary}"
                                          IconSize="24" VerticalOptions="Center" />
                             <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label FontAttributes="Bold" FontSize="15" Text="Mevcut Veritabanını Dışa Aktar" />
-                                <Label FontSize="12" Text="Verilerinizi güvenli bir yere yedekleyin" TextColor="Gray" />
+                                <Label FontAttributes="Bold" FontSize="15"
+                                       Text="{Binding Loc[ExportDbTitle]}" />
+                                <Label FontSize="12"
+                                       Text="{Binding Loc[ExportDbDesc]}"
+                                       TextColor="Gray" />
                             </VerticalStackLayout>
                             <mi:MauiIcon Grid.Column="2"
                                          Icon="{mi:MaterialSharp Icon=ChevronRight}"
-                                         IconColor="Gray" IconSize="24" VerticalOptions="Center" />
+                                         IconColor="{DynamicResource Primary}"
+                                         IconSize="24" VerticalOptions="Center" />
                         </Grid>
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding ExportDatabaseCommand}" />

@@ -1,19 +1,22 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Storage;
+using PassSafe.Helpers;
+using PassSafe.Models;
+using PassSafe.Services;
+using PassSafe.Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Storage;
-using PassSafe.Models;
-using PassSafe.Services;
-using PassSafe.Views;
 
 namespace PassSafe.ViewModels
 {
     public partial class PassAnalyzerViewModel : ObservableObject
     {
+        public LocalizationManager Loc => LocalizationManager.Instance;
+
         private readonly IDatabaseService _databaseService;
         private readonly ICryptoService _cryptoService;
         private readonly IDialogService _dialogService;
@@ -96,7 +99,7 @@ namespace PassSafe.ViewModels
                             tempCriticals.Add(new CriticalAction
                             {
                                 Title = item.Original.Title,
-                                Description = $"Çok zayıf şifre: \"{item.PlainText}\"",
+                                Description = $"{Loc["VeryWeakPassDesc"]}: \"{item.PlainText}\"",
                                 IconKey = item.Original.Icon,
                                 Color = "#FF5252",
                                 TargetPassword = item.Original
@@ -108,12 +111,12 @@ namespace PassSafe.ViewModels
                             risky++;
                             isRisky = true;
 
-                            if (!tempCriticals.Any(a => a.Title == item.Original.Title && a.Description.Contains("Tekrar eden")))
+                            if (!tempCriticals.Any(a => a.Title == item.Original.Title && a.Description.Contains(Loc["ReusedPassDesc"])))
                             {
                                 tempCriticals.Add(new CriticalAction
                                 {
                                     Title = item.Original.Title,
-                                    Description = "Tekrar eden şifre kullanılıyor",
+                                    Description = Loc["ReusedPassDesc"],
                                     IconKey = item.Original.Icon,
                                     Color = "#FFAB40",
                                     TargetPassword = item.Original
@@ -134,9 +137,9 @@ namespace PassSafe.ViewModels
                 }
 
                 AnalysisCards.Clear();
-                AnalysisCards.Add(new AnalysisCard { Title = "Güçlü", Count = analysisResult.Strong, SideColor = "#20E19B", Description = "Karmaşık ve uzun karakterli güvenli şifreler.", IconKey = "VerifiedUser" });
-                AnalysisCards.Add(new AnalysisCard { Title = "Zayıf", Count = analysisResult.Weak, SideColor = "#FF5252", Description = "8 karakterden kısa veya çok basit dizimler.", IconKey = "Warning" });
-                AnalysisCards.Add(new AnalysisCard { Title = "Riskli", Count = analysisResult.Risky, SideColor = "#FFAB40", Description = "Birden fazla hesapta tekrar eden şifreler.", IconKey = "ContentCopy" });
+                AnalysisCards.Add(new AnalysisCard { Title = Loc["AnaStrong"], Count = analysisResult.Strong, SideColor = "#20E19B", Description = Loc["AnaStrongDesc"], IconKey = "VerifiedUser" });
+                AnalysisCards.Add(new AnalysisCard { Title = Loc["AnaWeak"], Count = analysisResult.Weak, SideColor = "#FF5252", Description = Loc["AnaWeakDesc"], IconKey = "Warning" });
+                AnalysisCards.Add(new AnalysisCard { Title = Loc["AnaRisky"], Count = analysisResult.Risky, SideColor = "#FFAB40", Description = Loc["AnaRiskyDesc"], IconKey = "ContentCopy" });
 
                 CalculateScore(analysisResult.Strong, encryptedData.Count);
             }
@@ -159,26 +162,26 @@ namespace PassSafe.ViewModels
 
             if (SecurityScore >= 80)
             {
-                GeneralStatusText = "Mükemmel";
-                GeneralStatusDescription = "Dijital kasanız tamamen güvende görünüyor.";
+                GeneralStatusText = Loc["AnaStatusPerfect"];
+                GeneralStatusDescription = Loc["AnaStatusPerfectDesc"];
             }
             else if (SecurityScore >= 50)
             {
-                GeneralStatusText = "İyi";
-                GeneralStatusDescription = "Kasanız güvende görünüyor, ancak birkaç iyileştirme ile kusursuz olabilir.";
+                GeneralStatusText = Loc["AnaStatusGood"];
+                GeneralStatusDescription = Loc["AnaStatusGoodDesc"];
             }
             else
             {
-                GeneralStatusText = "Risk Altında";
-                GeneralStatusDescription = "Kasanızda kritik güvenlik açıkları var. Lütfen zayıf şifreleri güncelleyin!";
+                GeneralStatusText = Loc["AnaStatusRisk"];
+                GeneralStatusDescription = Loc["AnaStatusRiskDesc"];
             }
         }
 
         private void ResetToEmptyState()
         {
             SecurityScore = 100;
-            GeneralStatusText = "Kasa Boş";
-            GeneralStatusDescription = "Kasanızda henüz kayıtlı bir parola bulunmuyor.";
+            GeneralStatusText = Loc["AnaEmpty"];
+            GeneralStatusDescription = Loc["AnaEmptyDesc"];
             CriticalActions.Clear();
             AnalysisCards.Clear();
             IsRefreshing = false;
