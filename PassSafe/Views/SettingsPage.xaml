@@ -84,29 +84,6 @@
                         </Grid>
                     </Border>
 
-                    <Border Style="{StaticResource SettingsCardStyle}">
-                        <Grid ColumnDefinitions="Auto, *, Auto">
-                            <mi:MauiIcon Grid.Column="0"
-                                         Margin="0,0,15,0"
-                                         Icon="{mi:MaterialSharp Icon=ContentPasteOff}"
-                                         IconColor="{DynamicResource Primary}"
-                                         IconSize="24" VerticalOptions="Center" />
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                <Label FontAttributes="Bold" FontSize="15"
-                                       Text="{Binding Loc[ClearClipboardTitle]}" />
-                                <Label FontSize="12"
-                                       Text="{Binding Loc[ClearClipboardDesc]}"
-                                       TextColor="Gray" />
-                            </VerticalStackLayout>
-                            <Picker Grid.Column="2"
-                                    HorizontalOptions="End"
-                                    ItemDisplayBinding="{Binding Name}"
-                                    ItemsSource="{Binding ClipboardOptions}"
-                                    SelectedItem="{Binding SelectedClipboardClearTime}"
-                                    VerticalOptions="Center" WidthRequest="120" />
-                        </Grid>
-                    </Border>
-
                 </VerticalStackLayout>
             </VerticalStackLayout>
 

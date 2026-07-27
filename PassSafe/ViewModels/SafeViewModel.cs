@@ -4,7 +4,6 @@ namespace PassSafe.ViewModels
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.Messaging;
-    using Microsoft.Maui.ApplicationModel;
     using PassSafe.Helpers;
     using PassSafe.Messages;
     using PassSafe.Models;
@@ -44,6 +43,9 @@ namespace PassSafe.ViewModels
 
         [ObservableProperty]
         private string selectedCategory;
+
+        [ObservableProperty]
+        private string searchQuery;
 
         [ObservableProperty]
         private string dbStatus;
@@ -103,6 +105,11 @@ namespace PassSafe.ViewModels
             }
         }
 
+        partial void OnSearchQueryChanged(string value)
+        {
+            FilterPasswords();
+        }
+
         [RelayCommand]
         private async Task LoadPasswordsAsync()
         {
@@ -153,16 +160,34 @@ namespace PassSafe.ViewModels
             if (_allPasswords == null) return;
             IEnumerable<Password> filteredList;
 
-            if (SelectedCategory == Loc["CatAll"]) filteredList = _allPasswords;
-            else if (SelectedCategory == Loc["CatFavorites"]) filteredList = _allPasswords.Where(p => p.IsFavorited);
-            else filteredList = _allPasswords.Where(p => p.Category == SelectedCategory);
+            if (SelectedCategory == Loc["CatAll"])
+                filteredList = _allPasswords;
+            else if (SelectedCategory == Loc["CatFavorites"])
+                filteredList = _allPasswords.Where(p => p.IsFavorited);
+            else
+                filteredList = _allPasswords.Where(p => p.Category == SelectedCategory);
+
+            if (!string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                var query = SearchQuery.ToLowerInvariant();
+                filteredList = filteredList.Where(p =>
+                    (p.Title != null && p.Title.ToLowerInvariant().Contains(query)) ||
+                    (p.UserName != null && p.UserName.ToLowerInvariant().Contains(query)));
+            }
 
             CollectionViewItemSource = new ObservableCollection<Password>(filteredList);
 
             if (!CollectionViewItemSource.Any())
-                DbStatus = SelectedCategory == Loc["CatAll"] ? Loc["DbEmpty"] : Loc["DbNoCategory"];
+            {
+                if (!string.IsNullOrWhiteSpace(SearchQuery))
+                    DbStatus = Loc["SearchNoResults"];
+                else
+                    DbStatus = SelectedCategory == Loc["CatAll"] ? Loc["DbEmpty"] : Loc["DbNoCategory"];
+            }
             else
+            {
                 DbStatus = string.Empty;
+            }
         }
 
         [RelayCommand]

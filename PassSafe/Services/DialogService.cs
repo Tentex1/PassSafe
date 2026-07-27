@@ -2,11 +2,15 @@
 {
     using Mopups.Pages;
     using Mopups.Services;
-    using System.Threading.Tasks;     
+    using System.Threading.Tasks;
 
+    /// <summary>
+    /// Defines the <see cref="DialogService" />
+    /// </summary>
     public class DialogService : IDialogService
     {
         private Page mainPage => Application.Current?.Windows.FirstOrDefault()?.Page;
+
         public async Task ShowAlertAsync(string title, string message, string cancel)
         {
             await mainPage.DisplayAlertAsync(title, message, cancel);
@@ -17,7 +21,7 @@
             return await mainPage.DisplayAlertAsync(title, message, accept, cancel);
         }
 
-        public async Task ShowErrorAsync(Exception ex =null, string message = null)
+        public async Task ShowErrorAsync(Exception ex = null, string message = null)
         {
             var text = ex != null ? ex.Message : message;
             var dialog = await mainPage.DisplayAlertAsync("Hata", text, "Kopyala", "Tamam");

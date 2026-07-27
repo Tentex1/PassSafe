@@ -754,6 +754,33 @@ namespace PassSafe.Resources {
         }
         
         /// <summary>
+        ///   Where was your first vacation destination? benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string FifthSecurityQuestion {
+            get {
+                return ResourceManager.GetString("FifthSecurityQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   What is the name of your first pet? benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string FirstSecurityQuestion {
+            get {
+                return ResourceManager.GetString("FirstSecurityQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   What did you buy with your first paycheck? benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string FourthSecurityQuestion {
+            get {
+                return ResourceManager.GetString("FourthSecurityQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Add to vault benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string GenAddBtn {
@@ -1033,6 +1060,24 @@ namespace PassSafe.Resources {
         }
         
         /// <summary>
+        ///   No results found. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SearchNoResults {
+            get {
+                return ResourceManager.GetString("SearchNoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Search passwords... benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SearchPlaceholder {
+            get {
+                return ResourceManager.GetString("SearchPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Empty benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         internal static string SecEmpty {
@@ -1047,6 +1092,15 @@ namespace PassSafe.Resources {
         internal static string SecMedium {
             get {
                 return ResourceManager.GetString("SecMedium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   What is the name of the city where you were born? benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string SecondSecurityQuestion {
+            get {
+                return ResourceManager.GetString("SecondSecurityQuestion", resourceCulture);
             }
         }
         
@@ -1272,6 +1326,15 @@ namespace PassSafe.Resources {
         internal static string ThemeTitle {
             get {
                 return ResourceManager.GetString("ThemeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   What is the name of the street you grew up on? benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        internal static string ThirdSecurityQuestion {
+            get {
+                return ResourceManager.GetString("ThirdSecurityQuestion", resourceCulture);
             }
         }
         

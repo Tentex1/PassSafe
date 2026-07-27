@@ -594,4 +594,25 @@
   <data name="InfoPassWrong" xml:space="preserve">
     <value>Неверный пароль! Попробуйте еще раз.</value>
   </data>
+  <data name="FirstSecurityQuestion" xml:space="preserve">
+    <value>Как звали вашего первого домашнего питомца?</value>
+  </data>
+  <data name="SecondSecurityQuestion" xml:space="preserve">
+    <value>В каком городе вы родились?</value>
+  </data>
+  <data name="ThirdSecurityQuestion" xml:space="preserve">
+    <value>Как называлась улица, на которой вы выросли?</value>
+  </data>
+  <data name="FourthSecurityQuestion" xml:space="preserve">
+    <value>Что вы купили на свою первую зарплату?</value>
+  </data>
+  <data name="FifthSecurityQuestion" xml:space="preserve">
+    <value>Куда вы ездили в свой первый отпуск?</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Поиск паролей...</value>
+  </data>
+  <data name="SearchNoResults" xml:space="preserve">
+    <value>Нет результатов.</value>
+  </data>
 </root>

@@ -594,4 +594,25 @@
   <data name="InfoPassWrong" xml:space="preserve">
     <value>Parola yanlış! Lütfen tekrar deneyin.</value>
   </data>
+  <data name="FirstSecurityQuestion" xml:space="preserve">
+    <value>İlk evcil hayvanın adı nedir?</value>
+  </data>
+  <data name="SecondSecurityQuestion" xml:space="preserve">
+    <value>Doğduğun şehrin adı nedir?</value>
+  </data>
+  <data name="ThirdSecurityQuestion" xml:space="preserve">
+    <value>Çocukken büyüdüğün sokağın adı?</value>
+  </data>
+  <data name="FourthSecurityQuestion" xml:space="preserve">
+    <value>İlk maaşınla ne satın almıştın?</value>
+  </data>
+  <data name="FifthSecurityQuestion" xml:space="preserve">
+    <value>Gittiğin ilk tatil yeri neresiydi?</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Parolalarda ara...</value>
+  </data>
+  <data name="SearchNoResults" xml:space="preserve">
+    <value>Sonuç bulunamadı.</value>
+  </data>
 </root>

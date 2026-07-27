@@ -3,16 +3,22 @@
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.Messaging;
-    using Microsoft.Maui.ApplicationModel;
     using PassSafe.Helpers;
     using PassSafe.Messages;
     using PassSafe.Services;
     using System;
+    using System.Collections.ObjectModel;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Defines the <see cref="SetMasterPassViewModel" />
+    /// </summary>
     public partial class SetMasterPassViewModel : ObservableObject, IRecipient<DatabaseImportedMessage>
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
+
+        [ObservableProperty]
+        private ObservableCollection<string> securityQuestions;
 
         [ObservableProperty]
         private bool areConditionsMet;
@@ -33,7 +39,9 @@
         private string securityQuestionAnswer;
 
         private readonly IDialogService _dialogService;
+
         private readonly SettingsViewModel _svm;
+
         private readonly SafeViewModel _sfvm;
 
         public SetMasterPassViewModel(IDialogService dialogService, SettingsViewModel settingsViewModel, SafeViewModel safeViewModel)
@@ -42,12 +50,17 @@
             _svm = settingsViewModel;
             _sfvm = safeViewModel;
 
+            SecurityQuestions = new ObservableCollection<string>() { Loc["FirstSecurityQuestion"], Loc["SecondSecurityQuestion"], Loc["ThirdSecurityQuestion"], Loc["FourthSecurityQuestion"], Loc["FifthSecurityQuestion"] };
+
             WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
         partial void OnMasterPassChanged(string value) => CheckConditions();
+
         partial void OnMasterPassRepeatChanged(string value) => CheckConditions();
+
         partial void OnSecurityQuestionAnswerChanged(string value) => CheckConditions();
+
         partial void OnSecurityQuestionChanged(string value) => CheckConditions();
 
         private void CheckConditions()

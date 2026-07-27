@@ -12,20 +12,25 @@
     using PassSafe.Models;
     using PassSafe.Services;
     using PassSafe.Views;
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Defines the <see cref="AddPasswordViewModel" />
+    /// </summary>
     public partial class AddPasswordViewModel : ObservableObject
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
 
-        IDatabaseService _databaseService;
-        ICryptoService _cryptoService;
-        IDialogService _dialogService;
-        SafeViewModel _sfvm;
+        internal IDatabaseService _databaseService;
+
+        internal ICryptoService _cryptoService;
+
+        internal IDialogService _dialogService;
+
+        internal SafeViewModel _sfvm;
 
         [ObservableProperty]
         private int passwordId = 0;

@@ -15,7 +15,6 @@ namespace PassSafe.Converters
                 return iconEnum;
             }
 
-            // Eğer veritabanından boş gelir veya eşleşmezse varsayılan bir ikon dönsün
             return MaterialSharpIcons.Lock;
         }
 

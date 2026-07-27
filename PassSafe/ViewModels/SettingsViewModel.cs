@@ -18,7 +18,9 @@
     public class SettingItem
     {
         public string Key { get; set; }
+
         public string ResourceKey { get; set; }
+
         public string Name => LocalizationManager.Instance[ResourceKey];
     }
 
@@ -27,20 +29,26 @@
         public LocalizationManager Loc => LocalizationManager.Instance;
 
         private readonly IDialogService _dialogService;
+
         private readonly IDatabaseService _databaseService;
+
         private readonly ICryptoService _cryptoService;
 
         public ObservableCollection<SettingItem> ThemeOptions { get; }
+
         public ObservableCollection<SettingItem> ColorOptions { get; }
+
         public ObservableCollection<SettingItem> LanguageOptions { get; }
+
         public ObservableCollection<SettingItem> AutoLockOptions { get; }
-        public ObservableCollection<SettingItem> ClipboardOptions { get; }
 
         [ObservableProperty] private SettingItem selectedTheme;
+
         [ObservableProperty] private SettingItem selectedAccentColor;
+
         [ObservableProperty] private SettingItem selectedLanguage;
+
         [ObservableProperty] private SettingItem selectedAutoLockTime;
-        [ObservableProperty] private SettingItem selectedClipboardClearTime;
 
         public SettingsViewModel(IDialogService dialogService, IDatabaseService databaseService, ICryptoService cryptoService)
         {
@@ -79,28 +87,17 @@
                 new SettingItem { ResourceKey = "TimeNever", Key = "-1" }
             };
 
-            ClipboardOptions = new ObservableCollection<SettingItem>
-            {
-                new SettingItem { ResourceKey = "Time15Sec", Key = "15" },
-                new SettingItem { ResourceKey = "Time30Sec", Key = "30" },
-                new SettingItem { ResourceKey = "Time1Min", Key = "60" },
-                new SettingItem { ResourceKey = "TimeOff", Key = "-1" }
-            };
-
             string savedTheme = Preferences.Get("AppTheme", "system");
             SelectedTheme = ThemeOptions.FirstOrDefault(x => x.Key == savedTheme) ?? ThemeOptions.First();
 
             string savedColor = Preferences.Get("AppAccentColor", "emerald");
             SelectedAccentColor = ColorOptions.FirstOrDefault(x => x.Key == savedColor) ?? ColorOptions.First();
 
-            string savedLang = Preferences.Get("AppLanguage", "en");     
+            string savedLang = Preferences.Get("AppLanguage", "en");
             SelectedLanguage = LanguageOptions.FirstOrDefault(x => x.Key == savedLang) ?? LanguageOptions.First();
 
             string savedAutoLock = Preferences.Get("AutoLockTime", "5");
             SelectedAutoLockTime = AutoLockOptions.FirstOrDefault(x => x.Key == savedAutoLock) ?? AutoLockOptions[2];
-
-            string savedClip = Preferences.Get("ClipboardClearTime", "30");
-            SelectedClipboardClearTime = ClipboardOptions.FirstOrDefault(x => x.Key == savedClip) ?? ClipboardOptions[1];
         }
 
         partial void OnSelectedThemeChanged(SettingItem value)
@@ -148,50 +145,47 @@
             if (value != null) Preferences.Set("AutoLockTime", value.Key);
         }
 
-        partial void OnSelectedClipboardClearTimeChanged(SettingItem value)
-        {
-            if (value != null) Preferences.Set("ClipboardClearTime", value.Key);
-        }
-
         [RelayCommand]
         private async Task ChangeMasterPasswordAsync()
         {
-            var currentMasterPass = await SecureStorage.GetAsync("masterPass");
-            if (string.IsNullOrEmpty(currentMasterPass))
-            {
-                await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["NoMasterPassFound"], Loc["OkBtn"]);
-                return;
-            }
-
-            string oldPassInput = await Application.Current.MainPage.DisplayPromptAsync(Loc["VerifyTitle"], Loc["EnterCurrentMasterPass"], Loc["ContinueBtn"], Loc["CancelBtn"]);
-            if (oldPassInput == null) return;
-
-            if (oldPassInput != currentMasterPass)
-            {
-                await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["ErrorWrongMasterPass"], Loc["OkBtn"]);
-                return;
-            }
-
-            string newPassInput = await Application.Current.MainPage.DisplayPromptAsync(Loc["NewPassTitle"], Loc["EnterNewMasterPass"], Loc["ChangeBtn"], Loc["CancelBtn"]);
-            if (newPassInput == null) return;
-
-            if (newPassInput.Length < 4)
-            {
-                await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["ErrorPasswordTooShort"], Loc["OkBtn"]);
-                return;
-            }
-
-            string newPassConfirm = await Application.Current.MainPage.DisplayPromptAsync(Loc["EnterAgainTitle"], Loc["ConfirmNewMasterPass"], Loc["ConfirmBtn"], Loc["CancelBtn"]);
-            if (newPassConfirm == null) return;
-
-            if (newPassInput != newPassConfirm)
-            {
-                await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["ErrorPasswordsNotMatch"], Loc["OkBtn"]);
-                return;
-            }
+            MainWindow.IsAuthenticating = true;
 
             try
             {
+                var currentMasterPass = await SecureStorage.GetAsync("masterPass");
+                if (string.IsNullOrEmpty(currentMasterPass))
+                {
+                    await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["NoMasterPassFound"], Loc["OkBtn"]);
+                    return;
+                }
+
+                string oldPassInput = await Application.Current.MainPage.DisplayPromptAsync(Loc["VerifyTitle"], Loc["EnterCurrentMasterPass"], Loc["ContinueBtn"], Loc["CancelBtn"]);
+                if (oldPassInput == null) return;
+
+                if (oldPassInput != currentMasterPass)
+                {
+                    await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["ErrorWrongMasterPass"], Loc["OkBtn"]);
+                    return;
+                }
+
+                string newPassInput = await Application.Current.MainPage.DisplayPromptAsync(Loc["NewPassTitle"], Loc["EnterNewMasterPass"], Loc["ChangeBtn"], Loc["CancelBtn"]);
+                if (newPassInput == null) return;
+
+                if (newPassInput.Length < 4)
+                {
+                    await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["ErrorPasswordTooShort"], Loc["OkBtn"]);
+                    return;
+                }
+
+                string newPassConfirm = await Application.Current.MainPage.DisplayPromptAsync(Loc["EnterAgainTitle"], Loc["ConfirmNewMasterPass"], Loc["ConfirmBtn"], Loc["CancelBtn"]);
+                if (newPassConfirm == null) return;
+
+                if (newPassInput != newPassConfirm)
+                {
+                    await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["ErrorPasswordsNotMatch"], Loc["OkBtn"]);
+                    return;
+                }
+
                 var allPasswords = await _databaseService.GetDatabaseAsync();
                 if (allPasswords != null && allPasswords.Any())
                 {
@@ -210,11 +204,17 @@
             {
                 await _dialogService.ShowAlertAsync(Loc["CriticalErrorTitle"], $"{Loc["ErrorPassUpdateFailed"]}: {ex.Message}", Loc["OkBtn"]);
             }
+            finally
+            {
+                MainWindow.IsAuthenticating = false;
+            }
         }
 
         [RelayCommand]
         private async Task ImportDatabaseAsync()
         {
+            MainWindow.IsAuthenticating = true;
+
             string targetPath = Path.Combine(FileSystem.AppDataDirectory, "passwords.sqlite");
             string backupPath = Path.Combine(FileSystem.AppDataDirectory, "passwords_backup.sqlite");
             bool backupCreated = false;
@@ -265,6 +265,10 @@
                 RestoreBackup(backupPath, targetPath, backupCreated);
                 await _dialogService.ShowErrorAsync(ex);
             }
+            finally
+            {
+                MainWindow.IsAuthenticating = false;
+            }
         }
 
         private void RestoreBackup(string backupPath, string targetPath, bool backupCreated)
@@ -279,6 +283,8 @@
         [RelayCommand]
         private async Task ExportDatabaseAsync()
         {
+            MainWindow.IsAuthenticating = true;
+
             try
             {
                 string dbPath = Path.Combine(FileSystem.AppDataDirectory, "passwords.sqlite");
@@ -315,6 +321,10 @@
             catch (Exception ex)
             {
                 await _dialogService.ShowAlertAsync(Loc["CriticalErrorTitle"], $"{Loc["ErrorExportFailed"]}:\n\n{ex.Message}", Loc["OkBtn"]);
+            }
+            finally
+            {
+                MainWindow.IsAuthenticating = false;
             }
         }
     }

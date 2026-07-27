@@ -1,8 +1,8 @@
 ﻿namespace PassSafe.ViewModels
 {
+    using CommunityToolkit.Maui.Alerts;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
-    using CommunityToolkit.Maui.Alerts;
     using Microsoft.Maui.ApplicationModel.DataTransfer;
     using PassSafe.Helpers;
     using PassSafe.Views;
@@ -10,6 +10,9 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Defines the <see cref="PassGeneratorViewModel" />
+    /// </summary>
     public partial class PassGeneratorViewModel : ObservableObject
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
@@ -33,8 +36,11 @@
         private int generatedPassLength = 8;
 
         private readonly char[] _alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+
         private readonly char[] _alphabetLower = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
+
         private readonly char[] _digits = "0123456789".ToCharArray();
+
         private readonly char[] _passwordSymbols = "!@#$%^&*()-_+=".ToCharArray();
 
         public PassGeneratorViewModel()
@@ -43,9 +49,13 @@
         }
 
         partial void OnIsUseUpperLetterChanged(bool value) => GeneratePassword();
+
         partial void OnIsUseLowerLetterChanged(bool value) => GeneratePassword();
+
         partial void OnIsUseNumbersChanged(bool value) => GeneratePassword();
+
         partial void OnIsUseSymbolsChanged(bool value) => GeneratePassword();
+
         partial void OnGeneratedPassLengthChanged(int value) => GeneratePassword();
 
         [RelayCommand]

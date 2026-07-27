@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="PassSafe.Views.SafePage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:PassSafe.Converters" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:models="clr-namespace:PassSafe.Models" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:vm="clr-namespace:PassSafe.ViewModels"
+             xmlns:converters="clr-namespace:PassSafe.Converters" xmlns:loc="clr-namespace:PassSafe.Helpers" xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons" xmlns:models="clr-namespace:PassSafe.Models" xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit" xmlns:vm="clr-namespace:PassSafe.ViewModels"
              x:Name="RootPage"
              Title="{Binding Loc[TabSafe]}"
              x:DataType="vm:SafeViewModel"
@@ -40,7 +40,7 @@
         <converters:StringToIconConverter x:Key="StringToIconConverter" />
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto, Auto, *">
 
         <Grid Grid.Row="0"
               Margin="15,15,15,0"
@@ -80,10 +80,21 @@
                     VerticalOptions="Center" />
         </Grid>
 
-        <RefreshView Grid.Row="1"
+        <SearchBar Grid.Row="1"
+                   Margin="15,15,15,0"
+                   BackgroundColor="Transparent"
+                   CancelButtonColor="{DynamicResource Primary}"
+                   Placeholder="{Binding Loc[SearchPlaceholder]}"
+                   PlaceholderColor="Gray"
+                   Text="{Binding SearchQuery}"
+                   TextColor="{AppThemeBinding Dark=White,
+                                               Light=Black}"
+                   VerticalOptions="Center" />
+
+        <RefreshView Grid.Row="2"
                      Command="{Binding LoadPasswordsCommand}"
                      IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView Margin="20" ItemsSource="{Binding CollectionViewItemSource}">
+            <CollectionView Margin="20,10,20,20" ItemsSource="{Binding CollectionViewItemSource}">
                 <CollectionView.EmptyViewTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <Label HorizontalOptions="Center"

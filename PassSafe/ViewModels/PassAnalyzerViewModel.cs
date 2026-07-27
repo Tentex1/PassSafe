@@ -1,24 +1,29 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Microsoft.Maui.Storage;
-using PassSafe.Helpers;
-using PassSafe.Models;
-using PassSafe.Services;
-using PassSafe.Views;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace PassSafe.ViewModels
+﻿namespace PassSafe.ViewModels
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
+    using Microsoft.Maui.Storage;
+    using PassSafe.Helpers;
+    using PassSafe.Models;
+    using PassSafe.Services;
+    using PassSafe.Views;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Defines the <see cref="PassAnalyzerViewModel" />
+    /// </summary>
     public partial class PassAnalyzerViewModel : ObservableObject
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
 
         private readonly IDatabaseService _databaseService;
+
         private readonly ICryptoService _cryptoService;
+
         private readonly IDialogService _dialogService;
 
         private string masterPass;
@@ -36,6 +41,7 @@ namespace PassSafe.ViewModels
         private bool isRefreshing;
 
         public ObservableCollection<AnalysisCard> AnalysisCards { get; set; } = new();
+
         public ObservableCollection<CriticalAction> CriticalActions { get; set; } = new();
 
         public PassAnalyzerViewModel(IDatabaseService databaseService, ICryptoService cryptoService, IDialogService dialogService)

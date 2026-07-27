@@ -3,18 +3,21 @@
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.Messaging;
-    using Microsoft.Maui.ApplicationModel;
     using PassSafe.Helpers;
     using PassSafe.Messages;
     using PassSafe.Services;
     using System;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Defines the <see cref="ImportDatabaseVerifyViewModel" />
+    /// </summary>
     public partial class ImportDatabaseVerifyViewModel : ObservableObject
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
 
         private readonly IDatabaseService _databaseService;
+
         private readonly IDialogService _dialogService;
 
         [ObservableProperty]
@@ -46,7 +49,9 @@
         }
 
         partial void OnMasterPassChanged(string value) => CheckConditions();
+
         partial void OnSecurityQuestionChanged(string value) => CheckConditions();
+
         partial void OnSecurityQuestionAnswerChanged(string value) => CheckConditions();
 
         private void CheckConditions()

@@ -1,13 +1,16 @@
-﻿using PassSafe.Models;
-using SQLite;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.Maui.Storage;
-
-namespace PassSafe.Services
+﻿namespace PassSafe.Services
 {
+    using Microsoft.Maui.Storage;
+    using PassSafe.Models;
+    using SQLite;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+
+    /// <summary>
+    /// Defines the <see cref="DatabaseService" />
+    /// </summary>
     public class DatabaseService(IDialogService dialogService) : IDatabaseService
     {
         private SQLiteAsyncConnection db;
@@ -18,7 +21,6 @@ namespace PassSafe.Services
 
             if (string.IsNullOrWhiteSpace(key))
             {
-                //await dialogService.ShowErrorAsync(null, "Ana şifre yok");
                 return false;
             }
 
@@ -30,7 +32,7 @@ namespace PassSafe.Services
                     dbPath,
                     openFlags: SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache,
                     storeDateTimeAsTicks: true,
-                    key        
+                    key
                 );
 
                 db = new SQLiteAsyncConnection(options);
@@ -40,12 +42,6 @@ namespace PassSafe.Services
             }
             catch (Exception ex)
             {
-                //await dialogService.ShowErrorAsync(ex);
-                //if (ex.InnerException != null)
-                //{
-                //    await dialogService.ShowErrorAsync(ex);
-                //}
-                //db = null;
                 return false;
             }
         }
@@ -62,24 +58,6 @@ namespace PassSafe.Services
                 return await db.Table<Password>().ToListAsync();
             }
             catch (Exception ex)
-            {
-                await dialogService.ShowErrorAsync(ex);
-                return new List<Password>();
-            }
-        }
-
-        public async Task<List<Password>> GetFavoritesAsync()
-        {
-            try
-            {
-                var masterPass = await SecureStorage.GetAsync("masterPass");
-                await InitializeDatabaseAsync(masterPass);
-
-                if (db == null) return new List<Password>();
-
-                return await db.Table<Password>().Where(x => x.IsFavorited == true).ToListAsync();
-            }
-            catch(Exception ex)
             {
                 await dialogService.ShowErrorAsync(ex);
                 return new List<Password>();

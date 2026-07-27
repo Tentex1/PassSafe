@@ -1,5 +1,8 @@
 ﻿namespace PassSafe.Services
 {
+    /// <summary>
+    /// Defines the <see cref="NavigationService" />
+    /// </summary>
     public partial class NavigationService(IServiceProvider services) : INavigationService
     {
         public Task PushAsync(string route)

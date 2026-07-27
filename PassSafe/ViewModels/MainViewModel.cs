@@ -1,11 +1,11 @@
-﻿using Plugin.Maui.Biometric;
-using System.Security.Authentication;
-using PassSafe.Helpers;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-
-namespace PassSafe.ViewModels
+﻿namespace PassSafe.ViewModels
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
+    using PassSafe.Helpers;
+    using Plugin.Maui.Biometric;
+    using System.Security.Authentication;
+
     public partial class MainViewModel(SafeViewModel sfvm, IDialogService dialogService, INavigationService navigationService, IBiometric biometricService, IDatabaseService databaseService) : ObservableObject
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
@@ -13,6 +13,9 @@ namespace PassSafe.ViewModels
         [RelayCommand]
         private async Task InitializeAsync()
         {
+            if (MainWindow.IsAuthenticating)
+                return;
+
             bool isAuthenticated = await AuthenticateAsync();
 
             if (isAuthenticated)
@@ -23,6 +26,8 @@ namespace PassSafe.ViewModels
 
         private async Task<bool> AuthenticateAsync()
         {
+            MainWindow.IsAuthenticating = true;
+
             try
             {
                 AuthenticationRequest ar = new AuthenticationRequest
@@ -51,6 +56,10 @@ namespace PassSafe.ViewModels
                 await dialogService.ShowErrorAsync(ex);
                 return false;
             }
+            finally
+            {
+                MainWindow.IsAuthenticating = false;
+            }
         }
 
         private async Task CheckMasterPassAsync()
@@ -66,6 +75,8 @@ namespace PassSafe.ViewModels
                 }
                 else
                 {
+                    MainWindow.IsAuthenticating = true;
+
                     var result = await dialogService.ShowConfirmAsync(Loc["LoginTitle"], Loc["NoMasterPassFound"], Loc["SetBtn"], Loc["CancelBtn"]);
                     if (result == true)
                     {
@@ -92,6 +103,10 @@ namespace PassSafe.ViewModels
             catch (Exception ex)
             {
                 await dialogService.ShowErrorAsync(ex);
+            }
+            finally
+            {
+                MainWindow.IsAuthenticating = false;
             }
         }
     }

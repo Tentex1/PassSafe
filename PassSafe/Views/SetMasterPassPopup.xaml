@@ -48,17 +48,10 @@
                    TextColor="#FF3040" />
 
             <Picker Title="{Binding Loc[SecurityQuestionTitle]}"
+                    ItemsSource="{Binding SecurityQuestions}"
                     SelectedItem="{Binding SecurityQuestion}"
                     TextColor="{AppThemeBinding Dark=White,
-                                                Light=Black}">
-                <Picker.Items>
-                    <x:String>İlk evcil hayvanın adı nedir?</x:String>
-                    <x:String>Doğduğun şehrin adı nedir?</x:String>
-                    <x:String>Çocukken büyüdüğün sokağın adı?</x:String>
-                    <x:String>İlk maaşınla ne satın almıştın?</x:String>
-                    <x:String>Gittiğin ilk tatil yeri neresiydi?</x:String>
-                </Picker.Items>
-            </Picker>
+                                                Light=Black}" />
 
             <Entry Placeholder="{Binding Loc[SecurityAnswerPlaceholder]}"
                    Text="{Binding SecurityQuestionAnswer, Mode=TwoWay}"
