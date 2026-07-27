@@ -140,7 +140,7 @@
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:PassAnalyzerViewModel}}, Path=ChangePasswordCommand}"
                                                 CommandParameter="{Binding TargetPassword}"
                                                 CornerRadius="16" FontAttributes="Bold" FontSize="12" HeightRequest="32"
-                                                Text="{Binding Loc[AnaChangeBtn]}"
+                                                Text="{Binding PassAnalyzerViewModel.Loc[AnaChangeBtn], Source={StaticResource VMLocator}}"
                                                 TextColor="#121212" VerticalOptions="Center" />
                                     </Grid>
                                 </Border>

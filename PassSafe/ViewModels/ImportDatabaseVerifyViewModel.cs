@@ -10,14 +10,14 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Defines the <see cref="ImportDatabaseVerifyViewModel" />
+    /// Handles the verification process when the user imports an old SQLite backup.
+    /// Ensures they know the old master password before fully restoring.
     /// </summary>
     public partial class ImportDatabaseVerifyViewModel : ObservableObject
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
 
         private readonly IDatabaseService _databaseService;
-
         private readonly IDialogService _dialogService;
 
         [ObservableProperty]
@@ -49,9 +49,7 @@
         }
 
         partial void OnMasterPassChanged(string value) => CheckConditions();
-
         partial void OnSecurityQuestionChanged(string value) => CheckConditions();
-
         partial void OnSecurityQuestionAnswerChanged(string value) => CheckConditions();
 
         private void CheckConditions()
@@ -63,6 +61,10 @@
             IsButtonEnabled = isPasswordValid && isQuestionValid && isAnswerValid;
         }
 
+        /// <summary>
+        /// Tries to initialize the imported SQLite database using the provided password.
+        /// Reverts changes if authentication fails.
+        /// </summary>
         [RelayCommand]
         private async Task VerifyAsync()
         {
@@ -84,6 +86,8 @@
                     await Task.Delay(1000);
 
                     await Mopups.Services.MopupService.Instance.PopAsync();
+
+                    // Tell the SafeViewModel to refresh its list from the newly imported database
                     WeakReferenceMessenger.Default.Send(new DatabaseImportedMessage());
                 }
                 else

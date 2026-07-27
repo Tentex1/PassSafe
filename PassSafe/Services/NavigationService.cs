@@ -1,21 +1,25 @@
 ﻿namespace PassSafe.Services
 {
+    using Microsoft.Maui.Controls;
+    using System;
+    using System.Threading.Tasks;
+
     /// <summary>
-    /// Defines the <see cref="NavigationService" />
+    /// Implementation of the navigation service. 
+    /// Handles routing and pushing/popping pages to the navigation stack.
     /// </summary>
     public partial class NavigationService(IServiceProvider services) : INavigationService
     {
+        /// <summary>
+        /// Navigates to the specified registered route.
+        /// </summary>
         public Task PushAsync(string route)
         {
             if (!App.Routes.TryGetValue(route, out Type? type))
-            {
                 throw new RouteNotFoundException();
-            }
 
             if (services.GetService(type) is not Page page)
-            {
                 throw new TypeNotRegisteredException();
-            }
 
             var root = Application.Current?.Windows?[0]?.Page;
 
@@ -26,6 +30,9 @@
             };
         }
 
+        /// <summary>
+        /// Returns to the previous page in the navigation stack.
+        /// </summary>
         public Task PopAsync()
         {
             var root = Application.Current?.Windows?[0]?.Page;
@@ -37,6 +44,9 @@
             };
         }
 
+        /// <summary>
+        /// Returns to the root (main) page of the application.
+        /// </summary>
         public Task PopToRootAsync()
         {
             var root = Application.Current?.Windows?[0]?.Page;
@@ -48,17 +58,16 @@
             };
         }
 
+        /// <summary>
+        /// Opens a page modally (blocks the underlying UI).
+        /// </summary>
         public Task PushModalAsync(string route)
         {
             if (!App.Routes.TryGetValue(route, out Type? type))
-            {
                 throw new RouteNotFoundException();
-            }
 
             if (services.GetService(type) is not Page page)
-            {
                 throw new TypeNotRegisteredException();
-            }
 
             var root = Application.Current?.Windows?[0]?.Page;
 
@@ -69,6 +78,9 @@
             };
         }
 
+        /// <summary>
+        /// Closes the currently active modal page.
+        /// </summary>
         public Task PopModalAsync()
         {
             var root = Application.Current?.Windows?[0]?.Page;
@@ -80,4 +92,7 @@
             };
         }
     }
+
+    public class RouteNotFoundException : Exception { }
+    public class TypeNotRegisteredException : Exception { }
 }

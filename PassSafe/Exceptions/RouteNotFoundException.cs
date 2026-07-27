@@ -2,6 +2,9 @@ using System.Runtime.Serialization;
 
 namespace PassSafe.Exceptions
 {
+    /// <summary>
+    /// Thrown when the Navigation Service attempts to navigate to an unregistered route.
+    /// </summary>
     [Serializable]
     public class RouteNotFoundException : Exception
     {

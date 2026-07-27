@@ -1,8 +1,8 @@
 ﻿namespace PassSafe.ViewModels
 {
-    using CommunityToolkit.Maui.Alerts;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Maui.Alerts;
     using Microsoft.Maui.ApplicationModel.DataTransfer;
     using PassSafe.Helpers;
     using PassSafe.Views;
@@ -11,7 +11,7 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Defines the <see cref="PassGeneratorViewModel" />
+    /// Manages the Password Generator page. Generates secure random strings based on user settings.
     /// </summary>
     public partial class PassGeneratorViewModel : ObservableObject
     {
@@ -35,12 +35,10 @@
         [ObservableProperty]
         private int generatedPassLength = 8;
 
+        // Using ReadOnly char arrays to optimize RAM usage
         private readonly char[] _alphabetUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-
         private readonly char[] _alphabetLower = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
-
         private readonly char[] _digits = "0123456789".ToCharArray();
-
         private readonly char[] _passwordSymbols = "!@#$%^&*()-_+=".ToCharArray();
 
         public PassGeneratorViewModel()
@@ -48,16 +46,16 @@
             GeneratePassword();
         }
 
-        partial void OnIsUseUpperLetterChanged(bool value) => GeneratePassword();
+        // Live generation: Generates a new password instantly when any setting changes.
+        internal partial void OnIsUseUpperLetterChanged(bool value) => GeneratePassword();
+        internal partial void OnIsUseLowerLetterChanged(bool value) => GeneratePassword();
+        internal partial void OnIsUseNumbersChanged(bool value) => GeneratePassword();
+        internal partial void OnIsUseSymbolsChanged(bool value) => GeneratePassword();
+        internal partial void OnGeneratedPassLengthChanged(int value) => GeneratePassword();
 
-        partial void OnIsUseLowerLetterChanged(bool value) => GeneratePassword();
-
-        partial void OnIsUseNumbersChanged(bool value) => GeneratePassword();
-
-        partial void OnIsUseSymbolsChanged(bool value) => GeneratePassword();
-
-        partial void OnGeneratedPassLengthChanged(int value) => GeneratePassword();
-
+        /// <summary>
+        /// Creates a random secure password based on the selected character pools.
+        /// </summary>
         [RelayCommand]
         private void GeneratePassword()
         {
@@ -85,6 +83,9 @@
             await Toast.Make(Loc["MsgCopied"]).Show();
         }
 
+        /// <summary>
+        /// Opens the Add Password popup and pre-fills it with the generated password.
+        /// </summary>
         [RelayCommand]
         private async Task AddPasswordToSafeAsync()
         {

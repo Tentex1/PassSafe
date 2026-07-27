@@ -9,15 +9,20 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Defines the <see cref="DatabaseService" />
+    /// Implements SQLite operations using SQLCipher. 
+    /// Ensures the database file itself is fully encrypted at rest.
     /// </summary>
     public class DatabaseService(IDialogService dialogService) : IDatabaseService
     {
         private SQLiteAsyncConnection db;
 
+        /// <summary>
+        /// Connects to the SQLite database and encrypts the file using the provided master key.
+        /// </summary>
         public async Task<bool> InitializeDatabaseAsync(string key)
         {
-            if (db != null) return false;
+            // FIX: If the database is already initialized, return true instead of false.
+            if (db != null) return true;
 
             if (string.IsNullOrWhiteSpace(key))
             {
@@ -28,6 +33,7 @@
             {
                 var dbPath = Path.Combine(FileSystem.AppDataDirectory, "passwords.sqlite");
 
+                // Open the database with SQLCipher encryption enabled
                 var options = new SQLiteConnectionString(
                     dbPath,
                     openFlags: SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache,
@@ -40,12 +46,15 @@
                 await db.CreateTableAsync<Password>();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
         }
 
+        /// <summary>
+        /// Retrieves all saved passwords from the encrypted database.
+        /// </summary>
         public async Task<List<Password>> GetDatabaseAsync()
         {
             try
@@ -64,6 +73,9 @@
             }
         }
 
+        /// <summary>
+        /// Inserts a new password record into the database.
+        /// </summary>
         public async Task AddPasswordAsync(Password password)
         {
             var masterPass = await SecureStorage.GetAsync("masterPass");
@@ -75,6 +87,9 @@
             }
         }
 
+        /// <summary>
+        /// Deletes a password record by its ID.
+        /// </summary>
         public async Task DeletePasswordAsync(int id)
         {
             if (db != null)
@@ -83,6 +98,9 @@
             }
         }
 
+        /// <summary>
+        /// Updates an existing password record in the database.
+        /// </summary>
         public async Task UpdatePasswordAsync(Password password)
         {
             if (db != null)

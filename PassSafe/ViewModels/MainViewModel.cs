@@ -5,7 +5,11 @@
     using PassSafe.Helpers;
     using Plugin.Maui.Biometric;
     using System.Security.Authentication;
+    using System.Threading.Tasks;
 
+    /// <summary>
+    /// Serves as the Entry Point of the App. Handles biometric security and master password verification on launch.
+    /// </summary>
     public partial class MainViewModel(SafeViewModel sfvm, IDialogService dialogService, INavigationService navigationService, IBiometric biometricService, IDatabaseService databaseService) : ObservableObject
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
@@ -24,6 +28,9 @@
             }
         }
 
+        /// <summary>
+        /// Triggers the device's native biometric (Fingerprint/FaceID) or PIN authentication.
+        /// </summary>
         private async Task<bool> AuthenticateAsync()
         {
             MainWindow.IsAuthenticating = true;
@@ -62,6 +69,9 @@
             }
         }
 
+        /// <summary>
+        /// Checks if a master password exists on the device. If not, forces the user to create one.
+        /// </summary>
         private async Task CheckMasterPassAsync()
         {
             try

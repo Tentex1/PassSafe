@@ -22,7 +22,7 @@ namespace PassSafe.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppResources {
+    public class AppResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace PassSafe.Resources {
         ///   Bu sınıf tarafından kullanılan, önbelleğe alınmış ResourceManager örneğini döndürür.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PassSafe.Resources.AppResources", typeof(AppResources).Assembly);
@@ -51,7 +51,7 @@ namespace PassSafe.Resources {
         ///   CurrentUICulture özelliğini tüm kaynak aramaları için geçersiz kılar.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Accent Color benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AccentColorTitle {
+        public static string AccentColorTitle {
             get {
                 return ResourceManager.GetString("AccentColorTitle", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Add benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AddBtn {
+        public static string AddBtn {
             get {
                 return ResourceManager.GetString("AddBtn", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Change benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaChangeBtn {
+        public static string AnaChangeBtn {
             get {
                 return ResourceManager.GetString("AnaChangeBtn", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   CRITICAL ACTIONS benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaCritical {
+        public static string AnaCritical {
             get {
                 return ResourceManager.GetString("AnaCritical", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Vault is Empty benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaEmpty {
+        public static string AnaEmpty {
             get {
                 return ResourceManager.GetString("AnaEmpty", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   No passwords saved yet. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaEmptyDesc {
+        public static string AnaEmptyDesc {
             get {
                 return ResourceManager.GetString("AnaEmptyDesc", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   ! Fix Immediately benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaFixNow {
+        public static string AnaFixNow {
             get {
                 return ResourceManager.GetString("AnaFixNow", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Refresh Analysis benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaRefreshBtn {
+        public static string AnaRefreshBtn {
             get {
                 return ResourceManager.GetString("AnaRefreshBtn", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Risky benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaRisky {
+        public static string AnaRisky {
             get {
                 return ResourceManager.GetString("AnaRisky", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Reused passwords. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaRiskyDesc {
+        public static string AnaRiskyDesc {
             get {
                 return ResourceManager.GetString("AnaRiskyDesc", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   SCORE benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaScore {
+        public static string AnaScore {
             get {
                 return ResourceManager.GetString("AnaScore", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Good benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaStatusGood {
+        public static string AnaStatusGood {
             get {
                 return ResourceManager.GetString("AnaStatusGood", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Safe, but could use minor improvements. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaStatusGoodDesc {
+        public static string AnaStatusGoodDesc {
             get {
                 return ResourceManager.GetString("AnaStatusGoodDesc", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Perfect benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaStatusPerfect {
+        public static string AnaStatusPerfect {
             get {
                 return ResourceManager.GetString("AnaStatusPerfect", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Your vault is completely secure. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaStatusPerfectDesc {
+        public static string AnaStatusPerfectDesc {
             get {
                 return ResourceManager.GetString("AnaStatusPerfectDesc", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   At Risk benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaStatusRisk {
+        public static string AnaStatusRisk {
             get {
                 return ResourceManager.GetString("AnaStatusRisk", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Critical vulnerabilities. Update weak passwords! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaStatusRiskDesc {
+        public static string AnaStatusRiskDesc {
             get {
                 return ResourceManager.GetString("AnaStatusRiskDesc", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Strong benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaStrong {
+        public static string AnaStrong {
             get {
                 return ResourceManager.GetString("AnaStrong", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Complex and safe passwords. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaStrongDesc {
+        public static string AnaStrongDesc {
             get {
                 return ResourceManager.GetString("AnaStrongDesc", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   SUMMARY ANALYSIS benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaSummary {
+        public static string AnaSummary {
             get {
                 return ResourceManager.GetString("AnaSummary", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Weak benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaWeak {
+        public static string AnaWeak {
             get {
                 return ResourceManager.GetString("AnaWeak", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Short or simple passwords. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AnaWeakDesc {
+        public static string AnaWeakDesc {
             get {
                 return ResourceManager.GetString("AnaWeakDesc", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   APPEARANCE &amp; LANGUAGE benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AppearanceSection {
+        public static string AppearanceSection {
             get {
                 return ResourceManager.GetString("AppearanceSection", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Are you sure? benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AreYouSureTitle {
+        public static string AreYouSureTitle {
             get {
                 return ResourceManager.GetString("AreYouSureTitle", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Complete verification to access your passwords. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AuthDesc {
+        public static string AuthDesc {
             get {
                 return ResourceManager.GetString("AuthDesc", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Complete verification. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AuthTitle {
+        public static string AuthTitle {
             get {
                 return ResourceManager.GetString("AuthTitle", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Lock when app goes to background benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AutoLockDesc {
+        public static string AutoLockDesc {
             get {
                 return ResourceManager.GetString("AutoLockDesc", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Auto-Lock benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string AutoLockTitle {
+        public static string AutoLockTitle {
             get {
                 return ResourceManager.GetString("AutoLockTitle", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Cancel benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CancelBtn {
+        public static string CancelBtn {
             get {
                 return ResourceManager.GetString("CancelBtn", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   All benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CatAll {
+        public static string CatAll {
             get {
                 return ResourceManager.GetString("CatAll", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Bank benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CatBank {
+        public static string CatBank {
             get {
                 return ResourceManager.GetString("CatBank", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Favorites benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CatFavorites {
+        public static string CatFavorites {
             get {
                 return ResourceManager.GetString("CatFavorites", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Games benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CatGame {
+        public static string CatGame {
             get {
                 return ResourceManager.GetString("CatGame", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Social Media benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CatSocial {
+        public static string CatSocial {
             get {
                 return ResourceManager.GetString("CatSocial", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Work benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CatWork {
+        public static string CatWork {
             get {
                 return ResourceManager.GetString("CatWork", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Change benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ChangeBtn {
+        public static string ChangeBtn {
             get {
                 return ResourceManager.GetString("ChangeBtn", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Update your vault login password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ChangeMasterPassDesc {
+        public static string ChangeMasterPassDesc {
             get {
                 return ResourceManager.GetString("ChangeMasterPassDesc", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Change Master Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ChangeMasterPassTitle {
+        public static string ChangeMasterPassTitle {
             get {
                 return ResourceManager.GetString("ChangeMasterPassTitle", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Removes copied password from memory benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ClearClipboardDesc {
+        public static string ClearClipboardDesc {
             get {
                 return ResourceManager.GetString("ClearClipboardDesc", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Clear Clipboard benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ClearClipboardTitle {
+        public static string ClearClipboardTitle {
             get {
                 return ResourceManager.GetString("ClearClipboardTitle", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Emerald Green benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ColorEmerald {
+        public static string ColorEmerald {
             get {
                 return ResourceManager.GetString("ColorEmerald", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Fire Red benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ColorFire {
+        public static string ColorFire {
             get {
                 return ResourceManager.GetString("ColorFire", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Ocean Blue benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ColorOcean {
+        public static string ColorOcean {
             get {
                 return ResourceManager.GetString("ColorOcean", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Night Purple benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ColorPurple {
+        public static string ColorPurple {
             get {
                 return ResourceManager.GetString("ColorPurple", resourceCulture);
             }
@@ -459,7 +459,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Restart to apply the system color. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ColorRestartToast {
+        public static string ColorRestartToast {
             get {
                 return ResourceManager.GetString("ColorRestartToast", resourceCulture);
             }
@@ -468,7 +468,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Sun Yellow benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ColorSun {
+        public static string ColorSun {
             get {
                 return ResourceManager.GetString("ColorSun", resourceCulture);
             }
@@ -477,7 +477,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Confirm benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ConfirmBtn {
+        public static string ConfirmBtn {
             get {
                 return ResourceManager.GetString("ConfirmBtn", resourceCulture);
             }
@@ -486,7 +486,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Are you sure you want to delete this password? benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ConfirmDeleteDesc {
+        public static string ConfirmDeleteDesc {
             get {
                 return ResourceManager.GetString("ConfirmDeleteDesc", resourceCulture);
             }
@@ -495,7 +495,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Delete Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ConfirmDeleteTitle {
+        public static string ConfirmDeleteTitle {
             get {
                 return ResourceManager.GetString("ConfirmDeleteTitle", resourceCulture);
             }
@@ -504,7 +504,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Please confirm your new master password: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ConfirmNewMasterPass {
+        public static string ConfirmNewMasterPass {
             get {
                 return ResourceManager.GetString("ConfirmNewMasterPass", resourceCulture);
             }
@@ -513,7 +513,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Continue benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ContinueBtn {
+        public static string ContinueBtn {
             get {
                 return ResourceManager.GetString("ContinueBtn", resourceCulture);
             }
@@ -522,7 +522,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   CREATE VAULT benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CreateVaultBtn {
+        public static string CreateVaultBtn {
             get {
                 return ResourceManager.GetString("CreateVaultBtn", resourceCulture);
             }
@@ -531,7 +531,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Set a strong master password to encrypt your data. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CreateVaultDesc {
+        public static string CreateVaultDesc {
             get {
                 return ResourceManager.GetString("CreateVaultDesc", resourceCulture);
             }
@@ -540,7 +540,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Create Your Vault benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CreateVaultTitle {
+        public static string CreateVaultTitle {
             get {
                 return ResourceManager.GetString("CreateVaultTitle", resourceCulture);
             }
@@ -549,7 +549,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Critical Error benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string CriticalErrorTitle {
+        public static string CriticalErrorTitle {
             get {
                 return ResourceManager.GetString("CriticalErrorTitle", resourceCulture);
             }
@@ -558,7 +558,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   DATA MANAGEMENT (BACKUP) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string DataManagementSection {
+        public static string DataManagementSection {
             get {
                 return ResourceManager.GetString("DataManagementSection", resourceCulture);
             }
@@ -567,7 +567,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   You have no passwords. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string DbEmpty {
+        public static string DbEmpty {
             get {
                 return ResourceManager.GetString("DbEmpty", resourceCulture);
             }
@@ -576,7 +576,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Loading data... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string DbLoading {
+        public static string DbLoading {
             get {
                 return ResourceManager.GetString("DbLoading", resourceCulture);
             }
@@ -585,7 +585,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   No passwords in this category. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string DbNoCategory {
+        public static string DbNoCategory {
             get {
                 return ResourceManager.GetString("DbNoCategory", resourceCulture);
             }
@@ -594,7 +594,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Delete benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string DeleteBtn {
+        public static string DeleteBtn {
             get {
                 return ResourceManager.GetString("DeleteBtn", resourceCulture);
             }
@@ -603,7 +603,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Enter Again benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string EnterAgainTitle {
+        public static string EnterAgainTitle {
             get {
                 return ResourceManager.GetString("EnterAgainTitle", resourceCulture);
             }
@@ -612,7 +612,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Enter current master password: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string EnterCurrentMasterPass {
+        public static string EnterCurrentMasterPass {
             get {
                 return ResourceManager.GetString("EnterCurrentMasterPass", resourceCulture);
             }
@@ -621,7 +621,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Enter new master password (Min 4 chars): benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string EnterNewMasterPass {
+        public static string EnterNewMasterPass {
             get {
                 return ResourceManager.GetString("EnterNewMasterPass", resourceCulture);
             }
@@ -630,7 +630,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Data load error! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorDataLoad {
+        public static string ErrorDataLoad {
             get {
                 return ResourceManager.GetString("ErrorDataLoad", resourceCulture);
             }
@@ -639,7 +639,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   No database  found to export! Your vault might be empty. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorDbNotFoundToExport {
+        public static string ErrorDbNotFoundToExport {
             get {
                 return ResourceManager.GetString("ErrorDbNotFoundToExport", resourceCulture);
             }
@@ -648,7 +648,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Database password verification failed. Reverting changes. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorDbVerifyFailed {
+        public static string ErrorDbVerifyFailed {
             get {
                 return ResourceManager.GetString("ErrorDbVerifyFailed", resourceCulture);
             }
@@ -657,7 +657,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Export failed benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorExportFailed {
+        public static string ErrorExportFailed {
             get {
                 return ResourceManager.GetString("ErrorExportFailed", resourceCulture);
             }
@@ -666,7 +666,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Please select a valid SQLite database file. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorInvalidDbFile {
+        public static string ErrorInvalidDbFile {
             get {
                 return ResourceManager.GetString("ErrorInvalidDbFile", resourceCulture);
             }
@@ -675,7 +675,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   An error occurred while saving the password. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorPassSaveFailed {
+        public static string ErrorPassSaveFailed {
             get {
                 return ResourceManager.GetString("ErrorPassSaveFailed", resourceCulture);
             }
@@ -684,7 +684,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Error updating passwords benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorPassUpdateFailed {
+        public static string ErrorPassUpdateFailed {
             get {
                 return ResourceManager.GetString("ErrorPassUpdateFailed", resourceCulture);
             }
@@ -693,7 +693,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Passwords do not match! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorPasswordsNotMatch {
+        public static string ErrorPasswordsNotMatch {
             get {
                 return ResourceManager.GetString("ErrorPasswordsNotMatch", resourceCulture);
             }
@@ -702,7 +702,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Password is too short! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorPasswordTooShort {
+        public static string ErrorPasswordTooShort {
             get {
                 return ResourceManager.GetString("ErrorPasswordTooShort", resourceCulture);
             }
@@ -711,7 +711,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Error benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorTitle {
+        public static string ErrorTitle {
             get {
                 return ResourceManager.GetString("ErrorTitle", resourceCulture);
             }
@@ -720,7 +720,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Incorrect master password! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ErrorWrongMasterPass {
+        public static string ErrorWrongMasterPass {
             get {
                 return ResourceManager.GetString("ErrorWrongMasterPass", resourceCulture);
             }
@@ -729,7 +729,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Backup your data safely benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ExportDbDesc {
+        public static string ExportDbDesc {
             get {
                 return ResourceManager.GetString("ExportDbDesc", resourceCulture);
             }
@@ -738,7 +738,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Export Current Database benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ExportDbTitle {
+        public static string ExportDbTitle {
             get {
                 return ResourceManager.GetString("ExportDbTitle", resourceCulture);
             }
@@ -747,7 +747,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Failed! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string FailedTitle {
+        public static string FailedTitle {
             get {
                 return ResourceManager.GetString("FailedTitle", resourceCulture);
             }
@@ -756,7 +756,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Where was your first vacation destination? benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string FifthSecurityQuestion {
+        public static string FifthSecurityQuestion {
             get {
                 return ResourceManager.GetString("FifthSecurityQuestion", resourceCulture);
             }
@@ -765,7 +765,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   What is the name of your first pet? benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string FirstSecurityQuestion {
+        public static string FirstSecurityQuestion {
             get {
                 return ResourceManager.GetString("FirstSecurityQuestion", resourceCulture);
             }
@@ -774,7 +774,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   What did you buy with your first paycheck? benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string FourthSecurityQuestion {
+        public static string FourthSecurityQuestion {
             get {
                 return ResourceManager.GetString("FourthSecurityQuestion", resourceCulture);
             }
@@ -783,7 +783,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Add to vault benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string GenAddBtn {
+        public static string GenAddBtn {
             get {
                 return ResourceManager.GetString("GenAddBtn", resourceCulture);
             }
@@ -792,7 +792,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Copy password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string GenCopyBtn {
+        public static string GenCopyBtn {
             get {
                 return ResourceManager.GetString("GenCopyBtn", resourceCulture);
             }
@@ -801,7 +801,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   LENGTH benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string GenLength {
+        public static string GenLength {
             get {
                 return ResourceManager.GetString("GenLength", resourceCulture);
             }
@@ -810,7 +810,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Lowercase (a-z) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string GenLowercase {
+        public static string GenLowercase {
             get {
                 return ResourceManager.GetString("GenLowercase", resourceCulture);
             }
@@ -819,7 +819,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Numbers (0-9) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string GenNumbers {
+        public static string GenNumbers {
             get {
                 return ResourceManager.GetString("GenNumbers", resourceCulture);
             }
@@ -828,7 +828,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Make a Selection! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string GenSelectError {
+        public static string GenSelectError {
             get {
                 return ResourceManager.GetString("GenSelectError", resourceCulture);
             }
@@ -837,7 +837,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Symbols (!@#$%) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string GenSymbols {
+        public static string GenSymbols {
             get {
                 return ResourceManager.GetString("GenSymbols", resourceCulture);
             }
@@ -846,7 +846,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Uppercase (A-Z) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string GenUppercase {
+        public static string GenUppercase {
             get {
                 return ResourceManager.GetString("GenUppercase", resourceCulture);
             }
@@ -855,7 +855,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   YOUR PASSWORD benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string GenYourPassword {
+        public static string GenYourPassword {
             get {
                 return ResourceManager.GetString("GenYourPassword", resourceCulture);
             }
@@ -864,7 +864,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Load your old vault to device benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ImportBackupDesc {
+        public static string ImportBackupDesc {
             get {
                 return ResourceManager.GetString("ImportBackupDesc", resourceCulture);
             }
@@ -873,7 +873,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Import Backup (.sqlite) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ImportBackupTitle {
+        public static string ImportBackupTitle {
             get {
                 return ResourceManager.GetString("ImportBackupTitle", resourceCulture);
             }
@@ -882,7 +882,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Please enter your old vault&apos;s password and security details. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string InfoEnterOldVaultDetails {
+        public static string InfoEnterOldVaultDetails {
             get {
                 return ResourceManager.GetString("InfoEnterOldVaultDetails", resourceCulture);
             }
@@ -891,7 +891,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Password verified! Loading your vault... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string InfoPassVerifiedLoad {
+        public static string InfoPassVerifiedLoad {
             get {
                 return ResourceManager.GetString("InfoPassVerifiedLoad", resourceCulture);
             }
@@ -900,7 +900,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Incorrect password! Please try again. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string InfoPassWrong {
+        public static string InfoPassWrong {
             get {
                 return ResourceManager.GetString("InfoPassWrong", resourceCulture);
             }
@@ -909,7 +909,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Language change will be applied on the next restart. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string LangRestartToast {
+        public static string LangRestartToast {
             get {
                 return ResourceManager.GetString("LangRestartToast", resourceCulture);
             }
@@ -918,7 +918,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   App Language benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string LanguageTitle {
+        public static string LanguageTitle {
             get {
                 return ResourceManager.GetString("LanguageTitle", resourceCulture);
             }
@@ -927,7 +927,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Location benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string Location {
+        public static string Location {
             get {
                 return ResourceManager.GetString("Location", resourceCulture);
             }
@@ -936,7 +936,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Login benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string LoginTitle {
+        public static string LoginTitle {
             get {
                 return ResourceManager.GetString("LoginTitle", resourceCulture);
             }
@@ -945,7 +945,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Master Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string MasterPassPlaceholder {
+        public static string MasterPassPlaceholder {
             get {
                 return ResourceManager.GetString("MasterPassPlaceholder", resourceCulture);
             }
@@ -954,7 +954,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Master Password (Repeat) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string MasterPassRepeatPlaceholder {
+        public static string MasterPassRepeatPlaceholder {
             get {
                 return ResourceManager.GetString("MasterPassRepeatPlaceholder", resourceCulture);
             }
@@ -963,7 +963,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Password copied to clipboard! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string MsgCopied {
+        public static string MsgCopied {
             get {
                 return ResourceManager.GetString("MsgCopied", resourceCulture);
             }
@@ -972,7 +972,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   added to favorites ❤️ benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string MsgFavAdded {
+        public static string MsgFavAdded {
             get {
                 return ResourceManager.GetString("MsgFavAdded", resourceCulture);
             }
@@ -981,7 +981,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   removed from favorites 💔 benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string MsgFavRemoved {
+        public static string MsgFavRemoved {
             get {
                 return ResourceManager.GetString("MsgFavRemoved", resourceCulture);
             }
@@ -990,7 +990,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Or type new category... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string NewCategoryPlaceholder {
+        public static string NewCategoryPlaceholder {
             get {
                 return ResourceManager.GetString("NewCategoryPlaceholder", resourceCulture);
             }
@@ -999,7 +999,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   New Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string NewPassTitle {
+        public static string NewPassTitle {
             get {
                 return ResourceManager.GetString("NewPassTitle", resourceCulture);
             }
@@ -1008,7 +1008,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Master key not set benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string NoMasterPassFound {
+        public static string NoMasterPassFound {
             get {
                 return ResourceManager.GetString("NoMasterPassFound", resourceCulture);
             }
@@ -1017,7 +1017,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   ОК benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string OkBtn {
+        public static string OkBtn {
             get {
                 return ResourceManager.GetString("OkBtn", resourceCulture);
             }
@@ -1026,7 +1026,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Old Master Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string OldMasterPassPlaceholder {
+        public static string OldMasterPassPlaceholder {
             get {
                 return ResourceManager.GetString("OldMasterPassPlaceholder", resourceCulture);
             }
@@ -1035,7 +1035,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Title (e.g. Google) benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string PassTitlePlaceholder {
+        public static string PassTitlePlaceholder {
             get {
                 return ResourceManager.GetString("PassTitlePlaceholder", resourceCulture);
             }
@@ -1044,7 +1044,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Restore from Backup benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string RestoreBackupBtn {
+        public static string RestoreBackupBtn {
             get {
                 return ResourceManager.GetString("RestoreBackupBtn", resourceCulture);
             }
@@ -1053,7 +1053,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Reused password detected benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ReusedPassDesc {
+        public static string ReusedPassDesc {
             get {
                 return ResourceManager.GetString("ReusedPassDesc", resourceCulture);
             }
@@ -1062,7 +1062,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   No results found. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SearchNoResults {
+        public static string SearchNoResults {
             get {
                 return ResourceManager.GetString("SearchNoResults", resourceCulture);
             }
@@ -1071,7 +1071,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Search passwords... benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SearchPlaceholder {
+        public static string SearchPlaceholder {
             get {
                 return ResourceManager.GetString("SearchPlaceholder", resourceCulture);
             }
@@ -1080,7 +1080,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Empty benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecEmpty {
+        public static string SecEmpty {
             get {
                 return ResourceManager.GetString("SecEmpty", resourceCulture);
             }
@@ -1089,7 +1089,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Medium benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecMedium {
+        public static string SecMedium {
             get {
                 return ResourceManager.GetString("SecMedium", resourceCulture);
             }
@@ -1098,7 +1098,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   What is the name of the city where you were born? benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecondSecurityQuestion {
+        public static string SecondSecurityQuestion {
             get {
                 return ResourceManager.GetString("SecondSecurityQuestion", resourceCulture);
             }
@@ -1107,7 +1107,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Perfect benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecPerfect {
+        public static string SecPerfect {
             get {
                 return ResourceManager.GetString("SecPerfect", resourceCulture);
             }
@@ -1116,7 +1116,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Strong benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecStrong {
+        public static string SecStrong {
             get {
                 return ResourceManager.GetString("SecStrong", resourceCulture);
             }
@@ -1125,7 +1125,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Security Answer benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecurityAnswerPlaceholder {
+        public static string SecurityAnswerPlaceholder {
             get {
                 return ResourceManager.GetString("SecurityAnswerPlaceholder", resourceCulture);
             }
@@ -1134,7 +1134,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Security: benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecurityLabel {
+        public static string SecurityLabel {
             get {
                 return ResourceManager.GetString("SecurityLabel", resourceCulture);
             }
@@ -1143,7 +1143,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Select Security Question benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecurityQuestionTitle {
+        public static string SecurityQuestionTitle {
             get {
                 return ResourceManager.GetString("SecurityQuestionTitle", resourceCulture);
             }
@@ -1152,7 +1152,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   SECURITY benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecuritySection {
+        public static string SecuritySection {
             get {
                 return ResourceManager.GetString("SecuritySection", resourceCulture);
             }
@@ -1161,7 +1161,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Very Weak benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecVeryWeak {
+        public static string SecVeryWeak {
             get {
                 return ResourceManager.GetString("SecVeryWeak", resourceCulture);
             }
@@ -1170,7 +1170,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Weak benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SecWeak {
+        public static string SecWeak {
             get {
                 return ResourceManager.GetString("SecWeak", resourceCulture);
             }
@@ -1179,7 +1179,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Select Category benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SelectCategoryTitle {
+        public static string SelectCategoryTitle {
             get {
                 return ResourceManager.GetString("SelectCategoryTitle", resourceCulture);
             }
@@ -1188,7 +1188,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Set benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SetBtn {
+        public static string SetBtn {
             get {
                 return ResourceManager.GetString("SetBtn", resourceCulture);
             }
@@ -1197,7 +1197,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Settings benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SettingsTitle {
+        public static string SettingsTitle {
             get {
                 return ResourceManager.GetString("SettingsTitle", resourceCulture);
             }
@@ -1206,7 +1206,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Backup Successful! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SuccessBackupTitle {
+        public static string SuccessBackupTitle {
             get {
                 return ResourceManager.GetString("SuccessBackupTitle", resourceCulture);
             }
@@ -1215,7 +1215,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Database exported securely to your device. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SuccessDbExported {
+        public static string SuccessDbExported {
             get {
                 return ResourceManager.GetString("SuccessDbExported", resourceCulture);
             }
@@ -1224,7 +1224,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Database imported successfully. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SuccessDbImported {
+        public static string SuccessDbImported {
             get {
                 return ResourceManager.GetString("SuccessDbImported", resourceCulture);
             }
@@ -1233,7 +1233,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Master password changed securely. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SuccessMasterPassChanged {
+        public static string SuccessMasterPassChanged {
             get {
                 return ResourceManager.GetString("SuccessMasterPassChanged", resourceCulture);
             }
@@ -1242,7 +1242,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Success! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SuccessTitle {
+        public static string SuccessTitle {
             get {
                 return ResourceManager.GetString("SuccessTitle", resourceCulture);
             }
@@ -1251,7 +1251,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Master password created successfully. Your vault is ready to use. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string SuccessVaultCreated {
+        public static string SuccessVaultCreated {
             get {
                 return ResourceManager.GetString("SuccessVaultCreated", resourceCulture);
             }
@@ -1260,7 +1260,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Analyzer benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TabAnalyzer {
+        public static string TabAnalyzer {
             get {
                 return ResourceManager.GetString("TabAnalyzer", resourceCulture);
             }
@@ -1269,7 +1269,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Generator benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TabGenerator {
+        public static string TabGenerator {
             get {
                 return ResourceManager.GetString("TabGenerator", resourceCulture);
             }
@@ -1278,7 +1278,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Vault benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TabSafe {
+        public static string TabSafe {
             get {
                 return ResourceManager.GetString("TabSafe", resourceCulture);
             }
@@ -1287,7 +1287,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Settings benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TabSettings {
+        public static string TabSettings {
             get {
                 return ResourceManager.GetString("TabSettings", resourceCulture);
             }
@@ -1296,7 +1296,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Dark benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ThemeDark {
+        public static string ThemeDark {
             get {
                 return ResourceManager.GetString("ThemeDark", resourceCulture);
             }
@@ -1305,7 +1305,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Light benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ThemeLight {
+        public static string ThemeLight {
             get {
                 return ResourceManager.GetString("ThemeLight", resourceCulture);
             }
@@ -1314,7 +1314,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   System benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ThemeSystem {
+        public static string ThemeSystem {
             get {
                 return ResourceManager.GetString("ThemeSystem", resourceCulture);
             }
@@ -1323,7 +1323,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Theme benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ThemeTitle {
+        public static string ThemeTitle {
             get {
                 return ResourceManager.GetString("ThemeTitle", resourceCulture);
             }
@@ -1332,7 +1332,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   What is the name of the street you grew up on? benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string ThirdSecurityQuestion {
+        public static string ThirdSecurityQuestion {
             get {
                 return ResourceManager.GetString("ThirdSecurityQuestion", resourceCulture);
             }
@@ -1341,7 +1341,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   15 Seconds benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string Time15Sec {
+        public static string Time15Sec {
             get {
                 return ResourceManager.GetString("Time15Sec", resourceCulture);
             }
@@ -1350,7 +1350,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   1 Minute benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string Time1Min {
+        public static string Time1Min {
             get {
                 return ResourceManager.GetString("Time1Min", resourceCulture);
             }
@@ -1359,7 +1359,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   30 Seconds benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string Time30Sec {
+        public static string Time30Sec {
             get {
                 return ResourceManager.GetString("Time30Sec", resourceCulture);
             }
@@ -1368,7 +1368,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   5 Minutes benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string Time5Min {
+        public static string Time5Min {
             get {
                 return ResourceManager.GetString("Time5Min", resourceCulture);
             }
@@ -1377,7 +1377,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Instantly benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TimeInstantly {
+        public static string TimeInstantly {
             get {
                 return ResourceManager.GetString("TimeInstantly", resourceCulture);
             }
@@ -1386,7 +1386,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Never benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TimeNever {
+        public static string TimeNever {
             get {
                 return ResourceManager.GetString("TimeNever", resourceCulture);
             }
@@ -1395,7 +1395,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Off benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TimeOff {
+        public static string TimeOff {
             get {
                 return ResourceManager.GetString("TimeOff", resourceCulture);
             }
@@ -1404,7 +1404,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Add Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TitleAddPass {
+        public static string TitleAddPass {
             get {
                 return ResourceManager.GetString("TitleAddPass", resourceCulture);
             }
@@ -1413,7 +1413,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Update Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TitleEditPass {
+        public static string TitleEditPass {
             get {
                 return ResourceManager.GetString("TitleEditPass", resourceCulture);
             }
@@ -1422,7 +1422,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Add to Safe benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TooltipAddSafe {
+        public static string TooltipAddSafe {
             get {
                 return ResourceManager.GetString("TooltipAddSafe", resourceCulture);
             }
@@ -1431,7 +1431,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Copy Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TooltipCopy {
+        public static string TooltipCopy {
             get {
                 return ResourceManager.GetString("TooltipCopy", resourceCulture);
             }
@@ -1440,7 +1440,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Delete Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TooltipDelete {
+        public static string TooltipDelete {
             get {
                 return ResourceManager.GetString("TooltipDelete", resourceCulture);
             }
@@ -1449,7 +1449,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Edit Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TooltipEdit {
+        public static string TooltipEdit {
             get {
                 return ResourceManager.GetString("TooltipEdit", resourceCulture);
             }
@@ -1458,7 +1458,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Add/Remove Favorite benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TooltipFavorite {
+        public static string TooltipFavorite {
             get {
                 return ResourceManager.GetString("TooltipFavorite", resourceCulture);
             }
@@ -1467,7 +1467,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Show/Hide Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string TooltipVisibility {
+        public static string TooltipVisibility {
             get {
                 return ResourceManager.GetString("TooltipVisibility", resourceCulture);
             }
@@ -1476,7 +1476,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Update benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string UpdateBtn {
+        public static string UpdateBtn {
             get {
                 return ResourceManager.GetString("UpdateBtn", resourceCulture);
             }
@@ -1485,7 +1485,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Username or Email benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string UsernamePlaceholder {
+        public static string UsernamePlaceholder {
             get {
                 return ResourceManager.GetString("UsernamePlaceholder", resourceCulture);
             }
@@ -1494,7 +1494,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   VERIFY AND LOAD benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string VerifyAndLoadBtn {
+        public static string VerifyAndLoadBtn {
             get {
                 return ResourceManager.GetString("VerifyAndLoadBtn", resourceCulture);
             }
@@ -1503,7 +1503,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Verification benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string VerifyTitle {
+        public static string VerifyTitle {
             get {
                 return ResourceManager.GetString("VerifyTitle", resourceCulture);
             }
@@ -1512,7 +1512,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Very weak password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string VeryWeakPassDesc {
+        public static string VeryWeakPassDesc {
             get {
                 return ResourceManager.GetString("VeryWeakPassDesc", resourceCulture);
             }
@@ -1521,7 +1521,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   If you forget the security answer, you cannot reset your password and will lose your vault completely! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string WarningMasterPassForget {
+        public static string WarningMasterPassForget {
             get {
                 return ResourceManager.GetString("WarningMasterPassForget", resourceCulture);
             }
@@ -1530,7 +1530,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Welcome! benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string WelcomeTitle {
+        public static string WelcomeTitle {
             get {
                 return ResourceManager.GetString("WelcomeTitle", resourceCulture);
             }
@@ -1539,7 +1539,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Yes, I&apos;m sure benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string YesImSureBtn {
+        public static string YesImSureBtn {
             get {
                 return ResourceManager.GetString("YesImSureBtn", resourceCulture);
             }
@@ -1548,7 +1548,7 @@ namespace PassSafe.Resources {
         /// <summary>
         ///   Your Password benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
-        internal static string YourPasswordPlaceholder {
+        public static string YourPasswordPlaceholder {
             get {
                 return ResourceManager.GetString("YourPasswordPlaceholder", resourceCulture);
             }

@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace PassSafe.Converters
 {
+    /// <summary>
+    /// Converts a string representation of a number to an integer, and vice versa.
+    /// Mainly used for Pickers dealing with numerical limits (e.g., Password Length).
+    /// </summary>
     public class StringToIntConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -18,6 +20,7 @@ namespace PassSafe.Converters
             {
                 return result;
             }
+            // Fallback default password length
             return 8;
         }
     }

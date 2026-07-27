@@ -14,16 +14,14 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Defines the <see cref="PassAnalyzerViewModel" />
+    /// Analyzes all saved passwords in the vault to calculate a security score and identify vulnerabilities.
     /// </summary>
     public partial class PassAnalyzerViewModel : ObservableObject
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
 
         private readonly IDatabaseService _databaseService;
-
         private readonly ICryptoService _cryptoService;
-
         private readonly IDialogService _dialogService;
 
         private string masterPass;
@@ -41,7 +39,6 @@
         private bool isRefreshing;
 
         public ObservableCollection<AnalysisCard> AnalysisCards { get; set; } = new();
-
         public ObservableCollection<CriticalAction> CriticalActions { get; set; } = new();
 
         public PassAnalyzerViewModel(IDatabaseService databaseService, ICryptoService cryptoService, IDialogService dialogService)
@@ -62,6 +59,10 @@
             await Mopups.Services.MopupService.Instance.PushAsync(new AddPasswordPopup(vm));
         }
 
+        /// <summary>
+        /// Runs a heavy background task to decrypt and check all passwords.
+        /// Prevents UI freezing by using Task.Run.
+        /// </summary>
         [RelayCommand]
         private async Task RunAnalysisAsync()
         {
@@ -80,6 +81,7 @@
                     return;
                 }
 
+                // CRITICAL: We move the heavy decryption process to the background thread to prevent UI lag.
                 var analysisResult = await Task.Run(() =>
                 {
                     int strong = 0, weak = 0, risky = 0;
@@ -91,6 +93,7 @@
                         PlainText = _cryptoService.Decrypt(pwd.EncryptedPassword, masterPass)
                     }).ToList();
 
+                    // Group passwords by their plain text to find reused (risky) ones.
                     var passwordCounts = decryptedList.GroupBy(x => x.PlainText).ToDictionary(g => g.Key, g => g.Count());
 
                     foreach (var item in decryptedList)
@@ -98,6 +101,7 @@
                         bool isWeak = false;
                         bool isRisky = false;
 
+                        // Check for very common or short passwords
                         if (item.PlainText.Length < 8 || item.PlainText == "123456" || item.PlainText == "12345678")
                         {
                             weak++;
@@ -112,6 +116,7 @@
                             });
                         }
 
+                        // Check for reused passwords
                         if (passwordCounts.TryGetValue(item.PlainText, out int count) && count > 1)
                         {
                             risky++;
@@ -136,6 +141,7 @@
                     return new { Strong = strong, Weak = weak, Risky = risky, Criticals = tempCriticals };
                 });
 
+                // Update UI from the main thread
                 CriticalActions.Clear();
                 foreach (var action in analysisResult.Criticals)
                 {
@@ -159,6 +165,9 @@
             }
         }
 
+        /// <summary>
+        /// Calculates the final security score percentage and updates the UI status texts.
+        /// </summary>
         private void CalculateScore(int strongCount, int totalCount)
         {
             if (totalCount > 0)

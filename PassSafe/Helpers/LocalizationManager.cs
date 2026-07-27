@@ -5,14 +5,23 @@ using System.Runtime.CompilerServices;
 
 namespace PassSafe.Helpers
 {
+    /// <summary>
+    /// Manages real-time language translations across the app without requiring a restart.
+    /// </summary>
     public class LocalizationManager : INotifyPropertyChanged
     {
         public static LocalizationManager Instance { get; } = new LocalizationManager();
 
-        // Dil değiştiğinde XAML'deki Binding'lerin tetiklenmesi için indexer kullanıyoruz
+        /// <summary>
+        /// Indexer used to trigger XAML bindings instantly when the language changes.
+        /// </summary>
         public string this[string resourceKey] =>
             AppResources.ResourceManager.GetString(resourceKey, AppResources.Culture) ?? resourceKey;
 
+        /// <summary>
+        /// Updates the current culture of the app and notifies all UI elements to refresh their texts.
+        /// </summary>
+        /// <param name="lang">The two-letter language code (e.g., "en", "tr", "ru").</param>
         public void SetLanguage(string lang)
         {
             var culture = new CultureInfo(lang);
@@ -20,8 +29,8 @@ namespace PassSafe.Helpers
             CultureInfo.CurrentUICulture = culture;
             AppResources.Culture = culture;
 
-            // CRITICAL: Bu satır arayüzdeki tüm {Binding Loc[Key], Source=...} yapılarını uyarır
-            OnPropertyChanged(null); // null veya string.Empty tüm propertyleri yeniler
+            // CRITICAL: This line notifies all {Binding Loc[Key]} structures in the UI to refresh instantly.
+            OnPropertyChanged(null);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

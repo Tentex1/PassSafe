@@ -1,7 +1,7 @@
 ﻿namespace PassSafe.Models
 {
     /// <summary>
-    /// Defines the <see cref="AnalysisCard" />
+    /// Represents a summary card in the Password Analyzer screen (e.g., Strong, Weak, Risky totals).
     /// </summary>
     public class AnalysisCard
     {

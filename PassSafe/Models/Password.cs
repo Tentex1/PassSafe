@@ -4,7 +4,8 @@
     using SQLite;
 
     /// <summary>
-    /// Defines the <see cref="Password" />
+    /// Represents a saved password entry in the Vault. 
+    /// Inherits from ObservableObject to allow inline UI updates (like toggling password visibility).
     /// </summary>
     public partial class Password : ObservableObject
     {
@@ -27,10 +28,12 @@
 
         public string Category { get; set; }
 
+        // Ignored by SQLite. Used strictly for UI to toggle password visibility without saving to DB.
         [property: Ignore]
         [ObservableProperty]
         private bool isPasswordVisible;
 
+        // Ignored by SQLite. Used strictly for UI to display asterisks or the decrypted password.
         [property: Ignore]
         [ObservableProperty]
         private string displayPassword = "••••••••";

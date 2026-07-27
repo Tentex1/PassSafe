@@ -18,34 +18,23 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Defines the <see cref="AddPasswordViewModel" />
+    /// Manages the popup for adding a new password or editing an existing one in the Vault.
+    /// Handles icons, categories, and password strength analysis.
     /// </summary>
     public partial class AddPasswordViewModel : ObservableObject
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
 
         internal IDatabaseService _databaseService;
-
         internal ICryptoService _cryptoService;
-
         internal IDialogService _dialogService;
-
         internal SafeViewModel _sfvm;
 
-        [ObservableProperty]
-        private int passwordId = 0;
-
-        [ObservableProperty]
-        private string popupTitle;
-
-        [ObservableProperty]
-        private string actionButtonText;
-
-        [ObservableProperty]
-        private string title = string.Empty;
-
-        [ObservableProperty]
-        private string userName = string.Empty;
+        [ObservableProperty] private int passwordId = 0;
+        [ObservableProperty] private string popupTitle;
+        [ObservableProperty] private string actionButtonText;
+        [ObservableProperty] private string title = string.Empty;
+        [ObservableProperty] private string userName = string.Empty;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(SecurityProgress))]
@@ -53,14 +42,9 @@
         [NotifyPropertyChangedFor(nameof(SecurityColor))]
         private string password = string.Empty;
 
-        [ObservableProperty]
-        private ObservableCollection<string> categories;
-
-        [ObservableProperty]
-        private string selectedCategory;
-
-        [ObservableProperty]
-        private string newCategoryName;
+        [ObservableProperty] private ObservableCollection<string> categories;
+        [ObservableProperty] private string selectedCategory;
+        [ObservableProperty] private string newCategoryName;
 
         private readonly List<MauiIcon> _icons = new List<MauiIcon>
         {
@@ -91,6 +75,9 @@
 
         public MauiIcon CurrentIcon => _icons[CurrentIconIndex];
 
+        /// <summary>
+        /// Initializes services and subscribes to popup close events to clear memory.
+        /// </summary>
         public AddPasswordViewModel(IDatabaseService databaseService, ICryptoService cryptoService, IDialogService dialogService, SafeViewModel sfvm)
         {
             _databaseService = databaseService;
@@ -103,6 +90,7 @@
 
             LoadCategories();
 
+            // Clear inputs when popup is closed to avoid data leaks
             Mopups.Services.MopupService.Instance.Popped += (s, e) =>
             {
                 PasswordId = 0;
@@ -119,6 +107,9 @@
             };
         }
 
+        /// <summary>
+        /// Loads user-defined custom categories from the device preferences.
+        /// </summary>
         private void LoadCategories()
         {
             var cats = new List<string>();
@@ -133,6 +124,9 @@
             SelectedCategory = Categories.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Creates a new custom category, saves it locally, and broadcasts it to the main page.
+        /// </summary>
         [RelayCommand]
         private void AddNewCategory()
         {
@@ -148,12 +142,15 @@
                 custom = string.IsNullOrEmpty(custom) ? cat : custom + "," + cat;
                 Preferences.Set("CustomCategories", custom);
 
+                // Notify SafeViewModel to add the new category to the horizontal menu
                 WeakReferenceMessenger.Default.Send(new CategoryAddedMessage(cat));
             }
 
             SelectedCategory = cat;
             NewCategoryName = string.Empty;
         }
+
+        // --- ICON NAVIGATION METHODS ---
 
         [RelayCommand(CanExecute = nameof(CanNext))]
         private void Next()
@@ -162,7 +159,6 @@
             NextCommand.NotifyCanExecuteChanged();
             PreviousCommand.NotifyCanExecuteChanged();
         }
-
         private bool CanNext() => CurrentIconIndex < _icons.Count - 1;
 
         [RelayCommand(CanExecute = nameof(CanPrevious))]
@@ -172,8 +168,9 @@
             NextCommand.NotifyCanExecuteChanged();
             PreviousCommand.NotifyCanExecuteChanged();
         }
-
         private bool CanPrevious() => CurrentIconIndex > 0;
+
+        // --- PASSWORD SECURITY ANALYSIS ---
 
         public double SecurityProgress => (double)CalculatePasswordScore() / 5;
 
@@ -199,6 +196,9 @@
             _ => Colors.Gray
         };
 
+        /// <summary>
+        /// Populates the popup fields with existing data when editing a password.
+        /// </summary>
         public void LoadPasswordForEdit(Password pwd, string decryptedPass)
         {
             PasswordId = pwd.Id;
@@ -216,6 +216,9 @@
             ActionButtonText = Loc["UpdateBtn"];
         }
 
+        /// <summary>
+        /// Evaluates the password strength based on length, cases, numbers, and symbols. Max score is 5.
+        /// </summary>
         private int CalculatePasswordScore()
         {
             if (string.IsNullOrEmpty(Password)) return 0;
@@ -230,6 +233,9 @@
             return score;
         }
 
+        /// <summary>
+        /// Encrypts the raw password and saves (or updates) the record in the SQLite database.
+        /// </summary>
         [RelayCommand]
         private async Task AddPasswordAsync()
         {
@@ -260,20 +266,15 @@
             };
 
             if (PasswordId > 0)
-            {
                 await _databaseService.UpdatePasswordAsync(data);
-            }
             else
-            {
                 await _databaseService.AddPasswordAsync(data);
-            }
 
+            // Refresh vault list
             await _sfvm.LoadPasswordsCommand.ExecuteAsync(null);
 
             if (Mopups.Services.MopupService.Instance.PopupStack.Count > 0)
-            {
                 await Mopups.Services.MopupService.Instance.PopAsync();
-            }
         }
     }
 }

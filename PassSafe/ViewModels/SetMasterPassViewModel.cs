@@ -11,7 +11,7 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Defines the <see cref="SetMasterPassViewModel" />
+    /// Manages the popup for creating a new Vault (Master Password and Security Questions).
     /// </summary>
     public partial class SetMasterPassViewModel : ObservableObject, IRecipient<DatabaseImportedMessage>
     {
@@ -39,30 +39,38 @@
         private string securityQuestionAnswer;
 
         private readonly IDialogService _dialogService;
-
         private readonly SettingsViewModel _svm;
-
         private readonly SafeViewModel _sfvm;
 
+        /// <summary>
+        /// Initializes services and populates the security questions list.
+        /// </summary>
         public SetMasterPassViewModel(IDialogService dialogService, SettingsViewModel settingsViewModel, SafeViewModel safeViewModel)
         {
             _dialogService = dialogService;
             _svm = settingsViewModel;
             _sfvm = safeViewModel;
 
-            SecurityQuestions = new ObservableCollection<string>() { Loc["FirstSecurityQuestion"], Loc["SecondSecurityQuestion"], Loc["ThirdSecurityQuestion"], Loc["FourthSecurityQuestion"], Loc["FifthSecurityQuestion"] };
+            SecurityQuestions = new ObservableCollection<string>() {
+                Loc["FirstSecurityQuestion"],
+                Loc["SecondSecurityQuestion"],
+                Loc["ThirdSecurityQuestion"],
+                Loc["FourthSecurityQuestion"],
+                Loc["FifthSecurityQuestion"]
+            };
 
             WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
-        partial void OnMasterPassChanged(string value) => CheckConditions();
+        // Live validation checks when user types
+        internal partial void OnMasterPassChanged(string value) => CheckConditions();
+        internal partial void OnMasterPassRepeatChanged(string value) => CheckConditions();
+        internal partial void OnSecurityQuestionAnswerChanged(string value) => CheckConditions();
+        internal partial void OnSecurityQuestionChanged(string value) => CheckConditions();
 
-        partial void OnMasterPassRepeatChanged(string value) => CheckConditions();
-
-        partial void OnSecurityQuestionAnswerChanged(string value) => CheckConditions();
-
-        partial void OnSecurityQuestionChanged(string value) => CheckConditions();
-
+        /// <summary>
+        /// Validates user inputs. Updates error messages and enables/disables the Save button.
+        /// </summary>
         private void CheckConditions()
         {
             bool isPasswordValid = false;
@@ -91,6 +99,9 @@
             AreConditionsMet = isPasswordValid && isQuestionValid && isAnswerValid;
         }
 
+        /// <summary>
+        /// Saves the Master Password and Security Answers securely to the device.
+        /// </summary>
         [RelayCommand]
         private async Task SetMasterPass()
         {
@@ -113,12 +124,18 @@
             }
         }
 
+        /// <summary>
+        /// Routes the user to the Import Database flow inside SettingsViewModel.
+        /// </summary>
         [RelayCommand]
         private async Task ImportOldDatabaseAsync()
         {
             await _svm.ImportDatabaseCommand.ExecuteAsync(null);
         }
 
+        /// <summary>
+        /// Closes the popup and refreshes the vault when an old database is successfully imported.
+        /// </summary>
         public async void Receive(DatabaseImportedMessage message)
         {
             WeakReferenceMessenger.Default.UnregisterAll(this);

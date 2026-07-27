@@ -2,6 +2,9 @@
 
 namespace PassSafe.Exceptions
 {
+    /// <summary>
+    /// Thrown when a requested Type is not registered in the Dependency Injection container.
+    /// </summary>
     [Serializable]
     public class TypeNotRegisteredException : Exception
     {
