@@ -123,7 +123,7 @@ namespace PassSafe.ViewModels
         /// <summary>
         /// Triggers when the user types in the search bar. Instantly filters the list.
         /// </summary>
-        internal partial void OnSearchQueryChanged(string value)
+        partial void OnSearchQueryChanged(string value)
         {
             FilterPasswords();
         }

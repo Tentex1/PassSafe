@@ -63,10 +63,10 @@
         }
 
         // Live validation checks when user types
-        internal partial void OnMasterPassChanged(string value) => CheckConditions();
-        internal partial void OnMasterPassRepeatChanged(string value) => CheckConditions();
-        internal partial void OnSecurityQuestionAnswerChanged(string value) => CheckConditions();
-        internal partial void OnSecurityQuestionChanged(string value) => CheckConditions();
+        partial void OnMasterPassChanged(string value) => CheckConditions();
+        partial void OnMasterPassRepeatChanged(string value) => CheckConditions();
+        partial void OnSecurityQuestionAnswerChanged(string value) => CheckConditions();
+        partial void OnSecurityQuestionChanged(string value) => CheckConditions();
 
         /// <summary>
         /// Validates user inputs. Updates error messages and enables/disables the Save button.

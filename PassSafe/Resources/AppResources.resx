@@ -300,9 +300,6 @@
   <data name="EnterAgainTitle" xml:space="preserve">
     <value>Enter Again</value>
   </data>
-  <data name="EnterCurrentMasterPass" xml:space="preserve">
-    <value>Enter current master password:</value>
-  </data>
   <data name="EnterNewMasterPass" xml:space="preserve">
     <value>Enter new master password (Min 4 chars):</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Error</value>
-  </data>
-  <data name="ErrorWrongMasterPass" xml:space="preserve">
-    <value>Incorrect master password!</value>
   </data>
   <data name="ExportDbDesc" xml:space="preserve">
     <value>Backup your data safely</value>
@@ -614,5 +608,8 @@
   </data>
   <data name="SearchNoResults" xml:space="preserve">
     <value>No results found.</value>
+  </data>
+  <data name="ErrorSecurityQuestionAnswer" xml:space="preserve">
+    <value>Incorrect security answer.</value>
   </data>
 </root>

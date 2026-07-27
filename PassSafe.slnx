@@ -8,7 +8,7 @@
   </Folder>
   <Project Path="PassSafe/PassSafe.csproj">
     <Platform Solution="*|x64" Project="x64" />
-    <Build Solution="*|x64" Project="false" />
-    <Deploy Solution="*|Any CPU" />
+    <Platform Solution="Release|Any CPU" Project="x64" />
+    <Deploy />
   </Project>
 </Solution>

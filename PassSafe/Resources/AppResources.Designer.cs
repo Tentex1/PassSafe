@@ -610,15 +610,6 @@ namespace PassSafe.Resources {
         }
         
         /// <summary>
-        ///   Enter current master password: benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string EnterCurrentMasterPass {
-            get {
-                return ResourceManager.GetString("EnterCurrentMasterPass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Enter new master password (Min 4 chars): benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string EnterNewMasterPass {
@@ -709,20 +700,20 @@ namespace PassSafe.Resources {
         }
         
         /// <summary>
+        ///   Incorrect security answer. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string ErrorSecurityQuestionAnswer {
+            get {
+                return ResourceManager.GetString("ErrorSecurityQuestionAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Error benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string ErrorTitle {
             get {
                 return ResourceManager.GetString("ErrorTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Incorrect master password! benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string ErrorWrongMasterPass {
-            get {
-                return ResourceManager.GetString("ErrorWrongMasterPass", resourceCulture);
             }
         }
         

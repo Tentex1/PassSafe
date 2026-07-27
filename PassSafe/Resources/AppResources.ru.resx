@@ -300,9 +300,6 @@
   <data name="EnterAgainTitle" xml:space="preserve">
     <value>Введите снова</value>
   </data>
-  <data name="EnterCurrentMasterPass" xml:space="preserve">
-    <value>Введите текущий мастер-пароль:</value>
-  </data>
   <data name="EnterNewMasterPass" xml:space="preserve">
     <value>Введите новый мастер-пароль (Мин 4 символа):</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ошибка</value>
-  </data>
-  <data name="ErrorWrongMasterPass" xml:space="preserve">
-    <value>Неверный мастер-пароль!</value>
   </data>
   <data name="ExportDbDesc" xml:space="preserve">
     <value>Сделайте резервную копию данных</value>
@@ -614,5 +608,8 @@
   </data>
   <data name="SearchNoResults" xml:space="preserve">
     <value>Нет результатов.</value>
+  </data>
+  <data name="ErrorSecurityQuestionAnswer" xml:space="preserve">
+    <value>Неверный ответ на секретный вопрос.</value>
   </data>
 </root>

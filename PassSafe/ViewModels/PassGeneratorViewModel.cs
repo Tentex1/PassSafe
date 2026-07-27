@@ -47,11 +47,11 @@
         }
 
         // Live generation: Generates a new password instantly when any setting changes.
-        internal partial void OnIsUseUpperLetterChanged(bool value) => GeneratePassword();
-        internal partial void OnIsUseLowerLetterChanged(bool value) => GeneratePassword();
-        internal partial void OnIsUseNumbersChanged(bool value) => GeneratePassword();
-        internal partial void OnIsUseSymbolsChanged(bool value) => GeneratePassword();
-        internal partial void OnGeneratedPassLengthChanged(int value) => GeneratePassword();
+        partial void OnIsUseUpperLetterChanged(bool value) => GeneratePassword();
+        partial void OnIsUseLowerLetterChanged(bool value) => GeneratePassword();
+        partial void OnIsUseNumbersChanged(bool value) => GeneratePassword();
+        partial void OnIsUseSymbolsChanged(bool value) => GeneratePassword();
+        partial void OnGeneratedPassLengthChanged(int value) => GeneratePassword();
 
         /// <summary>
         /// Creates a random secure password based on the selected character pools.

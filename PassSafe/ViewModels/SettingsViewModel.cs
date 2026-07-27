@@ -182,20 +182,17 @@
         [RelayCommand]
         private async Task ChangeMasterPasswordAsync()
         {
-            var currentMasterPass = await SecureStorage.GetAsync("masterPass");
-            if (string.IsNullOrEmpty(currentMasterPass))
-            {
-                await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["NoMasterPassFound"], Loc["OkBtn"]);
-                return;
-            }
+            var securityQuestion = await SecureStorage.GetAsync("securityQuestion");
+            var securityQuestionAnswer = await SecureStorage.GetAsync("securityQuestionAnswer");
+            var oldMasterPass = await SecureStorage.GetAsync("masterPass");
 
-            // Step 1: Verify current password
-            string oldPassInput = await Application.Current.MainPage.DisplayPromptAsync(Loc["VerifyTitle"], Loc["EnterCurrentMasterPass"], Loc["ContinueBtn"], Loc["CancelBtn"]);
-            if (oldPassInput == null) return;
+            // Step 1: Verify security question
+            string answer = await Application.Current.MainPage.DisplayPromptAsync(Loc["VerifyTitle"], securityQuestion, Loc["ContinueBtn"], Loc["CancelBtn"]);
+            if (answer == null) return;
 
-            if (oldPassInput != currentMasterPass)
+            if (answer != securityQuestionAnswer)
             {
-                await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["ErrorWrongMasterPass"], Loc["OkBtn"]);
+                await _dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["ErrorSecurityQuestionAnswer"], Loc["OkBtn"]);
                 return;
             }
 
@@ -228,7 +225,7 @@
                     foreach (var p in allPasswords)
                     {
                         // Decrypt with old key, encrypt with new key
-                        string plainText = _cryptoService.Decrypt(p.EncryptedPassword, currentMasterPass);
+                        string plainText = _cryptoService.Decrypt(p.EncryptedPassword, oldMasterPass);
                         p.EncryptedPassword = _cryptoService.Encrypt(plainText, newPassInput);
                         await _databaseService.UpdatePasswordAsync(p);
                     }

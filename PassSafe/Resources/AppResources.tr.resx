@@ -300,9 +300,6 @@
   <data name="EnterAgainTitle" xml:space="preserve">
     <value>Tekrar Girin</value>
   </data>
-  <data name="EnterCurrentMasterPass" xml:space="preserve">
-    <value>Mevcut ana şifrenizi girin:</value>
-  </data>
   <data name="EnterNewMasterPass" xml:space="preserve">
     <value>Yeni ana şifrenizi girin (En az 4 karakter):</value>
   </data>
@@ -335,9 +332,6 @@
   </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Hata</value>
-  </data>
-  <data name="ErrorWrongMasterPass" xml:space="preserve">
-    <value>Mevcut şifrenizi yanlış girdiniz!</value>
   </data>
   <data name="ExportDbDesc" xml:space="preserve">
     <value>Verilerinizi güvenli bir yere yedekleyin</value>
@@ -614,5 +608,8 @@
   </data>
   <data name="SearchNoResults" xml:space="preserve">
     <value>Sonuç bulunamadı.</value>
+  </data>
+  <data name="ErrorSecurityQuestionAnswer" xml:space="preserve">
+    <value>Güvenlik cevabı hatalı.</value>
   </data>
 </root>
