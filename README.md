@@ -53,6 +53,39 @@ No cloud sync, no tracking, no telemetry. Just you, your master key, and your pa
 3. *Note: Since this is a self-signed package, you need to right-click the file -> Properties -> Digital Signatures -> Details -> View Certificate -> Install Certificate -> Local Machine -> Trusted Root Certification Authorities.*
 4. Double click and install.
 
+## 💻 How to Build from Source
+
+To clone and run this application locally, you'll need the following prerequisites installed on your computer:
+
+### Prerequisites
+- [Visual Studio 2026](https://visualstudio.microsoft.com/) (latest version recommended)
+- **.NET Multi-platform App UI development** workload enabled in Visual Studio Installer
+- .NET SDK 10 (recommended)
+
+### Steps to Compile
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Tentex1/PassSafe.git
+   cd PassSafe
+   
+2. **Open the project:**
+
+   Open the PassSafe.sln file using Visual Studio 2026.
+   
+3. **Restore NuGet Packages:**
+
+   Right-click on the Solution in the Solution Explorer and select "Restore NuGet Packages".
+
+4. **Select the Target Framework:**
+
+   For **Android:** Select an Android Emulator or a connected physical Android device from the debug dropdown menu.
+
+   For **Windows:** Select Windows Machine.
+
+5. **Build and Run:**
+
+   Press F5 or click the Play button to compile and run the application.
+
 ## 🤝 Contributing
 Contributions, issues, and feature requests are highly welcome! Feel free to check the [issues page](../../issues).
 
