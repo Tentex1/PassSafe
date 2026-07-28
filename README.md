@@ -86,6 +86,8 @@ To clone and run this application locally, you'll need the following prerequisit
 
    Press F5 or click the Play button to compile and run the application.
 
+Note: If you are building for Windows, make sure Developer Mode is enabled in your Windows Settings.
+
 ## 🤝 Contributing
 Contributions, issues, and feature requests are highly welcome! Feel free to check the [issues page](../../issues).
 
