@@ -290,6 +290,7 @@ namespace PassSafe.ViewModels
             password.IsFavorited = !password.IsFavorited;
             await _databaseService.UpdatePasswordAsync(password);
             FilterPasswords();
+            IsRefreshing = true;
             await Toast.Make(password.IsFavorited ? $"{password.Title} {Loc["MsgFavAdded"]}" : $"{password.Title} {Loc["MsgFavRemoved"]}").Show();
         }
     }
