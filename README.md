@@ -1,4 +1,4 @@
-# 🛡️ PassSafe - Secure Offline Password Manager
+# PassSafe - Secure Offline Password Manager
 
 <div align="center">
   <img src="https://img.shields.io/badge/.NET-MAUI-512BD4?style=for-the-badge&logo=dotnet" alt=".NET MAUI" />
