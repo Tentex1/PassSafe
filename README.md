@@ -21,7 +21,7 @@ No cloud sync, no tracking, no telemetry. Just you, your master key, and your pa
 - 🎨 **Dynamic Theming & Localization:** Supports Light/Dark modes, custom accent colors, and real-time language switching (English, Turkish, Russian).
 - 📊 **Password Analyzer:** Automatically audits your vault to find weak, short, or reused passwords.
 - 🔄 **Secure Backup & Restore:** Export your encrypted `.sqlite` vault locally and import it to any device.
-- ✂️ **Auto-Lock & Clipboard Clear:** Automatically locks the app in the background and clears copied passwords after a set duration.
+- ✂️ **Auto-Lock:** Automatically locks the app in the background.
 
 ## 📱 Screenshots
 
@@ -92,4 +92,4 @@ Note: If you are building for Windows, make sure Developer Mode is enabled in yo
 Contributions, issues, and feature requests are highly welcome! Feel free to check the [issues page](../../issues).
 
 ## 📜 License
-This project is open-source and available under the **MIT License**.
+This project is open-source and available under the [**GNU General Public License v3.0**](LICENSE).
