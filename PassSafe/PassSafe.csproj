@@ -37,7 +37,7 @@
 
 		<!-- Windows Setup -->
 		<WindowsAppSDKSelfContained Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">true</WindowsAppSDKSelfContained>
-		<Platforms>AnyCPU;x64;x86</Platforms>
+		<Platforms>AnyCPU;x64;x86;ARM64</Platforms>
 		<DefaultLanguage>en-US</DefaultLanguage>
 		<PackageCertificateThumbprint>7095C9F6E706459A05F4747570D55A51166C054D</PackageCertificateThumbprint>
 		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
@@ -47,6 +47,9 @@
 		<AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
 		<GenerateTestArtifacts>False</GenerateTestArtifacts>
 		<HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+		<Company>Tentex1</Company>
+		<Description>A secure and offline-local password manager.</Description>
+		<Copyright>GNU General Public License v3.0.</Copyright>
 	</PropertyGroup>
 
 	<!-- Debug ayarlarını sadeleştirilmiş tek blokta topladık -->
@@ -54,6 +57,9 @@
 		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
+	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|ARM64'">
 	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|x64'">
