@@ -21,7 +21,7 @@ No cloud sync, no tracking, no telemetry. Just you, your master key, and your pa
 - 🎨 **Dynamic Theming & Localization:** Supports Light/Dark modes, custom accent colors, and real-time language switching (English, Turkish, Russian).
 - 📊 **Password Analyzer:** Automatically audits your vault to find weak, short, or reused passwords.
 - 🔄 **Secure Backup & Restore:** Export your encrypted `.sqlite` vault locally and import it to any device.
-- ✂️ **Auto-Lock & Clipboard Clear:** Automatically locks the app in the background and clears copied passwords after a set duration.
+- ✂️ **Auto-Lock:** Automatically locks the app in the background.
 
 ## 📱 Screenshots
 
@@ -47,11 +47,13 @@ No cloud sync, no tracking, no telemetry. Just you, your master key, and your pa
 2. Download the latest `PassSafe-vX.X.X.apk` file.
 3. Install the APK on your Android device (You may need to enable "Install from unknown sources").
 
-### Windows (MSIX)
+### Windows (Comming soon...)
+<!--
 1. Go to the [Releases](../../releases) tab.
 2. Download the latest `PassSafe-Windows.msix` file.
 3. *Note: Since this is a self-signed package, you need to right-click the file -> Properties -> Digital Signatures -> Details -> View Certificate -> Install Certificate -> Local Machine -> Trusted Root Certification Authorities.*
 4. Double click and install.
+-->
 
 ## 💻 How to Build from Source
 
@@ -92,4 +94,4 @@ Note: If you are building for Windows, make sure Developer Mode is enabled in yo
 Contributions, issues, and feature requests are highly welcome! Feel free to check the [issues page](../../issues).
 
 ## 📜 License
-This project is open-source and available under the **MIT License**.
+This project is open-source and available under the [**GNU General Public License v3.0**](LICENSE).
