@@ -47,11 +47,13 @@ No cloud sync, no tracking, no telemetry. Just you, your master key, and your pa
 2. Download the latest `PassSafe-vX.X.X.apk` file.
 3. Install the APK on your Android device (You may need to enable "Install from unknown sources").
 
-### Windows (MSIX)
+### Windows (Comming soon...)
+<!--
 1. Go to the [Releases](../../releases) tab.
 2. Download the latest `PassSafe-Windows.msix` file.
 3. *Note: Since this is a self-signed package, you need to right-click the file -> Properties -> Digital Signatures -> Details -> View Certificate -> Install Certificate -> Local Machine -> Trusted Root Certification Authorities.*
 4. Double click and install.
+-->
 
 ## 💻 How to Build from Source
 
