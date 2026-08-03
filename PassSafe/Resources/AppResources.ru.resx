@@ -618,7 +618,4 @@
   <data name="Error_NoPasscodeOrBiometricsSet" xml:space="preserve">
     <value>На устройстве не установлен пароль экрана (PIN/рисунок) или биометрические данные. Пожалуйста, настройте защиту в настройках устройства.</value>
   </data>
-  <data name="Error_BiometricsNotAvailable" xml:space="preserve">
-    <value>Биометрическое оборудование недоступно или отключено на этом устройстве.</value>
-  </data>
 </root>

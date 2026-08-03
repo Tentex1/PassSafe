@@ -628,15 +628,6 @@ namespace PassSafe.Resources {
         }
         
         /// <summary>
-        ///   Biometric hardware is not available or disabled on this device. benzeri yerelleştirilmiş bir dize arar.
-        /// </summary>
-        public static string Error_BiometricsNotAvailable {
-            get {
-                return ResourceManager.GetString("Error_BiometricsNotAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   No screen lock (PIN/Pattern) or biometric data set on this device. Please add a security method in device settings. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string Error_NoPasscodeOrBiometricsSet {

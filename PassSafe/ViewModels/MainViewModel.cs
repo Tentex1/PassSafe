@@ -9,6 +9,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Maui.Controls;
+    using Microsoft.Maui.Storage;
 
     /// <summary>
     /// Serves as the Entry Point of the App. Handles biometric security and master password verification on launch.
@@ -42,9 +43,9 @@
             {
                 var biometricStatus = await biometricService.GetAuthenticationStatusAsync();
 
-                if (biometricStatus == BiometricHwStatus.NotEnrolled)
+                if (biometricStatus == BiometricHwStatus.NotEnrolled || biometricStatus == BiometricHwStatus.NoHardware)
                 {
-                    await dialogService.ShowErrorAsync(new AuthenticationException(Loc["Error_NoPasscodeOrBiometricsSet"]));
+                    await dialogService.ShowAlertAsync(Loc["ErrorTitle"], Loc["Error_NoPasscodeOrBiometricsSet"], Loc["OkBtn"]);
                     CloseApplication();
                     return false;
                 }
@@ -54,7 +55,7 @@
                     Title = Loc["AuthTitle"],
                     Description = Loc["AuthDesc"],
                     AuthStrength = AuthenticatorStrength.Strong,
-                    AllowPasswordAuth = biometricStatus != BiometricHwStatus.Success
+                    AllowPasswordAuth = true
                 };
 
                 var authresponse = await biometricService.AuthenticateAsync(ar, CancellationToken.None);
@@ -65,7 +66,6 @@
                 }
                 else
                 {
-                    await dialogService.ShowErrorAsync(new AuthenticationException(Loc["AuthFailed"]));
                     CloseApplication();
                     return false;
                 }
@@ -89,7 +89,17 @@
         {
             try
             {
-                string masterPass = await SecureStorage.GetAsync("masterPass");
+                string masterPass = string.Empty;
+
+                try
+                {
+                    masterPass = await SecureStorage.GetAsync("masterPass");
+                }
+                catch (Exception)
+                {
+                    SecureStorage.RemoveAll();
+                    masterPass = null;
+                }
 
                 if (!string.IsNullOrEmpty(masterPass))
                 {
@@ -105,7 +115,11 @@
                     {
                         await dialogService.ShowPopupAsync(new Views.SetMasterPassPopup());
 
-                        masterPass = await SecureStorage.GetAsync("masterPass");
+                        try
+                        {
+                            masterPass = await SecureStorage.GetAsync("masterPass");
+                        }
+                        catch { masterPass = null; }
 
                         if (!string.IsNullOrEmpty(masterPass))
                         {
@@ -121,7 +135,7 @@
             }
             catch (Exception ex)
             {
-                await dialogService.ShowErrorAsync(ex);
+                await dialogService.ShowErrorAsync(ex, "Database Initialization Error");
             }
             finally
             {
