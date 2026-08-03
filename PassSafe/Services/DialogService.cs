@@ -45,7 +45,8 @@
 
             if (dialog == true && ex != null)
             {
-                await Clipboard.Default.SetTextAsync(ex.Message);
+                var exOutput = ex.ToString();
+                await Clipboard.Default.SetTextAsync(exOutput);
             }
         }
 

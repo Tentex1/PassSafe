@@ -16,9 +16,6 @@ namespace PassSafe.ViewModels
     using System.Linq;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Represents a category item in the horizontal filter menu.
-    /// </summary>
     public partial class CategoryItem : ObservableObject
     {
         [ObservableProperty]
@@ -28,9 +25,6 @@ namespace PassSafe.ViewModels
         private bool isSelected;
     }
 
-    /// <summary>
-    /// Manages the main Vault page. Handles displaying, searching, filtering, and deleting passwords.
-    /// </summary>
     public partial class SafeViewModel : ObservableObject, IRecipient<CategoryAddedMessage>
     {
         public LocalizationManager Loc => LocalizationManager.Instance;
@@ -60,9 +54,6 @@ namespace PassSafe.ViewModels
         [ObservableProperty]
         private bool isRefreshing;
 
-        /// <summary>
-        /// Initializes the view model, loads custom categories, and handles live translation changes.
-        /// </summary>
         public SafeViewModel(ICryptoService cryptoService, IDialogService dialogService, IDatabaseService databaseService)
         {
             _cryptoService = cryptoService;
@@ -77,7 +68,6 @@ namespace PassSafe.ViewModels
                 new CategoryItem { Name = Loc["CatFavorites"], IsSelected = false }
             };
 
-            // Load user's custom categories from device memory
             var customCats = Preferences.Get("CustomCategories", "");
             if (!string.IsNullOrEmpty(customCats))
             {
@@ -87,7 +77,6 @@ namespace PassSafe.ViewModels
                 }
             }
 
-            // Live language change listener to instantly translate default categories
             LocalizationManager.Instance.PropertyChanged += (s, e) =>
             {
                 if (Categories != null && Categories.Count >= 2)
@@ -106,12 +95,8 @@ namespace PassSafe.ViewModels
             };
 
             WeakReferenceMessenger.Default.RegisterAll(this);
-            _ = LoadPasswordsAsync();
         }
 
-        /// <summary>
-        /// Listens for new categories created in the AddPasswordPopup.
-        /// </summary>
         public void Receive(CategoryAddedMessage message)
         {
             if (!Categories.Any(c => c.Name == message.Value))
@@ -120,27 +105,37 @@ namespace PassSafe.ViewModels
             }
         }
 
-        /// <summary>
-        /// Triggers when the user types in the search bar. Instantly filters the list.
-        /// </summary>
         partial void OnSearchQueryChanged(string value)
         {
             FilterPasswords();
         }
 
         /// <summary>
-        /// Loads all passwords from the database into the memory securely.
+        /// Loads all passwords from the database into memory securely.
         /// </summary>
         [RelayCommand]
         private async Task LoadPasswordsAsync()
         {
+            if (MainWindow.IsAuthenticating)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(masterPass))
+            {
+                masterPass = await SecureStorage.GetAsync("masterPass");
+
+                if (string.IsNullOrEmpty(masterPass))
+                {
+                    return;
+                }
+            }
+
             IsRefreshing = true;
             DbStatus = Loc["DbLoading"];
+
             try
             {
-                if (string.IsNullOrEmpty(masterPass))
-                    masterPass = await SecureStorage.GetAsync("masterPass");
-
                 var dbDatas = await _databaseService.GetDatabaseAsync();
 
                 if (dbDatas != null && dbDatas.Any())
@@ -164,9 +159,6 @@ namespace PassSafe.ViewModels
             }
         }
 
-        /// <summary>
-        /// Highlights the selected category button and filters the list.
-        /// </summary>
         [RelayCommand]
         private void SelectCategory(CategoryItem category)
         {
@@ -179,15 +171,11 @@ namespace PassSafe.ViewModels
             FilterPasswords();
         }
 
-        /// <summary>
-        /// Filters the passwords using LINQ based on the selected category and search query.
-        /// </summary>
         private void FilterPasswords()
         {
             if (_allPasswords == null) return;
             IEnumerable<Password> filteredList;
 
-            // 1. Filter by Category
             if (SelectedCategory == Loc["CatAll"])
                 filteredList = _allPasswords;
             else if (SelectedCategory == Loc["CatFavorites"])
@@ -195,7 +183,6 @@ namespace PassSafe.ViewModels
             else
                 filteredList = _allPasswords.Where(p => p.Category == SelectedCategory);
 
-            // 2. Filter by Search Query
             if (!string.IsNullOrWhiteSpace(SearchQuery))
             {
                 var query = SearchQuery.ToLowerInvariant();
@@ -206,7 +193,6 @@ namespace PassSafe.ViewModels
 
             CollectionViewItemSource = new ObservableCollection<Password>(filteredList);
 
-            // 3. Update Empty State Message
             if (!CollectionViewItemSource.Any())
             {
                 if (!string.IsNullOrWhiteSpace(SearchQuery))
@@ -227,9 +213,6 @@ namespace PassSafe.ViewModels
             await _dialogService.ShowPopupAsync(new AddPasswordPopup(vm));
         }
 
-        /// <summary>
-        /// Opens the popup with the decrypted password details for editing.
-        /// </summary>
         [RelayCommand]
         private async Task EditPassword(Password password)
         {
@@ -244,9 +227,6 @@ namespace PassSafe.ViewModels
             await _dialogService.ShowPopupAsync(new AddPasswordPopup(vm));
         }
 
-        /// <summary>
-        /// Toggles the password visibility inline. Decrypts and shows or hides it.
-        /// </summary>
         [RelayCommand]
         private async Task ShowPassword(Password password)
         {
@@ -280,7 +260,7 @@ namespace PassSafe.ViewModels
             {
                 await _databaseService.DeletePasswordAsync(password.Id);
                 _allPasswords.Remove(password);
-                FilterPasswords(); // Update UI without hitting database again
+                FilterPasswords();
             }
         }
 

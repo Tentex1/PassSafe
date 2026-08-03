@@ -1,6 +1,7 @@
 ﻿namespace PassSafe
 {
     using Microsoft.Maui.Controls;
+    using Microsoft.Maui.Platform;
     using Microsoft.Maui.Storage;
     using PassSafe.Helpers;
     using PassSafe.Views;
@@ -36,18 +37,14 @@
             InitializeComponent();
             Services = serviceProvider;
 
-            // 1. AUTO-DETECT SYSTEM LANGUAGE AND LOAD PREFERENCE
-            // Gets the two-letter language code of the device (e.g., "en", "tr", "ru")
             string sysLang = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToLower();
 
-            // If the system is Turkish or Russian, use it. Otherwise, default to English.
             string defaultLang = (sysLang == "tr" || sysLang == "ru") ? sysLang : "en";
 
-            // Load saved language or fallback to default
             string savedLang = Preferences.Get("AppLanguage", defaultLang);
             LocalizationManager.Instance.SetLanguage(savedLang);
 
-            // 2. LOAD USER'S PREFERRED THEME
+            // LOAD USER'S PREFERRED THEME
             string savedTheme = Preferences.Get("AppTheme", "system");
             if (savedTheme == "light")
                 UserAppTheme = AppTheme.Light;

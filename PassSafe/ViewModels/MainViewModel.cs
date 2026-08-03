@@ -4,8 +4,11 @@
     using CommunityToolkit.Mvvm.Input;
     using PassSafe.Helpers;
     using Plugin.Maui.Biometric;
+    using System;
     using System.Security.Authentication;
+    using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.Maui.Controls;
 
     /// <summary>
     /// Serves as the Entry Point of the App. Handles biometric security and master password verification on launch.
@@ -37,12 +40,21 @@
 
             try
             {
+                var biometricStatus = await biometricService.GetAuthenticationStatusAsync();
+
+                if (biometricStatus == BiometricHwStatus.NotEnrolled)
+                {
+                    await dialogService.ShowErrorAsync(new AuthenticationException(Loc["Error_NoPasscodeOrBiometricsSet"]));
+                    CloseApplication();
+                    return false;
+                }
+
                 AuthenticationRequest ar = new AuthenticationRequest
                 {
                     Title = Loc["AuthTitle"],
                     Description = Loc["AuthDesc"],
                     AuthStrength = AuthenticatorStrength.Strong,
-                    AllowPasswordAuth = true
+                    AllowPasswordAuth = biometricStatus != BiometricHwStatus.Success
                 };
 
                 var authresponse = await biometricService.AuthenticateAsync(ar, CancellationToken.None);
@@ -53,14 +65,15 @@
                 }
                 else
                 {
-                    await dialogService.ShowErrorAsync(new AuthenticationException());
-                    Application.Current?.Quit();
+                    await dialogService.ShowErrorAsync(new AuthenticationException(Loc["AuthFailed"]));
+                    CloseApplication();
                     return false;
                 }
             }
             catch (Exception ex)
             {
                 await dialogService.ShowErrorAsync(ex);
+                CloseApplication();
                 return false;
             }
             finally
@@ -81,7 +94,7 @@
                 if (!string.IsNullOrEmpty(masterPass))
                 {
                     await databaseService.InitializeDatabaseAsync(masterPass);
-                    sfvm.IsRefreshing = true;
+                    await sfvm.LoadPasswordsCommand.ExecuteAsync(null);
                 }
                 else
                 {
@@ -97,16 +110,12 @@
                         if (!string.IsNullOrEmpty(masterPass))
                         {
                             await databaseService.InitializeDatabaseAsync(masterPass);
-                            sfvm.IsRefreshing = true;
+                            await sfvm.LoadPasswordsCommand.ExecuteAsync(null);
                         }
                     }
                     else
                     {
-#if ANDROID
-                        Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
-#else
-                        Application.Current?.Quit();
-#endif
+                        CloseApplication();
                     }
                 }
             }
@@ -118,6 +127,15 @@
             {
                 MainWindow.IsAuthenticating = false;
             }
+        }
+
+        private void CloseApplication()
+        {
+#if ANDROID
+            Android.OS.Process.KillProcess(Android.OS.Process.MyPid());
+#else
+            Application.Current?.Quit();
+#endif
         }
     }
 }

@@ -31,8 +31,11 @@
                         </Button>
 
                         <Grid HeightRequest="160" HorizontalOptions="Center" WidthRequest="160">
-                            <Ellipse Stroke="#252525" StrokeThickness="16" />
-                            <Ellipse Rotation="-90" StrokeDashArray="3.5, 2" StrokeThickness="16" />
+                            <Ellipse Stroke="{DynamicResource Primary}" StrokeThickness="16" />
+                            <Ellipse Rotation="-90"
+                                     Stroke="{AppThemeBinding Dark=White,
+                                                              Light=Black}"
+                                     StrokeDashArray="3.5, 2" StrokeThickness="16" />
 
                             <VerticalStackLayout HorizontalOptions="Center" Spacing="-5" VerticalOptions="Center">
                                 <Label FontAttributes="Bold" FontSize="36" HorizontalOptions="Center"
@@ -120,10 +123,11 @@
                                           ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12">
                                         <Border Grid.Column="0"
                                                 BackgroundColor="#2A2A2A" HeightRequest="45" StrokeShape="RoundRectangle 8" StrokeThickness="0" WidthRequest="45">
-                                            <mi:MauiIcon HorizontalOptions="Center"
+                                            <mi:MauiIcon Margin="5"
+                                                         HorizontalOptions="Center"
                                                          Icon="{Binding IconKey, Converter={StaticResource IconConverter}}"
                                                          IconColor="{Binding Color}"
-                                                         IconSize="20" VerticalOptions="Center" />
+                                                         IconSize="35" VerticalOptions="Center" />
                                         </Border>
                                         <VerticalStackLayout Grid.Column="1"
                                                              Spacing="2" VerticalOptions="Center">

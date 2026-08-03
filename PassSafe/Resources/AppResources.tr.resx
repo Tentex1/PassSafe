@@ -612,4 +612,13 @@
   <data name="ErrorSecurityQuestionAnswer" xml:space="preserve">
     <value>Güvenlik cevabı hatalı.</value>
   </data>
+  <data name="AuthFailed" xml:space="preserve">
+    <value>Kimlik doğrulama başarısız oldu.</value>
+  </data>
+  <data name="Error_NoPasscodeOrBiometricsSet" xml:space="preserve">
+    <value>Cihazınızda tanımlı bir ekran şifresi (PIN/Desen) veya biyometrik veri bulunamadı. Lütfen cihaz ayarlarından bir güvenlik yöntemi ekleyin.</value>
+  </data>
+  <data name="Error_BiometricsNotAvailable" xml:space="preserve">
+    <value>Cihazınızda biyometrik doğrulama donanımı bulunamadı veya şu anda kullanılamıyor.</value>
+  </data>
 </root>

@@ -14,7 +14,7 @@
             <Setter Property="Margin" Value="0" />
             <Setter Property="WidthRequest" Value="36" />
             <Setter Property="HeightRequest" Value="36" />
-            <Setter Property="CornerRadius" Value="18" />
+            <Setter Property="CornerRadius" Value="{OnIdiom Default=18, Desktop={x:Null}}" />
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
                     <VisualStateGroup x:Name="CommonStates">
@@ -105,12 +105,10 @@
                                      Spacing="10">
 
                     <BindableLayout.EmptyView>
-                        <DataTemplate x:DataType="{x:Null}">
-                            <Label Margin="0,50,0,0"
-                                   HorizontalOptions="Center"
-                                   Text="{Binding BindingContext.DbStatus, Source={x:Reference RootPage}}"
-                                   VerticalOptions="Center" />
-                        </DataTemplate>
+                        <Label Margin="0,50,0,0"
+                               HorizontalOptions="Center"
+                               Text="{Binding BindingContext.DbStatus, Source={x:Reference RootPage}}"
+                               VerticalOptions="Center" />
                     </BindableLayout.EmptyView>
 
                     <BindableLayout.ItemTemplate>
@@ -141,12 +139,12 @@
                                                             <DataTrigger Binding="{Binding IsFavorited}"
                                                                          TargetType="Image"
                                                                          Value="False">
-                                                                <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=FavoriteBorder, IconColor=White, IconSize=22}" />
+                                                                <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=FavoriteBorder, IconColor=White, IconSize=32}" />
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding IsFavorited}"
                                                                          TargetType="Image"
                                                                          Value="True">
-                                                                <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=Favorite, IconColor=White, IconSize=22}" />
+                                                                <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=Favorite, IconColor=White, IconSize=32}" />
                                                             </DataTrigger>
                                                         </Image.Triggers>
                                                     </Image>
@@ -162,7 +160,7 @@
                                             <Border Margin="8,0,0,0"
                                                     BackgroundColor="#D32F2F" HorizontalOptions="Fill" StrokeShape="RoundRectangle 12" StrokeThickness="0" VerticalOptions="Fill" WidthRequest="75">
                                                 <VerticalStackLayout HorizontalOptions="Center" Spacing="3" VerticalOptions="Center">
-                                                    <Image mi:MauiIcon.Value="{mi:MaterialSharp Icon=Delete, IconColor=White, IconSize=22}" HorizontalOptions="Center" />
+                                                    <Image mi:MauiIcon.Value="{mi:MaterialSharp Icon=Delete, IconColor=White, IconSize=32}" HorizontalOptions="Center" />
                                                 </VerticalStackLayout>
                                             </Border>
                                         </SwipeItemView>
@@ -170,15 +168,21 @@
                                 </SwipeView.RightItems>
 
                                 <Border Padding="12,8"
-                                        BackgroundColor="#222222" StrokeShape="RoundRectangle 16" StrokeThickness="0">
+                                        BackgroundColor="{AppThemeBinding Dark=#222222,
+                                                                          Light=#d6d6d6}"
+                                        StrokeShape="RoundRectangle 16" StrokeThickness="0">
                                     <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
 
                                         <Border Grid.Column="0"
-                                                BackgroundColor="#181830" HeightRequest="44" InputTransparent="True" StrokeShape="RoundRectangle 12" StrokeThickness="0" VerticalOptions="Center" WidthRequest="44">
-                                            <Image mi:MauiIcon.Value="{mi:MaterialSharp Icon={Binding Icon,
+                                                BackgroundColor="#181830"
+                                                HeightRequest="{OnIdiom Default=55,
+                                                                        Desktop=75}"
+                                                InputTransparent="True" StrokeShape="RoundRectangle 12" StrokeThickness="0" VerticalOptions="Center" WidthRequest="55">
+                                            <Image Margin="5"
+                                                   mi:MauiIcon.Value="{mi:MaterialSharp Icon={Binding Icon,
                                                                                                       Converter={StaticResource StringToIconConverter}},
                                                                                         IconColor=White,
-                                                                                        IconSize=24}"
+                                                                                        IconSize=35}"
                                                    HorizontalOptions="Center" VerticalOptions="Center" />
                                         </Border>
 
@@ -187,10 +191,12 @@
 
                                             <Label FontAttributes="Bold" FontSize="14"
                                                    Text="{Binding Title}"
-                                                   TextColor="White" />
+                                                   TextColor="{AppThemeBinding Dark=White,
+                                                                               Light=#222222}" />
                                             <Label FontSize="12"
                                                    Text="{Binding UserName}"
-                                                   TextColor="#8E8E93" />
+                                                   TextColor="{AppThemeBinding Dark=#8E8E93,
+                                                                               Light=#222222}" />
                                             <Label FontAttributes="Bold" FontSize="13"
                                                    Text="{Binding DisplayPassword}"
                                                    TextColor="{DynamicResource Primary}" />
@@ -236,19 +242,20 @@
                                                     <DataTrigger Binding="{Binding IsPasswordVisible}"
                                                                  TargetType="Button"
                                                                  Value="False">
-                                                        <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=Visibility, IconColor=#8E8E93, IconSize=20}" />
+                                                        <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=Visibility, IconColor=#8E8E93, IconSize={OnIdiom Default={x:Null}, Desktop=22}}" />
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding IsPasswordVisible}"
                                                                  TargetType="Button"
                                                                  Value="True">
-                                                        <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=VisibilityOff, IconColor={StaticResource Primary}, IconSize=20}" />
+                                                        <Setter Property="mi:MauiIcon.Value" Value="{mi:MaterialSharp Icon=VisibilityOff, IconColor={DynamicResource Primary}}" />
                                                     </DataTrigger>
                                                 </Button.Triggers>
                                             </Button>
 
                                             <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=ContentCopy,
                                                                                          IconColor=#8E8E93,
-                                                                                         IconSize=20}"
+                                                                                         IconSize={OnIdiom Default={x:Null},
+                                                                                                           Desktop=22}}"
                                                     Command="{Binding BindingContext.CopyPasswordCommand, Source={x:Reference RootPage}}"
                                                     CommandParameter="{Binding EncryptedPassword}"
                                                     Style="{StaticResource IconButton}"
@@ -256,7 +263,8 @@
 
                                             <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=Edit,
                                                                                          IconColor=#8E8E93,
-                                                                                         IconSize=20}"
+                                                                                         IconSize={OnIdiom Default={x:Null},
+                                                                                                           Desktop=22}}"
                                                     Command="{Binding BindingContext.EditPasswordCommand, Source={x:Reference RootPage}}"
                                                     CommandParameter="{Binding .}"
                                                     Style="{StaticResource IconButton}"
@@ -264,7 +272,7 @@
 
                                             <Button mi:MauiIcon.Value="{mi:MaterialSharp Icon=Delete,
                                                                                          IconColor=#ff3040,
-                                                                                         IconSize=20}"
+                                                                                         IconSize=22}"
                                                     Command="{Binding BindingContext.DeletePasswordCommand, Source={x:Reference RootPage}}"
                                                     CommandParameter="{Binding .}"
                                                     Style="{StaticResource IconButton}"

@@ -29,6 +29,7 @@
         internal ICryptoService _cryptoService;
         internal IDialogService _dialogService;
         internal SafeViewModel _sfvm;
+        internal PassAnalyzerViewModel _pavm;
 
         [ObservableProperty] private int passwordId = 0;
         [ObservableProperty] private string popupTitle;
@@ -78,12 +79,13 @@
         /// <summary>
         /// Initializes services and subscribes to popup close events to clear memory.
         /// </summary>
-        public AddPasswordViewModel(IDatabaseService databaseService, ICryptoService cryptoService, IDialogService dialogService, SafeViewModel sfvm)
+        public AddPasswordViewModel(IDatabaseService databaseService, ICryptoService cryptoService, IDialogService dialogService, SafeViewModel sfvm, PassAnalyzerViewModel pavm)
         {
             _databaseService = databaseService;
             _cryptoService = cryptoService;
             _dialogService = dialogService;
             _sfvm = sfvm;
+            _pavm = pavm;
 
             PopupTitle = Loc["TitleAddPass"];
             ActionButtonText = Loc["AddBtn"];
@@ -270,8 +272,9 @@
             else
                 await _databaseService.AddPasswordAsync(data);
 
-            // Refresh vault list
+            // Refresh vault list & Refresh analysis
             await _sfvm.LoadPasswordsCommand.ExecuteAsync(null);
+            await _pavm.RunAnalysisCommand.ExecuteAsync(null);
 
             if (Mopups.Services.MopupService.Instance.PopupStack.Count > 0)
                 await Mopups.Services.MopupService.Instance.PopAsync();

@@ -81,7 +81,6 @@
                     return;
                 }
 
-                // CRITICAL: We move the heavy decryption process to the background thread to prevent UI lag.
                 var analysisResult = await Task.Run(() =>
                 {
                     int strong = 0, weak = 0, risky = 0;
@@ -93,7 +92,6 @@
                         PlainText = _cryptoService.Decrypt(pwd.EncryptedPassword, masterPass)
                     }).ToList();
 
-                    // Group passwords by their plain text to find reused (risky) ones.
                     var passwordCounts = decryptedList.GroupBy(x => x.PlainText).ToDictionary(g => g.Key, g => g.Count());
 
                     foreach (var item in decryptedList)
@@ -101,28 +99,31 @@
                         bool isWeak = false;
                         bool isRisky = false;
 
-                        // Check for very common or short passwords
-                        if (item.PlainText.Length < 8 || item.PlainText == "123456" || item.PlainText == "12345678")
+                        bool isReused = passwordCounts.TryGetValue(item.PlainText, out int count) && count > 1;
+
+                        bool isStrongTier = IsStrongPassword(item.PlainText);
+
+                        if (!isStrongTier)
                         {
                             weak++;
                             isWeak = true;
+
                             tempCriticals.Add(new CriticalAction
                             {
                                 Title = item.Original.Title,
-                                Description = $"{Loc["VeryWeakPassDesc"]}: \"{item.PlainText}\"",
+                                Description = $"{Loc["AnaWeakDesc"]}: \"{item.PlainText}\"",
                                 IconKey = item.Original.Icon,
                                 Color = "#FF5252",
                                 TargetPassword = item.Original
                             });
                         }
 
-                        // Check for reused passwords
-                        if (passwordCounts.TryGetValue(item.PlainText, out int count) && count > 1)
+                        if (isReused)
                         {
                             risky++;
                             isRisky = true;
 
-                            if (!tempCriticals.Any(a => a.Title == item.Original.Title && a.Description.Contains(Loc["ReusedPassDesc"])))
+                            if (!tempCriticals.Any(a => a.TargetPassword == item.Original && a.Description.Contains(Loc["ReusedPassDesc"])))
                             {
                                 tempCriticals.Add(new CriticalAction
                                 {
@@ -135,13 +136,16 @@
                             }
                         }
 
-                        if (!isWeak && !isRisky) strong++;
+                        if (!isWeak && !isRisky)
+                        {
+                            strong++;
+                        }
                     }
 
                     return new { Strong = strong, Weak = weak, Risky = risky, Criticals = tempCriticals };
                 });
 
-                // Update UI from the main thread
+                // UI Güncellemeleri
                 CriticalActions.Clear();
                 foreach (var action in analysisResult.Criticals)
                 {
@@ -163,6 +167,26 @@
             {
                 IsRefreshing = false;
             }
+        }
+
+        /// <summary>
+        /// Şifrenin "Strong Tier" standartlarına uyup uymadığını kontrol eder.
+        /// Strong kriterinin altında kalan her şey (Medium, Weak, Very Weak) false döner.
+        /// </summary>
+        private static bool IsStrongPassword(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password)) return false;
+
+            // Minimum 10-12 karakter uzunluğu
+            if (password.Length < 10) return false;
+
+            bool hasUpper = password.Any(char.IsUpper);
+            bool hasLower = password.Any(char.IsLower);
+            bool hasDigit = password.Any(char.IsDigit);
+            bool hasSpecial = password.Any(ch => !char.IsLetterOrDigit(ch));
+
+            // Strong olması için: En az 10 karakter + Büyük Harf + Küçük Harf + Rakam + Özel Karakter
+            return hasUpper && hasLower && hasDigit && hasSpecial;
         }
 
         /// <summary>

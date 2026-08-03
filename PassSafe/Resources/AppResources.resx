@@ -612,4 +612,13 @@
   <data name="ErrorSecurityQuestionAnswer" xml:space="preserve">
     <value>Incorrect security answer.</value>
   </data>
+  <data name="AuthFailed" xml:space="preserve">
+    <value>Authentication failed.</value>
+  </data>
+  <data name="Error_NoPasscodeOrBiometricsSet" xml:space="preserve">
+    <value>No screen lock (PIN/Pattern) or biometric data set on this device. Please add a security method in device settings.</value>
+  </data>
+  <data name="Error_BiometricsNotAvailable" xml:space="preserve">
+    <value>Biometric hardware is not available or disabled on this device.</value>
+  </data>
 </root>

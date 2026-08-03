@@ -286,6 +286,15 @@ namespace PassSafe.Resources {
         }
         
         /// <summary>
+        ///   Authentication failed. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string AuthFailed {
+            get {
+                return ResourceManager.GetString("AuthFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Complete verification. benzeri yerelleştirilmiş bir dize arar.
         /// </summary>
         public static string AuthTitle {
@@ -615,6 +624,24 @@ namespace PassSafe.Resources {
         public static string EnterNewMasterPass {
             get {
                 return ResourceManager.GetString("EnterNewMasterPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Biometric hardware is not available or disabled on this device. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string Error_BiometricsNotAvailable {
+            get {
+                return ResourceManager.GetString("Error_BiometricsNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No screen lock (PIN/Pattern) or biometric data set on this device. Please add a security method in device settings. benzeri yerelleştirilmiş bir dize arar.
+        /// </summary>
+        public static string Error_NoPasscodeOrBiometricsSet {
+            get {
+                return ResourceManager.GetString("Error_NoPasscodeOrBiometricsSet", resourceCulture);
             }
         }
         
