@@ -25,12 +25,13 @@ No cloud sync, no tracking, no telemetry. Just you, your master key, and your pa
 
 ## 📱 Screenshots
 
-> *Screenshots will be added soon.*
-<!-- Drag and drop your screenshots here: 
-| Home | Generator | Analyzer | Settings |
-|:---:|:---:|:---:|:---:|
-| [Add Screenshot Here] | [Add Screenshot Here] | [Add Screenshot Here] | [Add Screenshot Here] |
--->
+<div align="center">
+  <img src="repo/screenshot (2).png" width="19%" />
+  <img src="repo/screenshot (1).png" width="19%" />
+  <img src="repo/screenshot (3).png" width="19%" />
+  <img src="repo/screenshot (4).png" width="19%" />
+  <img src="repo/screenshot (5).png" width="19%" />
+</div>
 
 ## 🛠️ Tech Stack & Architecture
 
